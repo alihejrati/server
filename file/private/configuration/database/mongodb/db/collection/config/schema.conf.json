@@ -1,0 +1,7 @@
+{
+    "key": "String",
+    "value": {
+        "type": "Object",
+        "default": {}
+    }
+}

@@ -1,0 +1,19 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "target": "es5",
+        "sourceMap": false,
+        "declaration": false,
+        "outDir": "./compile/",
+        "downlevelIteration": true,
+        "preserveConstEnums": true,
+        "strictNullChecks": true,    
+        "resolveJsonModule": true,
+        "removeComments": true,
+        "rootDir": "./",
+        "lib": [
+            "es6",
+            "dom"
+        ]
+    }
+}

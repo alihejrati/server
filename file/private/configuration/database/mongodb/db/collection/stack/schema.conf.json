@@ -1,0 +1,6 @@
+{
+    "stack": {
+        "type": "Array",
+        "default": []
+    }
+}

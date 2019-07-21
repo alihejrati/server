@@ -1,0 +1,14 @@
+{
+    "CONNECTION": "mongodb://localhost:27017/db",
+    "CATEGORY": "log",
+    "enable": true,
+    "map": {
+      "warning": "warn",
+      "verbose": "trace",
+      "call Function": "trace",
+      "return Function": "trace",
+      "database": "info",
+      "configuration": "info",
+      "import": "info"
+    }
+}
