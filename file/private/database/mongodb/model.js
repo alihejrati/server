@@ -31,10 +31,10 @@ mongoose.set('useFindAndModify', false);
 
 var db = mongoose.createConnection('mongodb://localhost:27017/db', {useNewUrlParser: true});
 
-var db_config = db.model('config', new mongoose.Schema({"key":"String","value":{"type":"Object","default":{}},"sort":{"type":"Number","default":1}}, {timestamps: true}));
 var db_stack = db.model('stack', new mongoose.Schema({"stack":{"type":"Array","default":[]},"sort":{"type":"Number","default":1}}, {timestamps: true}));
 var db_user = db.model('user', new mongoose.Schema({"username":{"type":"String"},"password":{"type":"String"},"sort":{"type":"Number","default":1}}, {timestamps: true}));
+var db_config = db.model('config', new mongoose.Schema({"key":"String","value":{"type":"Object","default":{}},"sort":{"type":"Number","default":1}}, {timestamps: true}));
 
-module.exports.db_config = db_config;
 module.exports.db_stack = db_stack;
 module.exports.db_user = db_user;
+module.exports.db_config = db_config;

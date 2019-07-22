@@ -35,11 +35,26 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+var currentDir = require("current-dir");
 var editJsonFile = require("edit-json-file");
+var gulp = require("gulp");
+var jsonTree = require("gulp-json-tree");
+var node_watch_1 = require("node-watch");
 var configuration = editJsonFile('configuration.conf.json');
 semaphore.on('/module/logger/ready', function () {
     global.config = config;
     semaphore.emit('/module/config/ready');
+});
+node_watch_1.default(currentDir() + "/file/private/configuration", { recursive: true }, function (event, name) {
+    var stream = gulp.src('file/private/configuration/**/*.conf.json')
+        .pipe(jsonTree({ filename: 'configuration.conf.json' }))
+        .pipe(gulp.dest('.'));
+    stream.on('end', function () {
+        configuration = editJsonFile('configuration.conf.json');
+        if (/logger\.conf\.json$/g.test(name) && event == 'update') {
+            semaphore.emit('/module/config/change[logger.conf.json]', configuration.data['\\code\\kernel\\functions\\logger.conf.json']);
+        }
+    });
 });
 function config(key) {
     return __awaiter(this, void 0, void 0, function () {

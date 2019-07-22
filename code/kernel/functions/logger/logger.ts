@@ -18,7 +18,8 @@ semaphore.on('/module/config/ready', () => {
         log4js = _log4js.getLogger(CATEGORY);
         loggerConfJson = conf;
         semaphore.on('/module/config/change[logger.conf.json]', (conf) => {
-            loggerConfJson = conf;
+            loggerConfJson = conf || loggerConfJson;
+            console.debug('daryaft shod!', loggerConfJson);
         });
     });
 });
