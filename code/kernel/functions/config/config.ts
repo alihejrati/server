@@ -4,6 +4,8 @@ import * as gulp from 'gulp';
 import * as jsonTree from 'gulp-json-tree';
 import nodeWatch from 'node-watch';
 
+const Model = require(`${currentDir()}/file/private/database/mongodb/model.js`)['db_config'];
+
 let configuration = editJsonFile('configuration.conf.json');
 
 semaphore.on('/module/logger/ready', () => {
@@ -24,7 +26,11 @@ nodeWatch(`${currentDir()}/file/private/configuration`, { recursive: true }, (ev
 });
 
 async function config(key: string) {
-    const value = configuration.data[key];
+    let value = configuration.data[key];
+    if (! /logger\.conf\.json$/g.test(key)) {
+        const document = await Model.findOne({key: key}).sort({}).select({});
+        value = JSON.parse(JSON.stringify(document)) || value;
+    }
     console.log['kernel/config']({
         level: value ? 'trace' : 'warn',
         key: key,

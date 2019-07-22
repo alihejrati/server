@@ -40,6 +40,7 @@ var editJsonFile = require("edit-json-file");
 var gulp = require("gulp");
 var jsonTree = require("gulp-json-tree");
 var node_watch_1 = require("node-watch");
+var Model = require(currentDir() + "/file/private/database/mongodb/model.js")['db_config'];
 var configuration = editJsonFile('configuration.conf.json');
 semaphore.on('/module/logger/ready', function () {
     global.config = config;
@@ -58,15 +59,25 @@ node_watch_1.default(currentDir() + "/file/private/configuration", { recursive: 
 });
 function config(key) {
     return __awaiter(this, void 0, void 0, function () {
-        var value;
+        var value, document_1;
         return __generator(this, function (_a) {
-            value = configuration.data[key];
-            console.log['kernel/config']({
-                level: value ? 'trace' : 'warn',
-                key: key,
-                value: value
-            });
-            return [2, value];
+            switch (_a.label) {
+                case 0:
+                    value = configuration.data[key];
+                    if (!!/logger\.conf\.json$/g.test(key)) return [3, 2];
+                    return [4, Model.findOne({ key: key }).sort({}).select({})];
+                case 1:
+                    document_1 = _a.sent();
+                    value = JSON.parse(JSON.stringify(document_1)) || value;
+                    _a.label = 2;
+                case 2:
+                    console.log['kernel/config']({
+                        level: value ? 'trace' : 'warn',
+                        key: key,
+                        value: value
+                    });
+                    return [2, value];
+            }
         });
     });
 }

@@ -71,7 +71,6 @@ semaphore.on('/module/config/ready', function () {
         loggerConfJson = conf;
         semaphore.on('/module/config/change[logger.conf.json]', function (conf) {
             loggerConfJson = conf || loggerConfJson;
-            console.debug('daryaft shod!', loggerConfJson);
         });
     });
 });
