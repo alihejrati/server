@@ -35,12 +35,11 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-function boot(options) {
+function listen(options) {
     return __awaiter(this, void 0, void 0, function () {
         return __generator(this, function (_a) {
-            require('./http/constant');
             return [2];
         });
     });
 }
-exports.default = callback(boot);
+exports.default = callback(listen);

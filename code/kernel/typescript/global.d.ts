@@ -3,6 +3,11 @@ declare var global: NodeJS.Global;
 declare module NodeJS {
     interface Global {
         // kernel:
+        source: {
+            server: {
+                http: typeof import('../../source/bootstrap/helper/constant/http/constant').default
+            }
+        },
         semaphore: import('events').EventEmitter,
         sleep: typeof import('../functions/sleep/sleep').default,
         config: typeof import('../functions/config/config').default,
@@ -29,6 +34,11 @@ declare module NodeJS {
         },
     }
 }
+declare const source: {
+    server: {
+        http: typeof import('../../source/bootstrap/helper/constant/http/constant').default
+    }
+};
 declare const semaphore: import('events').EventEmitter;
 declare const sleep: typeof import('../functions/sleep/sleep').default;
 declare const config: typeof import('../functions/config/config').default;

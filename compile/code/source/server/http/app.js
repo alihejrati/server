@@ -39,7 +39,6 @@ var boot_1 = require("../../bootstrap/boot");
 var boot_2 = require("./bootstrap/boot");
 function app(options) {
     return __awaiter(this, void 0, void 0, function () {
-        var _this = this;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0: return [4, Promise.all([
@@ -48,34 +47,6 @@ function app(options) {
                     ])];
                 case 1:
                     _a.sent();
-                    setInterval(function () { return __awaiter(_this, void 0, void 0, function () {
-                        var t;
-                        return __generator(this, function (_a) {
-                            switch (_a.label) {
-                                case 0: return [4, config('\\test1\\test2\\t.conf.json')];
-                                case 1:
-                                    t = _a.sent();
-                                    console.log['fatal'](t);
-                                    return [2];
-                            }
-                        });
-                    }); }, 10000);
-                    setTimeout(function () { return __awaiter(_this, void 0, void 0, function () {
-                        return __generator(this, function (_a) {
-                            switch (_a.label) {
-                                case 0: return [4, mongodb.insert('config', {
-                                        key: '\\test1\\test2\\t.conf.json',
-                                        value: {
-                                            name: 'hooo!',
-                                            fullname: 'mmd!'
-                                        }
-                                    })];
-                                case 1:
-                                    _a.sent();
-                                    return [2];
-                            }
-                        });
-                    }); }, 25000);
                     return [2];
             }
         });

@@ -30,6 +30,7 @@ stream.on('end', function() {
     // file: mongodb/model.js
     const connection = [];
     const schema = [];
+    const seeder = [];
     const moduleExport = [];
     const configuration = require(`${currentDir()}/configuration.conf.json`);
     const keys = Object.keys(configuration);
@@ -45,9 +46,26 @@ stream.on('end', function() {
             };
             schema.push(`var ${_key[3]}_${_key[5]} = ${_key[3]}.model('${_key[5]}', new mongoose.Schema(${JSON.stringify(configuration[key])}, {timestamps: true}));`);
             moduleExport.push(`module.exports.${_key[3]}_${_key[5]} = ${_key[3]}_${_key[5]};`);
+            seeder.push(`(async () => {
+const document = await ${_key[3]}_${_key[5]}.findOne({}).sort({}).select({});
+const value = JSON.parse(JSON.stringify(document));
+const seed = ${configuration['\\database\\mongodb\\'+_key[3]+'\\collection\\'+_key[5]+'\\seed.conf.json'] ? JSON.stringify(configuration['\\database\\mongodb\\'+_key[3]+'\\collection\\'+_key[5]+'\\seed.conf.json']) : '[]'};
+if (!value) {
+    const database = '${_key[3]}';
+    const collection  = '${_key[5]}';
+    const documents = await new Promise((resolve, reject) => {
+        ${_key[3]}_${_key[5]}.insertMany(seed, { ordered: false }, (err, docs) => {
+            if (!err) {
+                resolve(docs);
+            }
+        });
+    });
+    documents.length > 0 ? console.debug('seeder: (mongodb, ' + database + ', ' + collection + ', ' + documents.length + ')') : null;
+} 
+})();`);
         }
     }
-    const header = cfonts.render('model.js\ndynamically created by alihejrati', {
+    const header = cfonts.render('model', {
         font: 'simple',              // define the font face
         align: 'left',              // define text alignment
         colors: ['system'],         // define all colors
@@ -57,7 +75,17 @@ stream.on('end', function() {
         space: true,                // define if the output text should have empty lines on top and on the bottom
         maxLength: '0',             // define how many character can be on one line
     });
-    const file = `/*\n${header.string}\n*/\n\nvar mongoose = require('mongoose');\n\nmongoose.set('useCreateIndex', true);\nmongoose.set('useFindAndModify', false);\n\n${connection.join('\n')}\n\n${schema.join('\n')}\n\n${moduleExport.join('\n')}`;
+    const footer = cfonts.render('seeder', {
+        font: 'simple',              // define the font face
+        align: 'left',              // define text alignment
+        colors: ['system'],         // define all colors
+        background: 'transparent',  // define the background color, you can also use `backgroundColor` here as key
+        letterSpacing: 0,           // define letter spacing
+        lineHeight: 1,              // define the line height
+        space: true,                // define if the output text should have empty lines on top and on the bottom
+        maxLength: '0',             // define how many character can be on one line
+    });
+    const file = `/*${header.string}\n*/\n\nvar mongoose = require('mongoose');\n\nmongoose.set('useCreateIndex', true);\nmongoose.set('useFindAndModify', false);\n\n${connection.join('\n')}\n\n${schema.join('\n')}\n\n${moduleExport.join('\n')}\n\n/*${footer.string}\n*/\n\n${seeder.join('\n\n')}`;
     fs.writeFile(`${currentDir()}/file/private/database/mongodb/model.js`, file, function(err) {
         if(err) {
             return console.log(err);
@@ -79,7 +107,7 @@ stream.on('end', function() {
             moduleExport.push(`module.exports.${_key[3]} = ${_key[3]};`);
         }
     }
-    const header = cfonts.render('model.js\ndynamically created by alihejrati', {
+    const header = cfonts.render('model.js', {
         font: 'simple',              // define the font face
         align: 'left',              // define text alignment
         colors: ['system'],         // define all colors
@@ -97,6 +125,4 @@ stream.on('end', function() {
         const time = new Date();
         console.log(`[${time.getHours()}:${time.getMinutes()}:${time.getSeconds()}] Generated redis/model.js`);
     }); 
-});
-stream.on('end', function() {
 });

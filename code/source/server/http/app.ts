@@ -6,6 +6,14 @@ async function app(options: options) {
         BOOT(),
         boot()
     ]);    
+    // const [router, listen] = await Promise.all([
+    //     import('./router'),
+    //     import('./listen'),
+    // ]);
+    // await Promise.all([
+    //     router.default(),
+    //     listen.default()
+    // ]);
 }
 
 export default callback(app);

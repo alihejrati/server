@@ -1,5 +1,10 @@
 {
-    "key": "String",
+    "key": {
+        "type": "String",
+        "index": true,
+        "unique": true,
+        "required": true
+    },
     "value": {
         "type": "Object",
         "default": {}

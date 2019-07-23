@@ -4,11 +4,6 @@
     "enable": true,
     "map": {
       "warning": "warn",
-      "verbose": "trace",
-      "call Function": "trace",
-      "return Function": "trace",
-      "database": "info",
-      "configuration": "info",
-      "import": "info"
+      "database": "info"
     }
 }

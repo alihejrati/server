@@ -1,0 +1,17 @@
+[
+    {
+        "key": "\\code\\source\\server\\http\\listen.conf.json",
+        "value": [
+            {
+              "name": "frontend",
+              "host": "localhost",
+              "port": "8080"
+            },
+            {
+              "name": "backend",
+              "host": "localhost",
+              "port": "8081"
+            }
+        ]
+    }
+]
