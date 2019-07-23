@@ -34,11 +34,45 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
+var __values = (this && this.__values) || function (o) {
+    var m = typeof Symbol === "function" && o[Symbol.iterator], i = 0;
+    if (m) return m.call(o);
+    return {
+        next: function () {
+            if (o && i >= o.length) o = void 0;
+            return { value: o && o[i++], done: !o };
+        }
+    };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 function listen(options) {
     return __awaiter(this, void 0, void 0, function () {
-        return __generator(this, function (_a) {
-            return [2];
+        var e_1, _a, listners, _loop_1, listners_1, listners_1_1, listner;
+        return __generator(this, function (_b) {
+            switch (_b.label) {
+                case 0: return [4, config('\\code\\source\\server\\http\\listen.conf.json')];
+                case 1:
+                    listners = _b.sent();
+                    _loop_1 = function (listner) {
+                        npm.app.listen(listner.port, listner.host, function () {
+                            console.log['trace'](listner.host + ":" + listner.port);
+                        });
+                    };
+                    try {
+                        for (listners_1 = __values(listners), listners_1_1 = listners_1.next(); !listners_1_1.done; listners_1_1 = listners_1.next()) {
+                            listner = listners_1_1.value;
+                            _loop_1(listner);
+                        }
+                    }
+                    catch (e_1_1) { e_1 = { error: e_1_1 }; }
+                    finally {
+                        try {
+                            if (listners_1_1 && !listners_1_1.done && (_a = listners_1.return)) _a.call(listners_1);
+                        }
+                        finally { if (e_1) throw e_1.error; }
+                    }
+                    return [2];
+            }
         });
     });
 }

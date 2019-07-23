@@ -67,8 +67,8 @@ function config(key) {
                     if (!!/logger\.conf\.json$/g.test(key)) return [3, 2];
                     return [4, Model.findOne({ key: key }).sort({}).select({})];
                 case 1:
-                    document_1 = _a.sent();
-                    value = JSON.parse(JSON.stringify(document_1)) || value;
+                    document_1 = (_a.sent()) || {};
+                    value = (JSON.parse(JSON.stringify(document_1)))['value'] || value;
                     _a.label = 2;
                 case 2:
                     console.log['kernel/config']({

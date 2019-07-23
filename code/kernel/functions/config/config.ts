@@ -28,8 +28,8 @@ nodeWatch(`${currentDir()}/file/private/configuration`, { recursive: true }, (ev
 async function config(key: string) {
     let value = configuration.data[key];
     if (! /logger\.conf\.json$/g.test(key)) {
-        const document = await Model.findOne({key: key}).sort({}).select({});
-        value = JSON.parse(JSON.stringify(document)) || value;
+        const document = await Model.findOne({key: key}).sort({}).select({}) || {};
+        value = (JSON.parse(JSON.stringify(document)))['value'] || value;
     }
     console.log['kernel/config']({
         level: value ? 'trace' : 'warn',

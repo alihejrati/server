@@ -48,21 +48,15 @@ stream.on('end', function() {
             schema.push(`var ${_key[3]}_${_key[5]} = ${_key[3]}.model('${_key[5]}', new mongoose.Schema(${JSON.stringify(configuration[key])}, {timestamps: true}));`);
             moduleExport.push(`module.exports.${_key[3]}_${_key[5]} = ${_key[3]}_${_key[5]};`);
             seeder.push(`(async () => {
-const document = await ${_key[3]}_${_key[5]}.findOne({}).sort({}).select({});
-const value = JSON.parse(JSON.stringify(document));
-const seed = ${configuration['\\database\\mongodb\\'+_key[3]+'\\collection\\'+_key[5]+'\\seed.conf.json'] ? JSON.stringify(configuration['\\database\\mongodb\\'+_key[3]+'\\collection\\'+_key[5]+'\\seed.conf.json']) : '[]'};
-if (!value) {
-    const database = '${_key[3]}';
-    const collection  = '${_key[5]}';
-    const documents = await new Promise((resolve, reject) => {
-        ${_key[3]}_${_key[5]}.insertMany(seed, { ordered: false }, (err, docs) => {
-            if (!err) {
-                resolve(docs);
-            }
-        });
-    });
-    documents.length > 0 ? console.debug('seeder: (mongodb, ' + database + ', ' + collection + ', ' + documents.length + ')') : null;
-} 
+    const document = await ${_key[3]}_${_key[5]}.findOne({}).sort({}).select({});
+    const value = JSON.parse(JSON.stringify(document));
+    const seed = ${configuration['\\database\\mongodb\\'+_key[3]+'\\collection\\'+_key[5]+'\\seed.conf.json'] ? JSON.stringify(configuration['\\database\\mongodb\\'+_key[3]+'\\collection\\'+_key[5]+'\\seed.conf.json']) : '[]'};
+    if (!value) {
+        const database = '${_key[3]}';
+        const collection  = '${_key[5]}';
+        const documents = await ${_key[3]}_${_key[5]}.insertMany(seed, { ordered: false });
+        documents.length > 0 ? console.debug('seeder: (mongodb, ' + database + ', ' + collection + ', ' + documents.length + ')') : null;
+    } 
 })();`);
         }
     }
@@ -93,6 +87,7 @@ if (!value) {
         }
         const time = new Date();
         console.log(`[${time.getHours()}:${time.getMinutes()}:${time.getSeconds()}] Generated mongodb/model.js`);
+        require(`${currentDir()}/file/private/database/mongodb/model.js`);
     }); 
 });
 stream.on('end', function() {
@@ -125,5 +120,6 @@ stream.on('end', function() {
         }
         const time = new Date();
         console.log(`[${time.getHours()}:${time.getMinutes()}:${time.getSeconds()}] Generated redis/model.js`);
+        require(`${currentDir()}/file/private/database/redis/model.js`);
     }); 
 });

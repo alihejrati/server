@@ -34,65 +34,45 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
+var __read = (this && this.__read) || function (o, n) {
+    var m = typeof Symbol === "function" && o[Symbol.iterator];
+    if (!m) return o;
+    var i = m.call(o), r, ar = [], e;
+    try {
+        while ((n === void 0 || n-- > 0) && !(r = i.next()).done) ar.push(r.value);
+    }
+    catch (error) { e = { error: error }; }
+    finally {
+        try {
+            if (r && !r.done && (m = i["return"])) m.call(i);
+        }
+        finally { if (e) throw e.error; }
+    }
+    return ar;
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-var currentDir = require("current-dir");
-var fileExists = require("file-exists");
-function fileExist(path) {
+var controller_1 = require("./controllers/init/controller");
+var controller_2 = require("./controllers/service/controller");
+var controller_3 = require("./controllers/error/controller");
+function router(options) {
     return __awaiter(this, void 0, void 0, function () {
-        return __generator(this, function (_a) {
-            return [2, fileExists.sync((currentDir() + "/" + path).replace(/\\/g, '/').replace(/\/+/g, '/'))];
-        });
-    });
-}
-function Import(path) {
-    return __awaiter(this, void 0, void 0, function () {
-        var extensions, filename, _a, changedPath;
+        var controller, _a, initController, serviceController, errorController;
         return __generator(this, function (_b) {
             switch (_b.label) {
                 case 0:
-                    path = ("/" + path).replace(/\\/g, '/').replace(/\/+/g, '/');
-                    extensions = (path.split('/').pop() || '').split('.');
-                    filename = extensions.shift();
-                    path = extensions.length == 0 ? path + ".ts" : path;
-                    extensions = extensions.length == 0 ? ['ts'] : extensions;
-                    if (!(extensions.length == 1)) return [3, 4];
-                    _a = extensions[0];
-                    switch (_a) {
-                        case 'ts': return [3, 1];
-                    }
-                    return [3, 3];
+                    controller = new npm.asyncWare();
+                    return [4, Promise.all([
+                            controller_1.default(controller),
+                            controller_2.default(controller),
+                            controller_3.default(controller)
+                        ])];
                 case 1:
-                    changedPath = path.replace(/\.ts$/g, '.js');
-                    return [4, fileExist(changedPath)];
-                case 2:
-                    if (_b.sent()) {
-                        path = changedPath;
-                    }
-                    else {
-                        path = "/compile/" + changedPath;
-                    }
-                    return [3, 4];
-                case 3: return [3, 4];
-                case 4: return [4, fileExist(path)];
-                case 5:
-                    if (_b.sent()) {
-                        console.log['kernel/import']({
-                            level: 'trace',
-                            path: (currentDir() + "/" + path).replace(/\\/g, '/').replace(/\/+/g, '/')
-                        });
-                        return [2, Promise.resolve().then(function () { return require((currentDir() + "/" + path).replace(/\\/g, '/').replace(/\/+/g, '/')); })];
-                    }
-                    else {
-                        console.log['kernel/import']({
-                            level: 'warn',
-                            path: (currentDir() + "/" + path).replace(/\\/g, '/').replace(/\/+/g, '/')
-                        });
-                        return [2, undefined];
-                    }
-                    return [2];
+                    _a = __read.apply(void 0, [_b.sent(), 3]), initController = _a[0], serviceController = _a[1], errorController = _a[2];
+                    return [2, function (socket, event, message) {
+                            errorController.run(socket, event, message);
+                        }];
             }
         });
     });
 }
-global.Import = Import;
-exports.default = Import;
+exports.default = callback(router);

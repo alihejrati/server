@@ -34,55 +34,37 @@ module.exports.db_user = db_user;
 */
 
 (async () => {
-const document = await db_config.findOne({}).sort({}).select({});
-const value = JSON.parse(JSON.stringify(document));
-const seed = [{"key":"\\code\\source\\server\\http\\listen.conf.json","value":[{"name":"frontend","host":"localhost","port":"8080"},{"name":"backend","host":"localhost","port":"8081"}]}];
-if (!value) {
-    const database = 'db';
-    const collection  = 'config';
-    const documents = await new Promise((resolve, reject) => {
-        db_config.insertMany(seed, { ordered: false }, (err, docs) => {
-            if (!err) {
-                resolve(docs);
-            }
-        });
-    });
-    documents.length > 0 ? console.debug('seeder: (mongodb, ' + database + ', ' + collection + ', ' + documents.length + ')') : null;
-} 
+    const document = await db_config.findOne({}).sort({}).select({});
+    const value = JSON.parse(JSON.stringify(document));
+    const seed = [{"key":"\\code\\source\\server\\http\\listen.conf.json","value":[{"name":"frontend","host":"localhost","port":"8080"},{"name":"backend","host":"localhost","port":"8081"}]},{"key":"\\code\\source\\server\\socket\\listen.conf.json","value":{"name":"socket","host":"localhost","port":"3000"}}];
+    if (!value) {
+        const database = 'db';
+        const collection  = 'config';
+        const documents = await db_config.insertMany(seed, { ordered: false });
+        documents.length > 0 ? console.debug('seeder: (mongodb, ' + database + ', ' + collection + ', ' + documents.length + ')') : null;
+    } 
 })();
 
 (async () => {
-const document = await db_stack.findOne({}).sort({}).select({});
-const value = JSON.parse(JSON.stringify(document));
-const seed = [];
-if (!value) {
-    const database = 'db';
-    const collection  = 'stack';
-    const documents = await new Promise((resolve, reject) => {
-        db_stack.insertMany(seed, { ordered: false }, (err, docs) => {
-            if (!err) {
-                resolve(docs);
-            }
-        });
-    });
-    documents.length > 0 ? console.debug('seeder: (mongodb, ' + database + ', ' + collection + ', ' + documents.length + ')') : null;
-} 
+    const document = await db_stack.findOne({}).sort({}).select({});
+    const value = JSON.parse(JSON.stringify(document));
+    const seed = [];
+    if (!value) {
+        const database = 'db';
+        const collection  = 'stack';
+        const documents = await db_stack.insertMany(seed, { ordered: false });
+        documents.length > 0 ? console.debug('seeder: (mongodb, ' + database + ', ' + collection + ', ' + documents.length + ')') : null;
+    } 
 })();
 
 (async () => {
-const document = await db_user.findOne({}).sort({}).select({});
-const value = JSON.parse(JSON.stringify(document));
-const seed = [];
-if (!value) {
-    const database = 'db';
-    const collection  = 'user';
-    const documents = await new Promise((resolve, reject) => {
-        db_user.insertMany(seed, { ordered: false }, (err, docs) => {
-            if (!err) {
-                resolve(docs);
-            }
-        });
-    });
-    documents.length > 0 ? console.debug('seeder: (mongodb, ' + database + ', ' + collection + ', ' + documents.length + ')') : null;
-} 
+    const document = await db_user.findOne({}).sort({}).select({});
+    const value = JSON.parse(JSON.stringify(document));
+    const seed = [];
+    if (!value) {
+        const database = 'db';
+        const collection  = 'user';
+        const documents = await db_user.insertMany(seed, { ordered: false });
+        documents.length > 0 ? console.debug('seeder: (mongodb, ' + database + ', ' + collection + ', ' + documents.length + ')') : null;
+    } 
 })();

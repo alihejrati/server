@@ -34,11 +34,76 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
+var __values = (this && this.__values) || function (o) {
+    var m = typeof Symbol === "function" && o[Symbol.iterator], i = 0;
+    if (m) return m.call(o);
+    return {
+        next: function () {
+            if (o && i >= o.length) o = void 0;
+            return { value: o && o[i++], done: !o };
+        }
+    };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 function router(options) {
     return __awaiter(this, void 0, void 0, function () {
-        return __generator(this, function (_a) {
-            return [2];
+        var e_1, _a, controllers, controllers_1, controllers_1_1, controller, controllerFunction, _b, _c, _d, e_1_1;
+        return __generator(this, function (_e) {
+            switch (_e.label) {
+                case 0: return [4, config('\\code\\source\\server\\http\\listen.conf.json')];
+                case 1:
+                    controllers = _e.sent();
+                    controllers.unshift({
+                        name: 'init',
+                        path: '/',
+                        host: undefined,
+                        port: undefined
+                    });
+                    controllers.push({
+                        name: 'service',
+                        path: '/',
+                        host: undefined,
+                        port: undefined
+                    });
+                    controllers.push({
+                        name: 'error',
+                        path: '/',
+                        host: undefined,
+                        port: undefined
+                    });
+                    _e.label = 2;
+                case 2:
+                    _e.trys.push([2, 8, 9, 10]);
+                    controllers_1 = __values(controllers), controllers_1_1 = controllers_1.next();
+                    _e.label = 3;
+                case 3:
+                    if (!!controllers_1_1.done) return [3, 7];
+                    controller = controllers_1_1.value;
+                    return [4, Import("/code/source/server/http/controllers/" + controller.name + "/controller")];
+                case 4:
+                    controllerFunction = _e.sent();
+                    _c = (_b = npm.app).use;
+                    _d = ["" + (controller.path ? controller.path : '/' + controller.name)];
+                    return [4, controllerFunction.default()];
+                case 5:
+                    _c.apply(_b, _d.concat([_e.sent()]));
+                    _e.label = 6;
+                case 6:
+                    controllers_1_1 = controllers_1.next();
+                    return [3, 3];
+                case 7: return [3, 10];
+                case 8:
+                    e_1_1 = _e.sent();
+                    e_1 = { error: e_1_1 };
+                    return [3, 10];
+                case 9:
+                    try {
+                        if (controllers_1_1 && !controllers_1_1.done && (_a = controllers_1.return)) _a.call(controllers_1);
+                    }
+                    finally { if (e_1) throw e_1.error; }
+                    return [7];
+                case 10: return [2];
+            }
         });
     });
 }

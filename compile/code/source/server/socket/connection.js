@@ -35,64 +35,31 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var currentDir = require("current-dir");
-var fileExists = require("file-exists");
-function fileExist(path) {
+var router_1 = require("./router");
+function connection(options) {
     return __awaiter(this, void 0, void 0, function () {
+        var Router;
         return __generator(this, function (_a) {
-            return [2, fileExists.sync((currentDir() + "/" + path).replace(/\\/g, '/').replace(/\/+/g, '/'))];
-        });
-    });
-}
-function Import(path) {
-    return __awaiter(this, void 0, void 0, function () {
-        var extensions, filename, _a, changedPath;
-        return __generator(this, function (_b) {
-            switch (_b.label) {
-                case 0:
-                    path = ("/" + path).replace(/\\/g, '/').replace(/\/+/g, '/');
-                    extensions = (path.split('/').pop() || '').split('.');
-                    filename = extensions.shift();
-                    path = extensions.length == 0 ? path + ".ts" : path;
-                    extensions = extensions.length == 0 ? ['ts'] : extensions;
-                    if (!(extensions.length == 1)) return [3, 4];
-                    _a = extensions[0];
-                    switch (_a) {
-                        case 'ts': return [3, 1];
-                    }
-                    return [3, 3];
+            switch (_a.label) {
+                case 0: return [4, router_1.default()];
                 case 1:
-                    changedPath = path.replace(/\.ts$/g, '.js');
-                    return [4, fileExist(changedPath)];
-                case 2:
-                    if (_b.sent()) {
-                        path = changedPath;
-                    }
-                    else {
-                        path = "/compile/" + changedPath;
-                    }
-                    return [3, 4];
-                case 3: return [3, 4];
-                case 4: return [4, fileExist(path)];
-                case 5:
-                    if (_b.sent()) {
-                        console.log['kernel/import']({
-                            level: 'trace',
-                            path: (currentDir() + "/" + path).replace(/\\/g, '/').replace(/\/+/g, '/')
+                    Router = _a.sent();
+                    semaphore.on('/server/socket/ready', function () {
+                        var io = npm.socketIo(npm.server);
+                        io.use(npm.socketioWildcard());
+                        io.on('connection', function (socket) {
+                            Router(socket, 'connection', null);
+                            socket.on('*', function (event, message) {
+                                Router(socket, event, message);
+                            });
+                            socket.on('disconnect', function (event) {
+                                Router(socket, event || 'disconnect', null);
+                            });
                         });
-                        return [2, Promise.resolve().then(function () { return require((currentDir() + "/" + path).replace(/\\/g, '/').replace(/\/+/g, '/')); })];
-                    }
-                    else {
-                        console.log['kernel/import']({
-                            level: 'warn',
-                            path: (currentDir() + "/" + path).replace(/\\/g, '/').replace(/\/+/g, '/')
-                        });
-                        return [2, undefined];
-                    }
+                    });
                     return [2];
             }
         });
     });
 }
-global.Import = Import;
-exports.default = Import;
+exports.default = callback(connection);

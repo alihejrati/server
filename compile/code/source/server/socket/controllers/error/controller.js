@@ -35,64 +35,21 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var currentDir = require("current-dir");
-var fileExists = require("file-exists");
-function fileExist(path) {
+function controller(controller, options) {
     return __awaiter(this, void 0, void 0, function () {
+        var _this = this;
         return __generator(this, function (_a) {
-            return [2, fileExists.sync((currentDir() + "/" + path).replace(/\\/g, '/').replace(/\/+/g, '/'))];
-        });
-    });
-}
-function Import(path) {
-    return __awaiter(this, void 0, void 0, function () {
-        var extensions, filename, _a, changedPath;
-        return __generator(this, function (_b) {
-            switch (_b.label) {
-                case 0:
-                    path = ("/" + path).replace(/\\/g, '/').replace(/\/+/g, '/');
-                    extensions = (path.split('/').pop() || '').split('.');
-                    filename = extensions.shift();
-                    path = extensions.length == 0 ? path + ".ts" : path;
-                    extensions = extensions.length == 0 ? ['ts'] : extensions;
-                    if (!(extensions.length == 1)) return [3, 4];
-                    _a = extensions[0];
-                    switch (_a) {
-                        case 'ts': return [3, 1];
-                    }
-                    return [3, 3];
-                case 1:
-                    changedPath = path.replace(/\.ts$/g, '.js');
-                    return [4, fileExist(changedPath)];
-                case 2:
-                    if (_b.sent()) {
-                        path = changedPath;
-                    }
-                    else {
-                        path = "/compile/" + changedPath;
-                    }
-                    return [3, 4];
-                case 3: return [3, 4];
-                case 4: return [4, fileExist(path)];
-                case 5:
-                    if (_b.sent()) {
-                        console.log['kernel/import']({
-                            level: 'trace',
-                            path: (currentDir() + "/" + path).replace(/\\/g, '/').replace(/\/+/g, '/')
-                        });
-                        return [2, Promise.resolve().then(function () { return require((currentDir() + "/" + path).replace(/\\/g, '/').replace(/\/+/g, '/')); })];
-                    }
-                    else {
-                        console.log['kernel/import']({
-                            level: 'warn',
-                            path: (currentDir() + "/" + path).replace(/\\/g, '/').replace(/\/+/g, '/')
-                        });
-                        return [2, undefined];
-                    }
+            controller.use(function (socket, event, message, next) { return __awaiter(_this, void 0, void 0, function () {
+                return __generator(this, function (_a) {
+                    console.log['fatal']('socket hooooooooooooooo!! 3');
+                    socket.emit('res', {
+                        name: 'mmd!'
+                    });
                     return [2];
-            }
+                });
+            }); });
+            return [2, controller];
         });
     });
 }
-global.Import = Import;
-exports.default = Import;
+exports.default = callback(controller);
