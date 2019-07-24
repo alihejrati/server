@@ -35,14 +35,13 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+var hell_1 = require("./use/hell");
 function controller(options) {
     return __awaiter(this, void 0, void 0, function () {
         var controller;
         return __generator(this, function (_a) {
             controller = npm.express.Router();
-            controller.use('/', function (req, res, next) {
-                res.send('ok!');
-            });
+            controller.use('/', hell_1.default);
             return [2, controller];
         });
     });

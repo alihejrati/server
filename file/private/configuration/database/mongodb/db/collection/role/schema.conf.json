@@ -1,0 +1,10 @@
+{
+    "label": "String",
+    "name": {
+        "type": "String",
+        "index": true,
+        "unique": true,
+        "required": true
+    },
+    "permission": ["ObjectId"]
+}

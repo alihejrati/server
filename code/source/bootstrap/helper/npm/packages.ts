@@ -33,6 +33,9 @@ import * as http from 'http';
 import * as socketIo from 'socket.io';
 import * as ware from 'ware';
 import * as asyncWare from 'async-ware';
+import * as clientIp from 'client-ip';
+import * as ipDeviceParser from 'ip-device-parser';
+import * as nodeIpDetails from 'node-ip-details';
 
 const app = express();
 const server = require('http').createServer;
@@ -78,5 +81,8 @@ export {
     socketIo,
     ware,
     asyncWare,
-    fastMongoose
+    fastMongoose,
+    clientIp,
+    ipDeviceParser,
+    nodeIpDetails
 };

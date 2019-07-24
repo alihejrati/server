@@ -14,4 +14,5 @@ npm.app.use(npm.expressDevice.capture());
 npm.app.use(npm.cookieParser());
 npm.app.use(npm.expressip().getIpInfoMiddleware);
 npm.app.use(npm.expressNoFavicons());
+npm.app.use(npm.ipDeviceParser());
 exports.default = undefined;

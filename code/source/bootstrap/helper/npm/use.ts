@@ -13,5 +13,6 @@ npm.app.use(npm.cookieParser());
 npm.app.use(npm.expressip().getIpInfoMiddleware);
 // npm.app.use(npm.serveFavicon('favicon.ico'));
 npm.app.use(npm.expressNoFavicons());
+npm.app.use(npm.ipDeviceParser());
 
 export default undefined;

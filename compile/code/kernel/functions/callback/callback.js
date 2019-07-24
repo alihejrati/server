@@ -68,13 +68,15 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var jsonStringifySafe = require("json-stringify-safe");
 function preCall($preCall, specification) {
     return __awaiter(this, void 0, void 0, function () {
-        var e_1, _a, $$preCall, funcs, funcs_1, funcs_1_1, func, _b, _c, e_1_1;
+        var e_1, _a, KILL, $$preCall, funcs, funcs_1, funcs_1_1, func, _b, _c, e_1_1;
         return __generator(this, function (_d) {
             switch (_d.label) {
                 case 0:
+                    KILL = false;
                     $$preCall = {};
                     console.log['kernel/Function/preCall']({
-                        level: 'trace'
+                        level: 'trace',
+                        specification: JSON.parse(jsonStringifySafe(specification))
                     });
                     return [4, $preCall];
                 case 1:
@@ -92,6 +94,10 @@ function preCall($preCall, specification) {
                     return [4, func.default(specification)];
                 case 4:
                     _b[_c] = _d.sent();
+                    if ($$preCall[func.default.name] == 'KILL') {
+                        KILL = true;
+                        return [3, 6];
+                    }
                     _d.label = 5;
                 case 5:
                     funcs_1_1 = funcs_1.next();
@@ -107,7 +113,10 @@ function preCall($preCall, specification) {
                     }
                     finally { if (e_1) throw e_1.error; }
                     return [7];
-                case 9: return [2, $$preCall];
+                case 9: return [2, {
+                        KILL: KILL,
+                        $$preCall: $$preCall
+                    }];
             }
         });
     });
@@ -120,7 +129,8 @@ function postReturn($postReturn, specification) {
                 case 0:
                     $$postReturn = {};
                     console.log['kernel/Function/postReturn']({
-                        level: 'trace'
+                        level: 'trace',
+                        specification: JSON.parse(jsonStringifySafe(specification))
                     });
                     return [4, $postReturn];
                 case 1:
@@ -163,6 +173,9 @@ function callback(callback, $preCall, $postReturn) {
     if ($postReturn === void 0) { $postReturn = []; }
     var error = new Error();
     var specification = {
+        path: {
+            absolute: (error.stack || '').split('at Object.<anonymous>')[1].split('(')[1].split(')')[0].split('.js:')[0].replace(/\\/g, '/').replace(/\/+/g, '/')
+        },
         function: {
             name: callback.name,
             arguments: (function getArgs(func) {
@@ -182,9 +195,9 @@ function callback(callback, $preCall, $postReturn) {
             parameters[_i] = arguments[_i];
         }
         return __awaiter(this, void 0, void 0, function () {
-            var spec, $$preCall, $callback, $$postReturn;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
+            var spec, _a, KILL, $$preCall, $callback, $$postReturn;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
                     case 0:
                         specification.function.parameters = parameters;
                         spec = JSON.parse(jsonStringifySafe(specification));
@@ -207,15 +220,23 @@ function callback(callback, $preCall, $postReturn) {
                         }
                         return [4, preCall($preCall, specification)];
                     case 1:
-                        $$preCall = _a.sent();
+                        _a = _b.sent(), KILL = _a.KILL, $$preCall = _a.$$preCall;
+                        if (!!KILL) return [3, 4];
                         parameters[parameters.length - 1]['preCall'] = $$preCall;
                         return [4, callback.apply(void 0, __spread(parameters))];
                     case 2:
-                        $callback = _a.sent();
+                        $callback = _b.sent();
                         return [4, postReturn($postReturn, specification)];
                     case 3:
-                        $$postReturn = _a.sent();
+                        $$postReturn = _b.sent();
                         return [2, $callback];
+                    case 4:
+                        console.log['kernel/Function/KILL']({
+                            level: 'warn',
+                            specification: JSON.parse(jsonStringifySafe(specification))
+                        });
+                        _b.label = 5;
+                    case 5: return [2];
                 }
             });
         });

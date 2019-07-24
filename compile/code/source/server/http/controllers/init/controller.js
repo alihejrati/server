@@ -35,15 +35,15 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+var extraction_1 = require("./use/extraction");
+var authentication_1 = require("./use/authentication");
 function controller(options) {
     return __awaiter(this, void 0, void 0, function () {
         var controller;
         return __generator(this, function (_a) {
             controller = npm.express.Router();
-            controller.use('/', function (req, res, next) {
-                console.log['fatal']('hooooooooooooooo!!');
-                next();
-            });
+            controller.use('/', extraction_1.default);
+            controller.use('/', authentication_1.default);
             return [2, controller];
         });
     });

@@ -1,21 +1,31 @@
 import * as jsonStringifySafe from 'json-stringify-safe';
-import * as isJson from 'is-json';
 
 async function preCall($preCall, specification) {
+    let KILL = false;
     const $$preCall = {};
     console.log['kernel/Function/preCall']({
-        level: 'trace'
+        level: 'trace',
+        specification: JSON.parse(jsonStringifySafe(specification))
     });    
     const funcs = await $preCall;
     for (const func of funcs) {
         $$preCall[func.default.name] = await func.default(specification);
+        if ($$preCall[func.default.name] == 'KILL') {
+            KILL = true;
+            break;
+        }
     }
-    return $$preCall;
+    return {
+        KILL: KILL,
+        $$preCall: $$preCall
+    };
+    // return $$preCall;
 }
 async function postReturn($postReturn, specification) {
     const $$postReturn = {};
     console.log['kernel/Function/postReturn']({
-        level: 'trace'
+        level: 'trace',
+        specification: JSON.parse(jsonStringifySafe(specification))
     });
     const funcs = await $postReturn;
     for (const func of funcs) {
@@ -28,6 +38,9 @@ function callback(callback: Function, $preCall: any = [], $postReturn: any = [])
     const error = new Error();
     
     const specification = {
+        path: {
+            absolute: (error.stack || '').split('at Object.<anonymous>')[1].split('(')[1].split(')')[0].split('.js:')[0].replace(/\\/g, '/').replace(/\/+/g, '/')
+        },
         function: {
             name: callback.name,
             arguments: (function getArgs(func) {
@@ -68,12 +81,19 @@ function callback(callback: Function, $preCall: any = [], $postReturn: any = [])
             });
             return;
         }
-        const $$preCall    = await preCall($preCall, specification);
-        // @ts-ignore
-        parameters[parameters.length-1]['preCall'] = $$preCall;
-        const $callback    = await callback(...parameters);
-        const $$postReturn = await postReturn($postReturn, specification);
-        return $callback;
+        const {KILL, $$preCall} = await preCall($preCall, specification);
+        if (!KILL) {
+            // @ts-ignore
+            parameters[parameters.length-1]['preCall'] = $$preCall;
+            const $callback    = await callback(...parameters);
+            const $$postReturn = await postReturn($postReturn, specification);
+            return $callback;       
+        } else {
+            console.log['kernel/Function/KILL']({
+                level: 'warn',
+                specification: JSON.parse(jsonStringifySafe(specification))
+            }); 
+        }
     }
     Object.defineProperty(cb, 'name', {value: callback.name, writable: false});
     return cb;

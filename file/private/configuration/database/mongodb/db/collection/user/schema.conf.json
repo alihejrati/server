@@ -1,8 +1,23 @@
 {
     "username": {
-        "type": "String"
+        "type": "String",
+        "index": true,
+        "unique": true,
+        "required": true
     },
     "password": {
-        "type": "String"
+        "type": "String",
+        "index": true,
+        "required": true
+    },
+    "role": {
+        "type": "ObjectId",
+        "index": true,
+        "required": true
+    },
+    "view": {
+        "type": "ObjectId",
+        "index": true,
+        "required": true
     }
 }
