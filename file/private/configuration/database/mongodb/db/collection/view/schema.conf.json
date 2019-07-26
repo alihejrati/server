@@ -11,7 +11,7 @@
         "index": true,
         "required": true,
         "default": {
-            "@frontend": "basic",
+            "@frontend": "/basic",
             "@backend": "/robust/html/RTL/vertical-overlay-menu-template"
         }
     }
