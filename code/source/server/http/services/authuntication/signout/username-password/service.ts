@@ -6,6 +6,7 @@ async function service(req, res, next, options: options) {
         await redis.del(`cookie:null:${hash}`);
         await redis.del(`auth:null:${npm.objectHash(npm.objectHash(req['_'].user.who._id))}`);
         req['_'].user.login = false;
+        req['_'].user.who = {};
         await response.attach(null, req, res);
     } else {
         options['service'].code(status.unauthorized);

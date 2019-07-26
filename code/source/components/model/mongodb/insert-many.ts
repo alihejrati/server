@@ -2,11 +2,16 @@ import * as currentDir from 'current-dir';
 const model = require(`${currentDir()}/file/private/database/mongodb/model.js`);
 
 async function insertMany(collection: string, query, options: options) {
+    const errorHandler = options['errorHandler'] || function (error) {}
     const database = options['database'] || 'db';
     const Model = model[`${database}_${collection}`];
     const documents = await new Promise((resolve, reject) => {
-        Model.insertMany(query, { ordered: false }, (err, docs) => {
-            if (!err) {
+        Model.insertMany(query, { ordered: false }, (error, docs) => {
+            if (error) {
+                errorHandler(error);
+                reject();
+                return; 
+            } else {
                 resolve(docs);
             }
         });

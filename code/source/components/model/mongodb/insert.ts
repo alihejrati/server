@@ -2,11 +2,14 @@ import * as currentDir from 'current-dir';
 const model = require(`${currentDir()}/file/private/database/mongodb/model.js`);
 
 async function insert(collection: string, query, options: options) {
+    const errorHandler = options['errorHandler'] || function (error) {}
     const database = options['database'] || 'db';
     const Model = model[`${database}_${collection}`];
     const document = await new Promise((resolve, reject) => {
         new Model(query).save((error, doc) => {
             if (error) {
+                errorHandler(error);
+                reject();
                 return;
             }
             resolve(doc);

@@ -15,6 +15,4 @@ async function discovery(req, res, next, options: options) {
     next();
 }
 
-export default callback(discovery, Promise.all([
-    import('../../_/watchdog')
-]));
+export default callback(discovery);

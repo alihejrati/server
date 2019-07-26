@@ -44,7 +44,8 @@ function service(req, res, next, options) {
                     status = req['_'].carry.config.statusCode;
                     username = req.body.username || '';
                     password = req.body.password ? npm.objectHash(req.body.password) : '';
-                    if (!!req['_'].user.login) return [3, 11];
+                    if (!!req['_'].user.login) return [3, 14];
+                    if (!(username && password)) return [3, 11];
                     return [4, mongodb.findOne('user', {
                             username: username,
                             password: password
@@ -80,18 +81,25 @@ function service(req, res, next, options) {
                 case 9:
                     _d.sent();
                     _d.label = 10;
-                case 10: return [3, 14];
+                case 10: return [3, 13];
                 case 11:
+                    options['service'].code(status.noContent);
+                    return [4, response.attach(null, req, res)];
+                case 12:
+                    _d.sent();
+                    _d.label = 13;
+                case 13: return [3, 17];
+                case 14:
                     options['service'].code(status.alreadyReported);
                     _b = (_a = response).attach;
                     _c = {};
                     return [4, cookie.get('token', req, res)];
-                case 12: return [4, _b.apply(_a, [(_c.token = (_d.sent()) || req.body.token || req.query.token,
+                case 15: return [4, _b.apply(_a, [(_c.token = (_d.sent()) || req.body.token || req.query.token,
                             _c), req, res])];
-                case 13:
+                case 16:
                     _d.sent();
-                    _d.label = 14;
-                case 14: return [2];
+                    _d.label = 17;
+                case 17: return [2];
             }
         });
     });

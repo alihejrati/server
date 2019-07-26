@@ -54,6 +54,4 @@ function discovery(req, res, next, options) {
         });
     });
 }
-exports.default = callback(discovery, Promise.all([
-    Promise.resolve().then(function () { return require('../../_/watchdog'); })
-]));
+exports.default = callback(discovery);

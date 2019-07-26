@@ -37,58 +37,57 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 Object.defineProperty(exports, "__esModule", { value: true });
 function service(req, res, next, options) {
     return __awaiter(this, void 0, void 0, function () {
-        var username, password, guestRole, _a, guestView, _b, listener, user;
-        return __generator(this, function (_c) {
-            switch (_c.label) {
+        var status, username, password, err, Role, View, user;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
                 case 0:
+                    status = req['_'].carry.config.statusCode;
                     username = req.body.username || '';
                     password = req.body.password ? npm.objectHash(req.body.password) : '';
-                    return [4, mongodb.findOne('role', { name: 'guest' })];
+                    err = {};
+                    if (!(username && password)) return [3, 11];
+                    return [4, mongodb.insert('role', { name: username }, { errorHandler: function (error) { return err['errorRole'] = error; } })];
                 case 1:
-                    _a = (_c.sent());
-                    if (_a) return [3, 3];
-                    return [4, mongodb.insert('role', { name: 'guest' })];
+                    Role = (_a.sent()) || {};
+                    return [4, mongodb.insert('view', { name: username }, { errorHandler: function (error) { return err['errorView'] = error; } })];
                 case 2:
-                    _a = (_c.sent());
-                    _c.label = 3;
-                case 3:
-                    guestRole = _a;
-                    return [4, mongodb.findOne('view', { name: 'guest' })];
-                case 4:
-                    _b = (_c.sent());
-                    if (_b) return [3, 6];
-                    return [4, mongodb.insert('view', { name: 'guest' })];
-                case 5:
-                    _b = (_c.sent());
-                    _c.label = 6;
-                case 6:
-                    guestView = _b;
-                    listener = {};
+                    View = (_a.sent()) || {};
+                    if (!(!err['errorRole'] && !err['errorView'])) return [3, 8];
                     return [4, mongodb.insert('user', {
                             username: username,
                             password: password,
-                            role: guestRole._id,
-                            view: guestView._id
-                        }, {
-                            listener: function (event) {
-                                event.on('error', function (error) { return listener['error'] = error; });
-                            }
-                        })];
-                case 7:
-                    user = _c.sent();
-                    if (!user) return [3, 9];
+                            role: Role._id,
+                            view: View._id
+                        }, { errorHandler: function (error) { return err['error'] = error; } })];
+                case 3:
+                    user = _a.sent();
+                    if (!user) return [3, 5];
                     delete user['password'];
                     return [4, response.attach(user, req, res)];
+                case 4:
+                    _a.sent();
+                    return [3, 7];
+                case 5:
+                    options['service'].code(err['error'].pure.code);
+                    return [4, response.attach(err['error'], req, res)];
+                case 6:
+                    _a.sent();
+                    _a.label = 7;
+                case 7: return [3, 10];
                 case 8:
-                    _c.sent();
-                    return [3, 11];
+                    options['service'].code(status.notAcceptable);
+                    return [4, response.attach(err, req, res)];
                 case 9:
-                    options['service'].code(listener['error'].pure.code);
-                    return [4, response.attach(listener['error'], req, res)];
-                case 10:
-                    _c.sent();
-                    _c.label = 11;
-                case 11: return [2];
+                    _a.sent();
+                    _a.label = 10;
+                case 10: return [3, 13];
+                case 11:
+                    options['service'].code(status.noContent);
+                    return [4, response.attach(err, req, res)];
+                case 12:
+                    _a.sent();
+                    _a.label = 13;
+                case 13: return [2];
             }
         });
     });

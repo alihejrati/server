@@ -45,6 +45,4 @@ function hell(req, res, next, options) {
         });
     });
 }
-exports.default = callback(hell, Promise.all([
-    Promise.resolve().then(function () { return require('../../_/watchdog'); })
-]));
+exports.default = callback(hell);

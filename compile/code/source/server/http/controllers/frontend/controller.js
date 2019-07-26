@@ -41,7 +41,7 @@ function controller(options) {
         return __generator(this, function (_a) {
             controller = npm.express.Router();
             controller.use('/', function (req, res, next) {
-                console.log['fatal']('frontend');
+                req['_'].temporary.watchdog.layer = '/frontend/**';
                 next();
             });
             return [2, controller];

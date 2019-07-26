@@ -1,9 +1,16 @@
+let router: any = {};     
+let servers: any = [];    
+let statusCode: any = {}; 
+let cookies: any = {};    
+let npmJwt: any = {};     
+
+config('\\code\\source\\server\\http\\router.conf.json').then(conf => router = conf);
+config('\\code\\source\\server\\http\\listen.conf.json').then(conf => servers = conf);
+config('\\code\\source\\server\\http\\status.conf.json').then(conf => statusCode = conf);
+config('\\code\\source\\server\\http\\cookies.conf.json').then(conf => cookies = conf);
+config('\\npm\\jwt.conf.json').then(conf => npmJwt = conf);
+
 async function extraction(req, res, next, options: options) {
-    const router = await config('\\code\\source\\server\\http\\router.conf.json');
-    const servers = await config('\\code\\source\\server\\http\\listen.conf.json');
-    const statusCode = await config('\\code\\source\\server\\http\\status.conf.json');
-    const cookies = await config('\\code\\source\\server\\http\\cookies.conf.json');
-    const npmJwt = await config('\\npm\\jwt.conf.json');
     const ip = npm.clientIp(req);
     const host = req.headers.host.split(':')[0];
     const port = Number(req.headers.host.split(':')[1]);
@@ -48,7 +55,7 @@ async function extraction(req, res, next, options: options) {
             code: []
         },
         temporary: {
-            watchdog: {layer: null},
+            watchdog: {layer: '/init/**'},
             service: {serve: null}
         },
         flag: {
@@ -70,6 +77,4 @@ async function extraction(req, res, next, options: options) {
     next();
 }
 
-export default callback(extraction, Promise.all([
-    import('../../_/watchdog')
-]));
+export default callback(extraction);

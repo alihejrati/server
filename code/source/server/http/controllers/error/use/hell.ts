@@ -4,6 +4,4 @@ async function hell(req, res, next, options: options) {
     });
 }
 
-export default callback(hell, Promise.all([
-    import('../../_/watchdog')
-]));
+export default callback(hell);

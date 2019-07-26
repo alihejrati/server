@@ -85,4 +85,4 @@ async function prerequisite(specification: Specification, options: options) {
 
 }
 
-export default callback(prerequisite);
+export default prerequisite;

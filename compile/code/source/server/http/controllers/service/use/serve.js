@@ -134,6 +134,4 @@ function serve(req, res, next, options) {
         });
     });
 }
-exports.default = callback(serve, Promise.all([
-    Promise.resolve().then(function () { return require('../../_/watchdog'); })
-]));
+exports.default = callback(serve);

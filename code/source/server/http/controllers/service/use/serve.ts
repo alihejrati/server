@@ -27,6 +27,4 @@ async function serve(req, res, next, options: options) {
     req['_'].flag.response.attach ? await response.send(req, res) : next();
 }
 
-export default callback(serve, Promise.all([
-    import('../../_/watchdog')
-]));
+export default callback(serve);

@@ -2,7 +2,7 @@ async function controller(options: options) {
     const controller = npm.express.Router();
     
     controller.use('/', (req, res, next) => {
-        console.log['fatal']('frontend');
+        req['_'].temporary.watchdog.layer = '/frontend/**';
         next();
     });
 

@@ -20,12 +20,14 @@ var db_permission = db.model('permission', new mongoose.Schema({"label":"String"
 var db_role = db.model('role', new mongoose.Schema({"label":"String","name":{"type":"String","index":true,"unique":true,"required":true},"permission":["ObjectId"],"sort":{"type":"Number","default":1}}, {timestamps: true}));
 var db_stack = db.model('stack', new mongoose.Schema({"stack":{"type":"Array","default":[]},"sort":{"type":"Number","default":1}}, {timestamps: true}));
 var db_user = db.model('user', new mongoose.Schema({"username":{"type":"String","index":true,"unique":true,"required":true},"password":{"type":"String","index":true,"required":true},"role":{"type":"ObjectId","index":true,"required":true},"view":{"type":"ObjectId","index":true,"required":true},"sort":{"type":"Number","default":1}}, {timestamps: true}));
+var db_view = db.model('view', new mongoose.Schema({"label":"String","name":{"type":"String","index":true,"unique":true,"required":true},"branch":{"type":"Object","index":true,"required":true,"default":{"@frontend":"basic","@backend":"/robust/html/RTL/vertical-overlay-menu-template"}},"sort":{"type":"Number","default":1}}, {timestamps: true}));
 
 module.exports.db_config = db_config;
 module.exports.db_permission = db_permission;
 module.exports.db_role = db_role;
 module.exports.db_stack = db_stack;
 module.exports.db_user = db_user;
+module.exports.db_view = db_view;
 
 /*
 
@@ -93,6 +95,18 @@ module.exports.db_user = db_user;
         const database = 'db';
         const collection  = 'user';
         const documents = await db_user.insertMany(seed, { ordered: false });
+        documents.length > 0 ? console.debug('seeder: (mongodb, ' + database + ', ' + collection + ', ' + documents.length + ')') : null;
+    } 
+})();
+
+(async () => {
+    const document = await db_view.findOne({}).sort({}).select({});
+    const value = JSON.parse(JSON.stringify(document));
+    const seed = [];
+    if (!value) {
+        const database = 'db';
+        const collection  = 'view';
+        const documents = await db_view.insertMany(seed, { ordered: false });
         documents.length > 0 ? console.debug('seeder: (mongodb, ' + database + ', ' + collection + ', ' + documents.length + ')') : null;
     } 
 })();

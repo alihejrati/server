@@ -61,8 +61,6 @@ function prerequisite(specification, options) {
                     req['_'].service.code[serviceIndex] = status.successful;
                     conf.method = Array.isArray(conf.method) ? conf.method : ['*'];
                     conf.permission = Array.isArray(conf.permission) ? conf.permission : [];
-                    console.log['fatal'](npm.jsonStringifySafe(service));
-                    console.log['fatal'](npm.jsonStringifySafe(conf));
                     if (true) {
                         for (index = 0; index < conf.method.length; index++) {
                             conf.method[index] = conf.method[index].toLowerCase();
@@ -153,4 +151,4 @@ function prerequisite(specification, options) {
         });
     });
 }
-exports.default = callback(prerequisite);
+exports.default = prerequisite;

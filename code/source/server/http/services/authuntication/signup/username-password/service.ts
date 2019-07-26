@@ -1,28 +1,37 @@
 async function service(req, res, next, options: options) {
+    const status = req['_'].carry.config.statusCode;
     const username = req.body.username || '';
     const password = req.body.password ? npm.objectHash(req.body.password) : '';
-    const guestRole = await mongodb.findOne('role', { name: 'guest' }) || await mongodb.insert('role', { name: 'guest' });
-    const guestView = await mongodb.findOne('view', { name: 'guest' }) || await mongodb.insert('view', { name: 'guest' });
-    const listener = {};
+    const err = {};
+    
+    if (username && password) {
+        const Role = await mongodb.insert('role', { name: username }, { errorHandler: error => err['errorRole'] = error }) || {};
+        const View = await mongodb.insert('view', { name: username }, { errorHandler: error => err['errorView'] = error }) || {};
 
-    const user = await mongodb.insert('user', {
-        username: username,
-        password: password,
-        role: guestRole._id,
-        view: guestView._id
-    }, {
-        listener: (event) => {
-            event.on('error', (error) => listener['error'] = error);
+        if (!err['errorRole'] && !err['errorView']) {
+            const user = await mongodb.insert('user', {
+                username: username,
+                password: password,
+                role: Role._id,
+                view: View._id
+            }, { errorHandler: error => err['error'] = error });
+        
+            if (user) {
+                delete user['password'];
+                await response.attach(user, req, res);
+            } else {
+                options['service'].code(err['error'].pure.code);
+                await response.attach(err['error'], req, res);
+            }
+        } else {
+            options['service'].code(status.notAcceptable);
+            await response.attach(err, req, res);
         }
-    });
-
-    if (user) {
-        delete user['password'];
-        await response.attach(user, req, res);
     } else {
-        options['service'].code(listener['error'].pure.code);
-        await response.attach(listener['error'], req, res);
+        options['service'].code(status.noContent);
+        await response.attach(err, req, res);
     }
+    
 }
 
 export default callback(service, Promise.all([

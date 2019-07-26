@@ -39,10 +39,11 @@ var currentDir = require("current-dir");
 var model = require(currentDir() + "/file/private/database/mongodb/model.js");
 function findOne(collection, query, options) {
     return __awaiter(this, void 0, void 0, function () {
-        var database, Model, sort, select, document, res;
+        var errorHandler, database, Model, sort, select, document, res;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
+                    errorHandler = options['errorHandler'] || function (error) { };
                     database = options['database'] || 'db';
                     Model = model[database + "_" + collection];
                     sort = options['sort'] || {};

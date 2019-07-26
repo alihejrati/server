@@ -39,10 +39,11 @@ var currentDir = require("current-dir");
 var model = require(currentDir() + "/file/private/database/mongodb/model.js");
 function findByIdAndUpdate(collection, _id, query, options) {
     return __awaiter(this, void 0, void 0, function () {
-        var database, Model, document, res;
+        var errorHandler, database, Model, document, res;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
+                    errorHandler = options['errorHandler'] || function (error) { };
                     database = options['database'] || 'db';
                     Model = model[database + "_" + collection];
                     return [4, Model.findByIdAndUpdate(_id, query, { new: true })];

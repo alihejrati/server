@@ -41,6 +41,10 @@ function controller(options) {
         var controller;
         return __generator(this, function (_a) {
             controller = npm.express.Router();
+            controller.use('/', function (req, res, next) {
+                req['_'].temporary.watchdog.layer = '/error/**';
+                next();
+            });
             controller.use('/', hell_1.default);
             return [2, controller];
         });

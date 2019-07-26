@@ -1,0 +1,18 @@
+{
+    "label": "String",
+    "name": {
+        "type": "String",
+        "index": true,
+        "unique": true,
+        "required": true
+    },
+    "branch": {
+        "type": "Object",
+        "index": true,
+        "required": true,
+        "default": {
+            "@frontend": "basic",
+            "@backend": "/robust/html/RTL/vertical-overlay-menu-template"
+        }
+    }
+}

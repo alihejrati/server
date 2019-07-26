@@ -45,26 +45,22 @@ var __values = (this && this.__values) || function (o) {
     };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+var router = {};
+var servers = [];
+var statusCode = {};
+var cookies = {};
+var npmJwt = {};
+config('\\code\\source\\server\\http\\router.conf.json').then(function (conf) { return router = conf; });
+config('\\code\\source\\server\\http\\listen.conf.json').then(function (conf) { return servers = conf; });
+config('\\code\\source\\server\\http\\status.conf.json').then(function (conf) { return statusCode = conf; });
+config('\\code\\source\\server\\http\\cookies.conf.json').then(function (conf) { return cookies = conf; });
+config('\\npm\\jwt.conf.json').then(function (conf) { return npmJwt = conf; });
 function extraction(req, res, next, options) {
     return __awaiter(this, void 0, void 0, function () {
-        var e_1, _a, router, servers, statusCode, cookies, npmJwt, ip, host, port, servers_1, servers_1_1, server, _b, _c, _d, _e, _f;
+        var e_1, _a, ip, host, port, servers_1, servers_1_1, server, _b, _c, _d, _e, _f;
         return __generator(this, function (_g) {
             switch (_g.label) {
-                case 0: return [4, config('\\code\\source\\server\\http\\router.conf.json')];
-                case 1:
-                    router = _g.sent();
-                    return [4, config('\\code\\source\\server\\http\\listen.conf.json')];
-                case 2:
-                    servers = _g.sent();
-                    return [4, config('\\code\\source\\server\\http\\status.conf.json')];
-                case 3:
-                    statusCode = _g.sent();
-                    return [4, config('\\code\\source\\server\\http\\cookies.conf.json')];
-                case 4:
-                    cookies = _g.sent();
-                    return [4, config('\\npm\\jwt.conf.json')];
-                case 5:
-                    npmJwt = _g.sent();
+                case 0:
                     ip = npm.clientIp(req);
                     host = req.headers.host.split(':')[0];
                     port = Number(req.headers.host.split(':')[1]);
@@ -96,7 +92,7 @@ function extraction(req, res, next, options) {
                         device: req.clientInfo
                     };
                     return [4, npm.nodeIpDetails.initialise({ ip: ip }).allInformation()];
-                case 6:
+                case 1:
                     _b[_c] = (_d.ip = (_e.detection = (_f.details = _g.sent(),
                         _f),
                         _e),
@@ -124,7 +120,7 @@ function extraction(req, res, next, options) {
                             code: []
                         },
                         _d.temporary = {
-                            watchdog: { layer: null },
+                            watchdog: { layer: '/init/**' },
                             service: { serve: null }
                         },
                         _d.flag = {
@@ -148,6 +144,4 @@ function extraction(req, res, next, options) {
         });
     });
 }
-exports.default = callback(extraction, Promise.all([
-    Promise.resolve().then(function () { return require('../../_/watchdog'); })
-]));
+exports.default = callback(extraction);

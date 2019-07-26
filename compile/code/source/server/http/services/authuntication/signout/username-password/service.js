@@ -51,6 +51,7 @@ function service(req, res, next, options) {
                 case 2:
                     _a.sent();
                     req['_'].user.login = false;
+                    req['_'].user.who = {};
                     return [4, response.attach(null, req, res)];
                 case 3:
                     _a.sent();

@@ -42,6 +42,10 @@ function controller(options) {
         var controller;
         return __generator(this, function (_a) {
             controller = npm.express.Router();
+            controller.use('/', function (req, res, next) {
+                req['_'].temporary.watchdog.layer = '/service/**';
+                next();
+            });
             controller.use('/', discovery_1.default);
             controller.use('/', serve_1.default);
             return [2, controller];

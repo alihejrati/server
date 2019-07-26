@@ -17,6 +17,4 @@ async function authentication(req, res, next, options: options) {
     next();
 }
 
-export default callback(authentication, Promise.all([
-    import('../../_/watchdog')
-]));
+export default callback(authentication);

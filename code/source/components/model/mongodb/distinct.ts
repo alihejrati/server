@@ -2,6 +2,7 @@ import * as currentDir from 'current-dir';
 const model = require(`${currentDir()}/file/private/database/mongodb/model.js`);
 
 async function distinct(collection: string, distinct: string, query, options: options) {
+    const errorHandler = options['errorHandler'] || function (error) {}
     const database = options['database'] || 'db';
     const Model = model[`${database}_${collection}`];
     const select = options['select'] || {};
