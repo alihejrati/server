@@ -9,8 +9,7 @@ async function insertMany(collection: string, query, options: options) {
         Model.insertMany(query, { ordered: false }, (error, docs) => {
             if (error) {
                 errorHandler(error);
-                reject();
-                return; 
+                resolve(undefined);
             } else {
                 resolve(docs);
             }

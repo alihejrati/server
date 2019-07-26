@@ -9,8 +9,7 @@ async function insert(collection: string, query, options: options) {
         new Model(query).save((error, doc) => {
             if (error) {
                 errorHandler(error);
-                reject();
-                return;
+                resolve(undefined);
             }
             resolve(doc);
         });

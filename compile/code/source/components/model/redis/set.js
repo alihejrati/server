@@ -37,9 +37,11 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var currentDir = require("current-dir");
 var model = require(currentDir() + "/file/private/database/redis/model.js");
+var jwt = {};
+config('\\npm\\jwt.conf.json').then(function (conf) { return jwt = conf; });
 function set(key, value, options) {
     return __awaiter(this, void 0, void 0, function () {
-        var database, Model, res, _a;
+        var database, Model, _res, _a, res;
         return __generator(this, function (_b) {
             switch (_b.label) {
                 case 0:
@@ -52,15 +54,16 @@ function set(key, value, options) {
                     catch (error) { }
                     value = value || null;
                     if (!key) return [3, 2];
-                    return [4, Model.set(key, value)];
+                    return [4, Model.set(key, npm.jwtSimple.encode(value, jwt.secret))];
                 case 1:
-                    _a = (_b.sent()) || { key: key, value: value };
+                    _a = _b.sent();
                     return [3, 3];
                 case 2:
                     _a = null;
                     _b.label = 3;
                 case 3:
-                    res = _a;
+                    _res = _a;
+                    res = key ? _res || { key: key, value: value } : null;
                     console.log['database']({
                         database: {
                             type: 'redis',

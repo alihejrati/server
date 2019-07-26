@@ -46,13 +46,15 @@ function service(req, res, next, options) {
                     password = req.body.password ? npm.objectHash(req.body.password) : '';
                     err = {};
                     if (!(username && password)) return [3, 11];
+                    console.debug('11111111111111111111111111111111111111111111111111111111111111111111');
                     return [4, mongodb.insert('role', { name: username }, { errorHandler: function (error) { return err['errorRole'] = error; } })];
                 case 1:
-                    Role = (_a.sent()) || {};
+                    Role = _a.sent();
                     return [4, mongodb.insert('view', { name: username }, { errorHandler: function (error) { return err['errorView'] = error; } })];
                 case 2:
-                    View = (_a.sent()) || {};
-                    if (!(!err['errorRole'] && !err['errorView'])) return [3, 8];
+                    View = _a.sent();
+                    if (!(Role && View && !err['errorRole'] && !err['errorView'])) return [3, 8];
+                    console.debug('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@');
                     return [4, mongodb.insert('user', {
                             username: username,
                             password: password,
@@ -62,13 +64,15 @@ function service(req, res, next, options) {
                 case 3:
                     user = _a.sent();
                     if (!user) return [3, 5];
+                    console.debug('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
                     delete user['password'];
                     return [4, response.attach(user, req, res)];
                 case 4:
                     _a.sent();
                     return [3, 7];
                 case 5:
-                    options['service'].code(err['error'].pure.code);
+                    console.debug('$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$');
+                    options['service'].code(err['error'].code);
                     return [4, response.attach(err['error'], req, res)];
                 case 6:
                     _a.sent();

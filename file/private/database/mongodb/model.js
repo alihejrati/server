@@ -13,7 +13,7 @@ var mongoose = require('mongoose');
 mongoose.set('useCreateIndex', true);
 mongoose.set('useFindAndModify', false);
 
-var db = mongoose.createConnection('mongodb://localhost:27017/db', {useNewUrlParser: true});
+var db = mongoose.createConnection('mongodb://localhost:27017/SERVER#db', {useNewUrlParser: true});
 
 var db_config = db.model('config', new mongoose.Schema({"key":{"type":"String","index":true,"unique":true,"required":true},"value":{"type":"Object","default":{}},"sort":{"type":"Number","default":1}}, {timestamps: true}));
 var db_permission = db.model('permission', new mongoose.Schema({"label":"String","name":{"type":"String","index":true,"unique":true,"required":true},"sort":{"type":"Number","default":1}}, {timestamps: true}));

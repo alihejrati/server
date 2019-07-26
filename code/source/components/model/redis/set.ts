@@ -1,5 +1,8 @@
 import * as currentDir from 'current-dir';
 const model = require(`${currentDir()}/file/private/database/redis/model.js`);
+let jwt: any = {};
+
+config('\\npm\\jwt.conf.json').then(conf => jwt = conf);
 
 async function set(key: string, value: any, options: options) {
     const database = options['database'] || 'db';
@@ -10,7 +13,9 @@ async function set(key: string, value: any, options: options) {
     } catch (error) {}
 
     value = value || null;
-    const res = key ? await Model.set(key, value) || {key: key, value: value} : null;
+
+    const _res = key ? await Model.set(key, npm.jwtSimple.encode(value, jwt.secret)) : null;
+    const res  = key ? _res || {key: key, value: value} : null;
 
     console.log['database']({
         database: {

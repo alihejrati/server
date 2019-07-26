@@ -37,6 +37,8 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var currentDir = require("current-dir");
 var model = require(currentDir() + "/file/private/database/redis/model.js");
+var jwt = {};
+config('\\npm\\jwt.conf.json').then(function (conf) { return jwt = conf; });
 function get(key, options) {
     return __awaiter(this, void 0, void 0, function () {
         var database, Model, value;
@@ -47,6 +49,12 @@ function get(key, options) {
                     Model = model[database];
                     return [4, new Promise(function (resolve, reject) {
                             Model.get(key, function (err, reply) {
+                                try {
+                                    reply = npm.jwtSimple.decode(reply, jwt.secret);
+                                }
+                                catch (error) {
+                                    reply = null;
+                                }
                                 if (!err) {
                                     try {
                                         reply = JSON.parse(reply);

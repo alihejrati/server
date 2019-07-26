@@ -50,8 +50,7 @@ function insertMany(collection, query, options) {
                             Model.insertMany(query, { ordered: false }, function (error, docs) {
                                 if (error) {
                                     errorHandler(error);
-                                    reject();
-                                    return;
+                                    resolve(undefined);
                                 }
                                 else {
                                     resolve(docs);

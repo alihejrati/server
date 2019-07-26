@@ -1,11 +1,19 @@
 import * as currentDir from 'current-dir';
 const model = require(`${currentDir()}/file/private/database/redis/model.js`);
+let jwt: any = {};
+
+config('\\npm\\jwt.conf.json').then(conf => jwt = conf);
 
 async function get(key: string, options: options) {
     const database = options['database'] || 'db';
     const Model = model[database];
     const value = await new Promise((resolve, reject) => {
         Model.get(key, (err, reply) => {
+            try {
+                reply = npm.jwtSimple.decode(reply, jwt.secret);
+            } catch (error) {
+                reply = null;
+            }
             if (!err) {
                 try {
                     reply = JSON.parse(reply);

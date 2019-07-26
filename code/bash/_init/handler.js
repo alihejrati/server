@@ -38,7 +38,7 @@ stream.on('end', function() {
     for (const key of keys) {
         const _key = key.toLowerCase().split('\\');
         if (/^\\database\\mongodb\\[a-zA-Z0-9]+\\dsn.conf.json$/g.test(key)) {
-            connection.push(`var ${_key[3]} = mongoose.createConnection('${configuration[key]}', {useNewUrlParser: true});`);
+            connection.push(`var ${_key[3]} = mongoose.createConnection('${configuration[key].replace('[', configuration['\\database\\mongodb\\prefix.conf.json']).replace(']', '')}', {useNewUrlParser: true});`);
         }
         if (/^\\database\\mongodb\\[a-zA-Z0-9]+\\collection\\[a-zA-Z0-9]+\\schema.conf.json$/g.test(key)) {
             configuration[key].sort = {
@@ -103,7 +103,7 @@ stream.on('end', function() {
             moduleExport.push(`module.exports.${_key[3]} = ${_key[3]};`);
         }
     }
-    const header = cfonts.render('model.js', {
+    const header = cfonts.render('model', {
         font: 'simple',              // define the font face
         align: 'left',              // define text alignment
         colors: ['system'],         // define all colors

@@ -25,7 +25,7 @@ async function prerequisite(specification: Specification, options: options) {
             return 'KILL';
         }
     }
-    
+
     if (true) {
         if (conf.permission.length != 0) {
             if (req['_'].user.login) {
@@ -82,7 +82,6 @@ async function prerequisite(specification: Specification, options: options) {
             }
         }
     }
-
 }
 
 export default prerequisite;

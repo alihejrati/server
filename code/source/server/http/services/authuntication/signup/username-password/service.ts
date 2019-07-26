@@ -5,10 +5,10 @@ async function service(req, res, next, options: options) {
     const err = {};
     
     if (username && password) {
-        const Role = await mongodb.insert('role', { name: username }, { errorHandler: error => err['errorRole'] = error }) || {};
-        const View = await mongodb.insert('view', { name: username }, { errorHandler: error => err['errorView'] = error }) || {};
+        const Role = await mongodb.insert('role', { name: username }, { errorHandler: error => err['errorRole'] = error });
+        const View = await mongodb.insert('view', { name: username }, { errorHandler: error => err['errorView'] = error });
 
-        if (!err['errorRole'] && !err['errorView']) {
+        if (Role && View && !err['errorRole'] && !err['errorView']) {
             const user = await mongodb.insert('user', {
                 username: username,
                 password: password,
@@ -20,7 +20,7 @@ async function service(req, res, next, options: options) {
                 delete user['password'];
                 await response.attach(user, req, res);
             } else {
-                options['service'].code(err['error'].pure.code);
+                options['service'].code(err['error'].code);
                 await response.attach(err['error'], req, res);
             }
         } else {

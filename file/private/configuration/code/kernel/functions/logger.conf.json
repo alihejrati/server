@@ -1,5 +1,5 @@
 {
-    "CONNECTION": "mongodb://localhost:27017/db",
+    "CONNECTION": "mongodb://localhost:27017/SERVER#db",
     "CATEGORY": "log",
     "enable": true,
     "map": {
