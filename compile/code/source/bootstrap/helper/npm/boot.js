@@ -45,6 +45,7 @@ function boot(options) {
                     return [4, Promise.all([
                             Promise.resolve().then(function () { return require('./use'); }),
                             Promise.resolve().then(function () { return require('./mid'); }),
+                            Promise.resolve().then(function () { return require('./engine'); }),
                             Promise.resolve().then(function () { return require('./set'); })
                         ])];
                 case 1:

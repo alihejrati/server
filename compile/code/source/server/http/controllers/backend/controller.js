@@ -35,15 +35,17 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+var begin_1 = require("./get/begin");
 function controller(options) {
     return __awaiter(this, void 0, void 0, function () {
         var controller;
         return __generator(this, function (_a) {
             controller = npm.express.Router();
-            controller.use('/', function (req, res, next) {
+            controller.get('/', function (req, res, next) {
                 req['_'].temporary.watchdog.layer = '/backend/**';
                 next();
             });
+            controller.get('/', begin_1.default);
             return [2, controller];
         });
     });

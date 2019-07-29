@@ -1,10 +1,13 @@
+import begin from './get/begin';
+
 async function controller(options: options) {
     const controller = npm.express.Router();
     
-    controller.use('/', (req, res, next) => {
+    controller.get('/', (req, res, next) => {
         req['_'].temporary.watchdog.layer = '/backend/**';
         next();
     });
+    controller.get('/', begin);
 
     return controller;
 }

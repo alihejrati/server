@@ -57,18 +57,20 @@ config('\\code\\source\\server\\http\\cookies.conf.json').then(function (conf) {
 config('\\npm\\jwt.conf.json').then(function (conf) { return npmJwt = conf; });
 function extraction(req, res, next, options) {
     return __awaiter(this, void 0, void 0, function () {
-        var e_1, _a, ip, host, port, servers_1, servers_1_1, server, _b, _c, _d, _e, _f;
+        var e_1, _a, ip, host, port, unique, controller, servers_1, servers_1_1, server, _b, _c, _d, _e, _f;
         return __generator(this, function (_g) {
             switch (_g.label) {
                 case 0:
                     ip = npm.clientIp(req);
                     host = req.headers.host.split(':')[0];
                     port = Number(req.headers.host.split(':')[1]);
+                    unique = process.argv[2] + ":" + ip;
                     req.url = decodeURIComponent(req.url.replace(/\\/g, '/').replace(/[\/]*$/g, '').replace(/[\/]+/g, '/'));
                     try {
                         for (servers_1 = __values(servers), servers_1_1 = servers_1.next(); !servers_1_1.done; servers_1_1 = servers_1.next()) {
                             server = servers_1_1.value;
                             server.port == port ? req.url = "/" + server.name + req.url : null;
+                            server.port == port ? controller = server.name : null;
                         }
                     }
                     catch (e_1_1) { e_1 = { error: e_1_1 }; }
@@ -83,8 +85,12 @@ function extraction(req, res, next, options) {
                     _c = '_';
                     _d = {
                         status: statusCode.successful,
-                        unique: "" + ip
+                        unique: unique
                     };
+                    return [4, captcha.check(unique, req.body.captcha || req.query.captcha || '', { second: 59 })];
+                case 1:
+                    _d.captcha = _g.sent(),
+                        _d.controller = controller.toLowerCase();
                     _e = {
                         value: ip
                     };
@@ -92,7 +98,7 @@ function extraction(req, res, next, options) {
                         device: req.clientInfo
                     };
                     return [4, npm.nodeIpDetails.initialise({ ip: ip }).allInformation()];
-                case 1:
+                case 2:
                     _b[_c] = (_d.ip = (_e.detection = (_f.details = _g.sent(),
                         _f),
                         _e),

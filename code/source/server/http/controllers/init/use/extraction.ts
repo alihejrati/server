@@ -14,16 +14,21 @@ async function extraction(req, res, next, options: options) {
     const ip = npm.clientIp(req);
     const host = req.headers.host.split(':')[0];
     const port = Number(req.headers.host.split(':')[1]);
+    const unique = `${process.argv[2]}:${ip}`; // customizable!
+    let controller;
 
     req.url = decodeURIComponent(req.url.replace(/\\/g, '/').replace(/[\/]*$/g, '').replace(/[\/]+/g, '/'));
     for (const server of servers) {
         server.port == port ? req.url = `/${server.name}${req.url}` : null;
+        server.port == port ? controller = server.name : null;
     }
     req.url = router[req.url] || req.url;
-    
+
     req['_'] = {
         status: statusCode.successful,
-        unique: `${ip}`, // customizable!
+        unique: unique, // customizable!
+        captcha: await captcha.check(unique, req.body.captcha  || req.query.captcha || '', {second: 59}),
+        controller: controller.toLowerCase(),
         ip: {
             value: ip,
             detection: {

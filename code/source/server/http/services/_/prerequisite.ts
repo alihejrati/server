@@ -1,5 +1,6 @@
 async function prerequisite(specification: Specification, options: options) {
     const req = specification.function.parameters[specification.function.arguments.indexOf('req')];
+    const res = specification.function.parameters[specification.function.arguments.indexOf('res')];
     const service = specification.function.parameters[specification.function.arguments.indexOf('options')].service;
     const conf = await config(`\\code\\source\\server\\http\\service${service.name.replace(/\//g, '\\')}\\service.conf.json`) || {};
     const status = req['_'].carry.config.statusCode;
@@ -7,6 +8,29 @@ async function prerequisite(specification: Specification, options: options) {
     req['_'].service.code[serviceIndex] = status.successful;
     conf.method = Array.isArray(conf.method) ? conf.method : ['*']; 
     conf.permission = Array.isArray(conf.permission) ? conf.permission : []; 
+    conf.controller = Array.isArray(conf.controller) ? conf.controller : ['*'];
+    conf.captcha = conf.captcha === true;
+    conf.enable = conf.enable === true;
+    
+
+    if (true) {
+        for (let index = 0; index < conf.controller.length; index++) {
+            conf.controller[index] = conf.controller[index].toLowerCase();
+        }
+        if (conf.controller.indexOf(req['_'].controller) >= 0 || conf.controller.indexOf('*') >= 0) {
+            // ok!
+        } else {
+            req['_'].service.code[serviceIndex] = status.badRequest;
+            console.log['warn']({
+                tag: 'service/badRequest',
+                req: {
+                    _: req['_']
+                }
+            });
+            await response.attach(null, req, res);
+            return 'KILL';
+        }
+    }
 
     if (true) {
         for (let index = 0; index < conf.method.length; index++) {
@@ -22,6 +46,41 @@ async function prerequisite(specification: Specification, options: options) {
                     _: req['_']
                 }
             });
+            await response.attach(null, req, res);
+            return 'KILL';
+        }
+    }
+
+    if (true) {
+        if (conf.captcha) {
+            if (req['_'].captcha) {
+                // ok!
+            } else {
+                req['_'].service.code[serviceIndex] = status.unprocessableEntity;
+                console.log['warn']({
+                    tag: 'service/captcha',
+                    req: {
+                        _: req['_']
+                    }
+                });
+                await response.attach(null, req, res);
+                return 'KILL';
+            }
+        }
+    }
+
+    if (true) {
+        if (conf.enable) {
+            // ok!
+        } else {
+            req['_'].service.code[serviceIndex] = status.unavailableForLegalReasons;
+            console.log['warn']({
+                tag: 'service/unavailableForLegalReasons',
+                req: {
+                    _: req['_']
+                }
+            });
+            await response.attach(null, req, res);
             return 'KILL';
         }
     }
@@ -51,6 +110,7 @@ async function prerequisite(specification: Specification, options: options) {
                                 _: req['_']
                             }
                         });
+                        await response.attach(null, req, res);
                         return 'KILL';
                     }
                 } else {
@@ -68,6 +128,7 @@ async function prerequisite(specification: Specification, options: options) {
                             _: req['_']
                         }
                     });
+                    await response.attach(null, req, res);
                     return 'KILL';
                 } 
             } else {
@@ -78,6 +139,7 @@ async function prerequisite(specification: Specification, options: options) {
                         _: req['_']
                     }
                 });
+                await response.attach(null, req, res);
                 return 'KILL';
             }
         }

@@ -1,6 +1,8 @@
 async function hell(req, res, next, options: options) {
-    res.send({
-        _: req['_'],
+    await view.send('/basic', '/t1/t2', req, res, {
+        variables: {
+            _: req['_']
+        }
     });
 }
 

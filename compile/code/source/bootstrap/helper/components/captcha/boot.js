@@ -36,11 +36,13 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var create_1 = require("../../../../components/captcha/create");
+var check_1 = require("../../../../components/captcha/check");
 function boot(options) {
     return __awaiter(this, void 0, void 0, function () {
         return __generator(this, function (_a) {
             global.captcha = {
-                create: create_1.default
+                create: create_1.default,
+                check: check_1.default
             };
             return [2];
         });

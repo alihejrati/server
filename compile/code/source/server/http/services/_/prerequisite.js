@@ -47,11 +47,12 @@ var __values = (this && this.__values) || function (o) {
 Object.defineProperty(exports, "__esModule", { value: true });
 function prerequisite(specification, options) {
     return __awaiter(this, void 0, void 0, function () {
-        var e_1, _a, req, service, conf, status, serviceIndex, index, permissions, role, repair, _b, _c, name_1;
+        var e_1, _a, req, res, service, conf, status, serviceIndex, index, index, permissions, role, repair, _b, _c, name_1;
         return __generator(this, function (_d) {
             switch (_d.label) {
                 case 0:
                     req = specification.function.parameters[specification.function.arguments.indexOf('req')];
+                    res = specification.function.parameters[specification.function.arguments.indexOf('res')];
                     service = specification.function.parameters[specification.function.arguments.indexOf('options')].service;
                     return [4, config("\\code\\source\\server\\http\\service" + service.name.replace(/\//g, '\\') + "\\service.conf.json")];
                 case 1:
@@ -61,56 +62,115 @@ function prerequisite(specification, options) {
                     req['_'].service.code[serviceIndex] = status.successful;
                     conf.method = Array.isArray(conf.method) ? conf.method : ['*'];
                     conf.permission = Array.isArray(conf.permission) ? conf.permission : [];
-                    if (true) {
-                        for (index = 0; index < conf.method.length; index++) {
-                            conf.method[index] = conf.method[index].toLowerCase();
-                        }
-                        if (conf.method.indexOf(req['_'].route.method) >= 0 || conf.method.indexOf('*') >= 0) {
-                        }
-                        else {
-                            req['_'].service.code[serviceIndex] = status.methodNotAllowed;
-                            console.log['warn']({
-                                tag: 'service/methodNotAllowed',
-                                req: {
-                                    _: req['_']
-                                }
-                            });
-                            return [2, 'KILL'];
-                        }
+                    conf.controller = Array.isArray(conf.controller) ? conf.controller : ['*'];
+                    conf.captcha = conf.captcha === true;
+                    conf.enable = conf.enable === true;
+                    if (!true) return [3, 4];
+                    for (index = 0; index < conf.controller.length; index++) {
+                        conf.controller[index] = conf.controller[index].toLowerCase();
                     }
+                    if (!(conf.controller.indexOf(req['_'].controller) >= 0 || conf.controller.indexOf('*') >= 0)) return [3, 2];
+                    return [3, 4];
+                case 2:
+                    req['_'].service.code[serviceIndex] = status.badRequest;
+                    console.log['warn']({
+                        tag: 'service/badRequest',
+                        req: {
+                            _: req['_']
+                        }
+                    });
+                    return [4, response.attach(null, req, res)];
+                case 3:
+                    _d.sent();
+                    return [2, 'KILL'];
+                case 4:
                     if (!true) return [3, 7];
-                    if (!(conf.permission.length != 0)) return [3, 7];
-                    if (!req['_'].user.login) return [3, 6];
+                    for (index = 0; index < conf.method.length; index++) {
+                        conf.method[index] = conf.method[index].toLowerCase();
+                    }
+                    if (!(conf.method.indexOf(req['_'].route.method) >= 0 || conf.method.indexOf('*') >= 0)) return [3, 5];
+                    return [3, 7];
+                case 5:
+                    req['_'].service.code[serviceIndex] = status.methodNotAllowed;
+                    console.log['warn']({
+                        tag: 'service/methodNotAllowed',
+                        req: {
+                            _: req['_']
+                        }
+                    });
+                    return [4, response.attach(null, req, res)];
+                case 6:
+                    _d.sent();
+                    return [2, 'KILL'];
+                case 7:
+                    if (!true) return [3, 10];
+                    if (!conf.captcha) return [3, 10];
+                    if (!req['_'].captcha) return [3, 8];
+                    return [3, 10];
+                case 8:
+                    req['_'].service.code[serviceIndex] = status.unprocessableEntity;
+                    console.log['warn']({
+                        tag: 'service/captcha',
+                        req: {
+                            _: req['_']
+                        }
+                    });
+                    return [4, response.attach(null, req, res)];
+                case 9:
+                    _d.sent();
+                    return [2, 'KILL'];
+                case 10:
+                    if (!true) return [3, 13];
+                    if (!conf.enable) return [3, 11];
+                    return [3, 13];
+                case 11:
+                    req['_'].service.code[serviceIndex] = status.unavailableForLegalReasons;
+                    console.log['warn']({
+                        tag: 'service/unavailableForLegalReasons',
+                        req: {
+                            _: req['_']
+                        }
+                    });
+                    return [4, response.attach(null, req, res)];
+                case 12:
+                    _d.sent();
+                    return [2, 'KILL'];
+                case 13:
+                    if (!true) return [3, 24];
+                    if (!(conf.permission.length != 0)) return [3, 24];
+                    if (!req['_'].user.login) return [3, 22];
                     return [4, mongodb.find('permission', {
                             name: {
                                 $in: conf.permission
                             }
                         }, { select: { _id: 1 } })];
-                case 2:
+                case 14:
                     permissions = _d.sent();
-                    if (!(permissions && permissions.length == conf.permission.length)) return [3, 4];
+                    if (!(permissions && permissions.length == conf.permission.length)) return [3, 19];
                     return [4, mongodb.findOne('role', {
                             _id: req['_'].user.who.role,
                             permission: {
                                 $all: permissions
                             }
                         }, { select: { _id: 1 } })];
-                case 3:
+                case 15:
                     role = _d.sent();
-                    if (role && role._id == req['_'].user.who.role) {
-                    }
-                    else {
-                        req['_'].service.code[serviceIndex] = status.forbidden;
-                        console.log['warn']({
-                            tag: 'service/forbidden',
-                            req: {
-                                _: req['_']
-                            }
-                        });
-                        return [2, 'KILL'];
-                    }
-                    return [3, 5];
-                case 4:
+                    if (!(role && role._id == req['_'].user.who.role)) return [3, 16];
+                    return [3, 18];
+                case 16:
+                    req['_'].service.code[serviceIndex] = status.forbidden;
+                    console.log['warn']({
+                        tag: 'service/forbidden',
+                        req: {
+                            _: req['_']
+                        }
+                    });
+                    return [4, response.attach(null, req, res)];
+                case 17:
+                    _d.sent();
+                    return [2, 'KILL'];
+                case 18: return [3, 21];
+                case 19:
                     repair = [];
                     try {
                         for (_b = __values(conf.permission), _c = _b.next(); !_c.done; _c = _b.next()) {
@@ -135,9 +195,12 @@ function prerequisite(specification, options) {
                             _: req['_']
                         }
                     });
+                    return [4, response.attach(null, req, res)];
+                case 20:
+                    _d.sent();
                     return [2, 'KILL'];
-                case 5: return [3, 7];
-                case 6:
+                case 21: return [3, 24];
+                case 22:
                     req['_'].service.code[serviceIndex] = status.unauthorized;
                     console.log['warn']({
                         tag: 'service/unauthorized',
@@ -145,8 +208,11 @@ function prerequisite(specification, options) {
                             _: req['_']
                         }
                     });
+                    return [4, response.attach(null, req, res)];
+                case 23:
+                    _d.sent();
                     return [2, 'KILL'];
-                case 7: return [2];
+                case 24: return [2];
             }
         });
     });

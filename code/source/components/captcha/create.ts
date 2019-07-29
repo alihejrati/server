@@ -5,7 +5,7 @@ async function create(key: string, options: options) {
 
     mongodb.insert('captcha', {
         key: key,
-        text: captcha.text
+        value: captcha.text
     }); /* async */
 
     return captcha.data;

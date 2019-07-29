@@ -66,15 +66,21 @@ function serve(req, res, next, options) {
                                             return __awaiter(this, void 0, void 0, function () {
                                                 var serviceIndex;
                                                 return __generator(this, function (_a) {
-                                                    serviceIndex = req['_'].service.discovery.indexOf(service);
-                                                    req['_'].service.code[serviceIndex] = status.serviceUnavailable;
-                                                    console.log['warn']({
-                                                        tag: 'service/unavailable',
-                                                        req: {
-                                                            _: req['_']
-                                                        }
-                                                    });
-                                                    return [2];
+                                                    switch (_a.label) {
+                                                        case 0:
+                                                            serviceIndex = req['_'].service.discovery.indexOf(service);
+                                                            req['_'].service.code[serviceIndex] = status.serviceUnavailable;
+                                                            console.log['warn']({
+                                                                tag: 'service/unavailable',
+                                                                req: {
+                                                                    _: req['_']
+                                                                }
+                                                            });
+                                                            return [4, response.attach(null, req, res)];
+                                                        case 1:
+                                                            _a.sent();
+                                                            return [2];
+                                                    }
                                                 });
                                             });
                                         }

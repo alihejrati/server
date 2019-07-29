@@ -14,6 +14,7 @@ async function serve(req, res, next, options: options) {
                         _: req['_']
                     }
                 });
+                await response.attach(null, req, res);
             }
         };
         await serviceModule.default(req, res, next, {

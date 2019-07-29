@@ -15,4 +15,8 @@ npm.app.use(npm.cookieParser());
 npm.app.use(npm.expressip().getIpInfoMiddleware);
 npm.app.use(npm.expressNoFavicons());
 npm.app.use(npm.ipDeviceParser());
+npm.app.use(npm.methodOverride());
+npm.app.use(function (err, req, res, next) { return next(err); });
+npm.app.use(function (err, req, res, next) { return req.xhr ? res.status(500).send({ error: 'Something failed!' }) : next(err); });
+npm.app.use(function (err, req, res, next) { return res.status(500).render('error/handler', { error: err }); });
 exports.default = undefined;

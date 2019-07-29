@@ -79,7 +79,7 @@ function router(options) {
                 case 3:
                     if (!!controllers_1_1.done) return [3, 7];
                     controller = controllers_1_1.value;
-                    return [4, Import("/code/source/server/http/controllers/" + controller.name + "/controller")];
+                    return [4, Import("/code/source/server/http/controllers/" + controller.name + "/controller.ts")];
                 case 4:
                     controllerFunction = _e.sent();
                     _c = (_b = npm.app).use;

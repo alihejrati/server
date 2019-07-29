@@ -5,6 +5,7 @@ async function boot(options: options) {
     await Promise.all([
         import('./use'),
         import('./mid'),
+        import('./engine'),
         import('./set')
     ]);
 }

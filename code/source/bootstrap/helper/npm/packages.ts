@@ -36,11 +36,19 @@ import * as asyncWare from 'async-ware';
 import * as clientIp from 'client-ip';
 import * as ipDeviceParser from 'ip-device-parser';
 import * as nodeIpDetails from 'node-ip-details';
+import * as ejsMate from 'ejs-mate';
+import * as expressExceptionHandler from 'express-exception-handler';
+import * as methodOverride from 'method-override';
+import * as dateTimestampDiff from 'date-timestamp-diff';
+
 
 const app = express();
 const server = require('http').createServer;
 const socketioWildcard = require('socketio-wildcard');
 const fastMongoose = require('fast-mongoose');
+const expressUrlrewrite = require('express-urlrewrite');
+
+expressExceptionHandler.handle();
 
 export {
     app,
@@ -84,5 +92,10 @@ export {
     fastMongoose,
     clientIp,
     ipDeviceParser,
-    nodeIpDetails
+    nodeIpDetails,
+    expressUrlrewrite,
+    ejsMate,
+    expressExceptionHandler,
+    methodOverride,
+    dateTimestampDiff
 };

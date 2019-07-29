@@ -1,0 +1,12 @@
+{
+    "key": {
+        "type": "String",
+        "index": true,
+        "required": true
+    },
+    "value": {
+        "type": "String",
+        "index": true,
+        "required": true
+    }
+}

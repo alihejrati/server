@@ -21,7 +21,7 @@ async function router(options: options) {
     });
 
     for (const controller of controllers) {
-        const controllerFunction = await Import(`/code/source/server/http/controllers/${controller.name}/controller`);
+        const controllerFunction = await Import(`/code/source/server/http/controllers/${controller.name}/controller.ts`);
         npm.app.use(`${controller.path ? controller.path : '/' + controller.name}`, await controllerFunction.default());
     }
 }

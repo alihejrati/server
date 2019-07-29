@@ -38,10 +38,16 @@ Object.defineProperty(exports, "__esModule", { value: true });
 function hell(req, res, next, options) {
     return __awaiter(this, void 0, void 0, function () {
         return __generator(this, function (_a) {
-            res.send({
-                _: req['_'],
-            });
-            return [2];
+            switch (_a.label) {
+                case 0: return [4, view.send('/basic', '/t1/t2', req, res, {
+                        variables: {
+                            _: req['_']
+                        }
+                    })];
+                case 1:
+                    _a.sent();
+                    return [2];
+            }
         });
     });
 }

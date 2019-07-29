@@ -44,7 +44,7 @@ function create(key, options) {
             });
             mongodb.insert('captcha', {
                 key: key,
-                text: captcha.text
+                value: captcha.text
             });
             return [2, captcha.data];
         });
