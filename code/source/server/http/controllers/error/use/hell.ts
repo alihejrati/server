@@ -1,8 +1,8 @@
 async function hell(req, res, next, options: options) {
     await view.send('/basic', '/t1/t2', req, res, {
-        variables: {
+        variables: npm.jsonPrettyHtml.default({
             _: req['_']
-        }
+        })
     });
 }
 

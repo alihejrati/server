@@ -45,11 +45,13 @@ var __values = (this && this.__values) || function (o) {
     };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+var socket = {};
 var router = {};
 var servers = [];
 var statusCode = {};
 var cookies = {};
 var npmJwt = {};
+config('\\code\\source\\server\\socket\\listen.conf.json').then(function (conf) { return socket = conf; });
 config('\\code\\source\\server\\http\\router.conf.json').then(function (conf) { return router = conf; });
 config('\\code\\source\\server\\http\\listen.conf.json').then(function (conf) { return servers = conf; });
 config('\\code\\source\\server\\http\\status.conf.json').then(function (conf) { return statusCode = conf; });
@@ -135,6 +137,7 @@ function extraction(req, res, next, options) {
                         _d.response = [],
                         _d.carry = {
                             config: {
+                                socket: socket,
                                 servers: servers,
                                 statusCode: statusCode,
                                 cookies: cookies,

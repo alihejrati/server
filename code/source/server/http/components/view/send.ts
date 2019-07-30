@@ -5,7 +5,8 @@ async function send(VIEW: string, PAGE: string, req, res, options: options) {
     let variables = {
         _layoutFile: '',
         captcha: '',
-        variables: npm.jsonPrettyHtml.default(options['variables'] || {})
+        _: req['_'],
+        variables: options['variables'] || {}
     };
 
     if (VIEW == '?') {

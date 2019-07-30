@@ -1,7 +1,17 @@
 import router from './router';
 
 async function connection(options: options) {
-    const Router = await router();
+    const Connect = await router({
+        connect: Import('/code/source/server/socket/controllers/connect/controller.ts')
+    });
+    const Router = await router({
+        init: Import('/code/source/server/socket/controllers/init/controller.ts'),
+        service: Import('/code/source/server/socket/controllers/service/controller.ts'),
+        error: Import('/code/source/server/socket/controllers/error/controller.ts')
+    });
+    const Disconnect = await router({
+        disconnect: Import('/code/source/server/socket/controllers/disconnect/controller.ts')
+    });
     
     semaphore.on('/server/socket/ready', () => {
         const io = npm.socketIo(npm.server);
@@ -9,12 +19,12 @@ async function connection(options: options) {
         io.use(npm.socketioWildcard());
 
         io.on('connection', (socket) => {
-            Router(socket, 'connection', null);
+            Connect(socket, 'connection', null);
             socket.on('*', (event, message) => {
                 Router(socket, event, message);
             });
             socket.on('disconnect', (event) => {
-                Router(socket, event || 'disconnect', null)
+                Disconnect(socket, event || 'disconnect', null)
             });
         });
     });

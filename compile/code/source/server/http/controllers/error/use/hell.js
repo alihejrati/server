@@ -40,9 +40,9 @@ function hell(req, res, next, options) {
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0: return [4, view.send('/basic', '/t1/t2', req, res, {
-                        variables: {
+                        variables: npm.jsonPrettyHtml.default({
                             _: req['_']
-                        }
+                        })
                     })];
                 case 1:
                     _a.sent();

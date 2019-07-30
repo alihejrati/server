@@ -1,9 +1,11 @@
+let socket: any = {};     
 let router: any = {};     
 let servers: any = [];    
 let statusCode: any = {}; 
 let cookies: any = {};    
 let npmJwt: any = {};     
 
+config('\\code\\source\\server\\socket\\listen.conf.json').then(conf => socket = conf);
 config('\\code\\source\\server\\http\\router.conf.json').then(conf => router = conf);
 config('\\code\\source\\server\\http\\listen.conf.json').then(conf => servers = conf);
 config('\\code\\source\\server\\http\\status.conf.json').then(conf => statusCode = conf);
@@ -69,6 +71,7 @@ async function extraction(req, res, next, options: options) {
         response: [],
         carry: {
             config: {
+                socket: socket,
                 servers: servers,
                 statusCode: statusCode,
                 cookies: cookies,

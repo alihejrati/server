@@ -35,19 +35,13 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+var test_1 = require("./use/test");
 function controller(controller, options) {
     return __awaiter(this, void 0, void 0, function () {
-        var _this = this;
         return __generator(this, function (_a) {
-            controller.use(function (socket, event, message, next) { return __awaiter(_this, void 0, void 0, function () {
-                return __generator(this, function (_a) {
-                    console.log['fatal']('socket hooooooooooooooo!!');
-                    next();
-                    return [2];
-                });
-            }); });
+            controller.use(test_1.default);
             return [2, controller];
         });
     });
 }
-exports.default = callback(controller);
+exports.default = controller;

@@ -1,11 +1,10 @@
+import test from './use/test';
+
 async function controller(controller, options: options) {
 
-    controller.use(async (socket: SocketIO.Socket, event, message, next) => {
-        console.log['fatal']('socket hooooooooooooooo!! 2');
-        next();
-    });
+    controller.use(test);
 
     return controller;
 }
 
-export default callback(controller);
+export default controller;

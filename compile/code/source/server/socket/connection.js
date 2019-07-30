@@ -38,22 +38,36 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var router_1 = require("./router");
 function connection(options) {
     return __awaiter(this, void 0, void 0, function () {
-        var Router;
+        var Connect, Router, Disconnect;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4, router_1.default()];
+                case 0: return [4, router_1.default({
+                        connect: Import('/code/source/server/socket/controllers/connect/controller.ts')
+                    })];
                 case 1:
+                    Connect = _a.sent();
+                    return [4, router_1.default({
+                            init: Import('/code/source/server/socket/controllers/init/controller.ts'),
+                            service: Import('/code/source/server/socket/controllers/service/controller.ts'),
+                            error: Import('/code/source/server/socket/controllers/error/controller.ts')
+                        })];
+                case 2:
                     Router = _a.sent();
+                    return [4, router_1.default({
+                            disconnect: Import('/code/source/server/socket/controllers/disconnect/controller.ts')
+                        })];
+                case 3:
+                    Disconnect = _a.sent();
                     semaphore.on('/server/socket/ready', function () {
                         var io = npm.socketIo(npm.server);
                         io.use(npm.socketioWildcard());
                         io.on('connection', function (socket) {
-                            Router(socket, 'connection', null);
+                            Connect(socket, 'connection', null);
                             socket.on('*', function (event, message) {
                                 Router(socket, event, message);
                             });
                             socket.on('disconnect', function (event) {
-                                Router(socket, event || 'disconnect', null);
+                                Disconnect(socket, event || 'disconnect', null);
                             });
                         });
                     });

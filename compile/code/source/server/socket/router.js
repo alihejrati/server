@@ -34,43 +34,56 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-var __read = (this && this.__read) || function (o, n) {
-    var m = typeof Symbol === "function" && o[Symbol.iterator];
-    if (!m) return o;
-    var i = m.call(o), r, ar = [], e;
-    try {
-        while ((n === void 0 || n-- > 0) && !(r = i.next()).done) ar.push(r.value);
-    }
-    catch (error) { e = { error: error }; }
-    finally {
-        try {
-            if (r && !r.done && (m = i["return"])) m.call(i);
+var __values = (this && this.__values) || function (o) {
+    var m = typeof Symbol === "function" && o[Symbol.iterator], i = 0;
+    if (m) return m.call(o);
+    return {
+        next: function () {
+            if (o && i >= o.length) o = void 0;
+            return { value: o && o[i++], done: !o };
         }
-        finally { if (e) throw e.error; }
-    }
-    return ar;
+    };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var controller_1 = require("./controllers/init/controller");
-var controller_2 = require("./controllers/service/controller");
-var controller_3 = require("./controllers/error/controller");
-function router(options) {
+function router(controllers, options) {
     return __awaiter(this, void 0, void 0, function () {
-        var controller, _a, initController, serviceController, errorController;
-        return __generator(this, function (_b) {
-            switch (_b.label) {
+        var e_1, _a, controller, lastController, _b, _c, controllerName, controllerFunction, e_1_1;
+        return __generator(this, function (_d) {
+            switch (_d.label) {
                 case 0:
                     controller = new npm.asyncWare();
-                    return [4, Promise.all([
-                            controller_1.default(controller),
-                            controller_2.default(controller),
-                            controller_3.default(controller)
-                        ])];
+                    _d.label = 1;
                 case 1:
-                    _a = __read.apply(void 0, [_b.sent(), 3]), initController = _a[0], serviceController = _a[1], errorController = _a[2];
-                    return [2, function (socket, event, message) {
-                            errorController.run(socket, event, message);
-                        }];
+                    _d.trys.push([1, 7, 8, 9]);
+                    _b = __values(Object.keys(controllers)), _c = _b.next();
+                    _d.label = 2;
+                case 2:
+                    if (!!_c.done) return [3, 6];
+                    controllerName = _c.value;
+                    return [4, controllers[controllerName]];
+                case 3:
+                    controllerFunction = _d.sent();
+                    return [4, controllerFunction.default(controller)];
+                case 4:
+                    lastController = _d.sent();
+                    _d.label = 5;
+                case 5:
+                    _c = _b.next();
+                    return [3, 2];
+                case 6: return [3, 9];
+                case 7:
+                    e_1_1 = _d.sent();
+                    e_1 = { error: e_1_1 };
+                    return [3, 9];
+                case 8:
+                    try {
+                        if (_c && !_c.done && (_a = _b.return)) _a.call(_b);
+                    }
+                    finally { if (e_1) throw e_1.error; }
+                    return [7];
+                case 9: return [2, function (socket, event, message) {
+                        lastController.run(socket, event, message);
+                    }];
             }
         });
     });

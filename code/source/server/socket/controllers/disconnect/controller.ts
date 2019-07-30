@@ -1,8 +1,8 @@
-import test from './use/test';
+import hell from './use/hell';
 
 async function controller(controller, options: options) {
     
-    controller.use(test);
+    controller.use(hell);
     
     return controller;
 }
