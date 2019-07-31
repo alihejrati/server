@@ -38,6 +38,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var distinct_1 = require("../../../../components/model/mongodb/distinct");
 var find_1 = require("../../../../components/model/mongodb/find");
 var find_by_id_and_update_1 = require("../../../../components/model/mongodb/find-by-id-and-update");
+var find_one_and_update_1 = require("../../../../components/model/mongodb/find-one-and-update");
 var find_one_1 = require("../../../../components/model/mongodb/find-one");
 var insert_1 = require("../../../../components/model/mongodb/insert");
 var insert_many_1 = require("../../../../components/model/mongodb/insert-many");
@@ -52,6 +53,7 @@ function boot(options) {
                 distinct: distinct_1.default,
                 find: find_1.default,
                 findByIdAndUpdate: find_by_id_and_update_1.default,
+                findOneAndUpdate: find_one_and_update_1.default,
                 findOne: find_one_1.default,
                 insert: insert_1.default,
                 insertMany: insert_many_1.default

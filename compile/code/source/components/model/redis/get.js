@@ -45,6 +45,7 @@ function get(key, options) {
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
+                    key = key.replace(/\:null\:/g, ":" + process.argv[2] + ":");
                     database = options['database'] || 'db';
                     Model = model[database];
                     return [4, new Promise(function (resolve, reject) {

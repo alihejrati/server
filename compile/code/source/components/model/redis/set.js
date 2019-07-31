@@ -45,6 +45,7 @@ function set(key, value, options) {
         return __generator(this, function (_b) {
             switch (_b.label) {
                 case 0:
+                    key = key.replace(/\:null\:/g, ":" + process.argv[2] + ":");
                     database = options['database'] || 'db';
                     Model = model[database];
                     try {

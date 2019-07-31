@@ -56,7 +56,7 @@ function set(key, value, req, res, options) {
                     if (_b) return [3, 4];
                     _c = !req['_'].cookie;
                     if (!_c) return [3, 3];
-                    return [4, redis.get(hash, req, res)];
+                    return [4, redis.get(hash)];
                 case 2:
                     _c = !(_d.sent());
                     _d.label = 3;

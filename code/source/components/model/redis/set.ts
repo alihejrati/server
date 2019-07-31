@@ -5,6 +5,7 @@ let jwt: any = {};
 config('\\npm\\jwt.conf.json').then(conf => jwt = conf);
 
 async function set(key: string, value: any, options: options) {
+    key = key.replace(/\:null\:/g, `:${process.argv[2]}:`);
     const database = options['database'] || 'db';
     const Model = model[database];
     try {

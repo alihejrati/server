@@ -12,7 +12,7 @@ async function set(key: string, value, req, res, options: options) {
     if (
         (req['_'].cookie)
         ||
-        (!req['_'].cookie && !(await redis.get(hash, req, res)))
+        (!req['_'].cookie && !(await redis.get(hash)))
         ) {
         const code = await redis.set(`cookie:null:${hash}`, encode);
         if (code) {

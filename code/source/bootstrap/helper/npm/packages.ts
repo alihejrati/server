@@ -40,6 +40,8 @@ import * as ejsMate from 'ejs-mate';
 import * as expressExceptionHandler from 'express-exception-handler';
 import * as methodOverride from 'method-override';
 import * as dateTimestampDiff from 'date-timestamp-diff';
+import * as socketIoCookie from 'socket.io-cookie';
+import * as cookie from 'cookie';
 
 
 const app = express();
@@ -97,5 +99,7 @@ export {
     ejsMate,
     expressExceptionHandler,
     methodOverride,
-    dateTimestampDiff
+    dateTimestampDiff,
+    socketIoCookie,
+    cookie
 };

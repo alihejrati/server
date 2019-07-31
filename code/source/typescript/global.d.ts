@@ -11,6 +11,7 @@ declare module NodeJS {
             distinct: typeof import('../../source/components/model/mongodb/distinct').default,  
             find: typeof import('../../source/components/model/mongodb/find').default,     
             findByIdAndUpdate: typeof import('../../source/components/model/mongodb/find-by-id-and-update').default,
+            findOneAndUpdate: typeof import('../../source/components/model/mongodb/find-one-and-update').default,
             findOne: typeof import('../../source/components/model/mongodb/find-one').default,
             insert: typeof import('../../source/components/model/mongodb/insert').default,
             insertMany: typeof import('../../source/components/model/mongodb/insert-many').default
@@ -39,6 +40,7 @@ declare const mongodb: {
     distinct: typeof import('../../source/components/model/mongodb/distinct').default,  
     find: typeof import('../../source/components/model/mongodb/find').default,     
     findByIdAndUpdate: typeof import('../../source/components/model/mongodb/find-by-id-and-update').default,
+    findOneAndUpdate: typeof import('../../source/components/model/mongodb/find-one-and-update').default,
     findOne: typeof import('../../source/components/model/mongodb/find-one').default,
     insert: typeof import('../../source/components/model/mongodb/insert').default,
     insertMany: typeof import('../../source/components/model/mongodb/insert-many').default

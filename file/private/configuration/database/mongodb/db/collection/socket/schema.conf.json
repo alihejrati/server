@@ -1,0 +1,18 @@
+{
+    "state": {
+        "type": "String",
+        "enum" : ["connect", "disconnect"],
+        "index": true,
+        "required": true
+    },
+    "socketId": {
+        "type": "String",
+        "index": true,
+        "unique": true,
+        "required": true
+    },
+    "_": {
+        "type": "Object",
+        "default": {}
+    }
+}

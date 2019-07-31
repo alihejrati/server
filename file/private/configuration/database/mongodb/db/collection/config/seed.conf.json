@@ -29,9 +29,23 @@
         }
     },
     {
+        "key": "\\code\\source\\server\\socket\\router.conf.json",
+        "value": {
+          "/تست2/تست": "/test/test2.php"
+        }
+    },
+    {
         "key": "\\code\\source\\server\\http\\cookies.conf.json",
         "value": {
-          "name": "SERVER:server/http"
+          "name": "SERVER:server/http",
+          "expire": 86400000
+        }
+    },
+    {
+        "key": "\\code\\source\\server\\socket\\cookies.conf.json",
+        "value": {
+          "name": "SERVER:server/socket",
+          "expire": 86400000
         }
     },
     {

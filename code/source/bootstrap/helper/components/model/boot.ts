@@ -1,6 +1,7 @@
 import distinct from '../../../../components/model/mongodb/distinct';
 import find from '../../../../components/model/mongodb/find';
 import findByIdAndUpdate from '../../../../components/model/mongodb/find-by-id-and-update';
+import findOneAndUpdate from '../../../../components/model/mongodb/find-one-and-update';
 import findOne from '../../../../components/model/mongodb/find-one';
 import insert from '../../../../components/model/mongodb/insert';
 import insertMany from '../../../../components/model/mongodb/insert-many';
@@ -15,6 +16,7 @@ async function boot(options: options) {
         distinct: distinct,  
         find: find,     
         findByIdAndUpdate: findByIdAndUpdate,
+        findOneAndUpdate: findOneAndUpdate,
         findOne: findOne,
         insert: insert,
         insertMany: insertMany
