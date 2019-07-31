@@ -14,6 +14,8 @@ async function service(req, res, next, options: options) {
                 const key = npm.objectHash(token);
                 const usr = await redis.set(`auth:null:${key}`, user);
                 if (usr) {
+                    req['_'].user.login = true;
+                    req['_'].user.who = user;
                     await cookie.set('token', token, req, res);
                     await response.attach({
                         token: token

@@ -1,10 +1,10 @@
 import extraction from './use/extraction';
-import hell from './use/hell';
+import authentication from './use/authentication';
 
 async function controller(controller, options: options) {
     
     controller.use(extraction);
-    controller.use(hell);
+    controller.use(authentication);
     
     return controller;
 }

@@ -59,6 +59,8 @@ function service(req, res, next, options) {
                 case 2:
                     usr = _d.sent();
                     if (!usr) return [3, 5];
+                    req['_'].user.login = true;
+                    req['_'].user.who = user;
                     return [4, cookie.set('token', token, req, res)];
                 case 3:
                     _d.sent();

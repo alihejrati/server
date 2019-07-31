@@ -1,4 +1,5 @@
 <script src="http://<%- _.carry.config.socket.host %>:<%- _.carry.config.socket.port %>/socket.io/socket.io.js"></script>
 <script>
     const socket = io("http://<%- _.carry.config.socket.host %>:<%- _.carry.config.socket.port %>"); 
+    socket.on('/response/connection', msg => alert(msg));
 </script>

@@ -12,6 +12,7 @@ async function extraction(socket: SocketIO.Socket, event, message, next, options
     const ip = socket.handshake.address;
     const socketId = socket.id;
     const unique = `${process.argv[2]}:${ip}`; // customizable!
+    npm.nodeIpDetails.initialise({ip: ip}).allInformation().then(details => socket['_'].ip.detection.details = details);
     
     socket['_'] = {
         status: statusCode.successful,
@@ -21,7 +22,7 @@ async function extraction(socket: SocketIO.Socket, event, message, next, options
         ip: {
             value: ip,
             detection: {
-                details: await npm.nodeIpDetails.initialise({ip: ip}).allInformation()
+                details: {} // Promise
             }
         },
         cookie: typeof npm.cookie.parse(socket.handshake.headers.cookie)[cookies.name] === 'string' ? npm.cookie.parse(socket.handshake.headers.cookie)[cookies.name] : '',

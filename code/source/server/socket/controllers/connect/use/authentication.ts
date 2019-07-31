@@ -14,7 +14,8 @@ async function authentication(socket: SocketIO.Socket, event, message, next, opt
         }
     }
 
-    next();
+    await mongodb.findOneAndUpdate('socket', {socketId: socket['_'].socketId.toString()}, {state: 'connect', _: socket['_']});
+    socket.emit('/response/connection', null);
 }
 
 export default callback(authentication);
