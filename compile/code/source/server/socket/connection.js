@@ -47,9 +47,7 @@ function connection(options) {
                 case 1:
                     Connect = _a.sent();
                     return [4, router_1.default({
-                            init: Import('/code/source/server/socket/controllers/init/controller.ts'),
-                            service: Import('/code/source/server/socket/controllers/service/controller.ts'),
-                            error: Import('/code/source/server/socket/controllers/error/controller.ts')
+                            service: Import('/code/source/server/socket/controllers/service/controller.ts')
                         })];
                 case 2:
                     Router = _a.sent();
@@ -63,8 +61,13 @@ function connection(options) {
                         io.use(npm.socketioWildcard());
                         io.on('connection', function (socket) {
                             Connect(socket, 'connection', null);
-                            socket.on('*', function (event, message) {
-                                Router(socket, event, message);
+                            socket.on('*', function (event) {
+                                if (event.data[0] && typeof event.data[0] === 'string' && /^\/service\//g.test(event.data[0])) {
+                                    var message = { head: event.data[0], tail: event.data.slice(1) };
+                                    var last = message.tail[message.tail.length - 1];
+                                    last && typeof last === 'object' && npm.isPlainObject(last) ? true : message.tail.push({});
+                                    Router(socket, event, message);
+                                }
                             });
                             socket.on('disconnect', function (event) {
                                 Disconnect(socket, event || 'disconnect', null);

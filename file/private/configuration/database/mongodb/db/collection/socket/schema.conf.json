@@ -11,8 +11,14 @@
         "unique": true,
         "required": true
     },
+    "event": {
+        "type": "Object"
+    },
+    "message": {
+        "type": "Object"
+    },
     "_": {
-        "type": "Object",
-        "default": {}
+        "type": "Array",
+        "default": []
     }
 }

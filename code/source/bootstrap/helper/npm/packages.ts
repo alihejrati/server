@@ -49,6 +49,7 @@ const server = require('http').createServer;
 const socketioWildcard = require('socketio-wildcard');
 const fastMongoose = require('fast-mongoose');
 const expressUrlrewrite = require('express-urlrewrite');
+const isPlainObject = require('is-plain-object');
 
 expressExceptionHandler.handle();
 
@@ -101,5 +102,6 @@ export {
     methodOverride,
     dateTimestampDiff,
     socketIoCookie,
-    cookie
+    cookie,
+    isPlainObject
 };

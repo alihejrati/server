@@ -1,45 +1,29 @@
 import * as currentDir from 'current-dir';
 import * as fileExists from 'file-exists';
+import * as directoryExists from 'directory-exists';
 
-async function fileExist(path: string) {
-    return fileExists.sync(`${currentDir()}/${path}`.replace(/\\/g, '/').replace(/\/+/g, '/'));
-}
-
-async function Import(path: string): Promise<any> {
+async function Import(path: string, tscFlag: boolean = true): Promise<any> {
+    let MODE = directoryExists(`${currentDir()}/compile`) ? 0 : 1;
     path = `/${path}`.replace(/\\/g, '/').replace(/\/+/g, '/');
-    let extensions = (path.split('/').pop() || '').split('.');
-    const filename = extensions.shift();
-    path = extensions.length == 0 ? `${path}.ts` : path;
-    extensions = extensions.length == 0 ? ['ts'] : extensions;
-    
-    if (extensions.length == 1) {
-        switch (extensions[0]) {
-            case 'ts':
-                let changedPath = path.replace(/\.ts$/g, '.js');
-                if (await fileExist(changedPath)) {
-                    path = changedPath;
-                } else {
-                    path = `/compile/${changedPath}`;
-                }
-                break;
-        
-            default:
-                break;
-        }
+    if (tscFlag) {
+        path = path.replace(/\.ts$/g, '.js');
+        path = MODE ? path : `/compile${path}`;
     }
 
-    if (await fileExist(path)) {
+    path = `${currentDir()}/${path}`.replace(/\\/g, '/').replace(/\/+/g, '/');
+
+    if (fileExists.sync(path)) {
         console.log['kernel/import']({
             level: 'trace',
-            path: `${currentDir()}/${path}`.replace(/\\/g, '/').replace(/\/+/g, '/')
+            path: path
         });
-        return import(`${currentDir()}/${path}`.replace(/\\/g, '/').replace(/\/+/g, '/'));   
+        return import(path); 
     } else {
         console.log['kernel/import']({
             level: 'warn',
-            path: `${currentDir()}/${path}`.replace(/\\/g, '/').replace(/\/+/g, '/')
+            path: path
         });
-        return undefined; 
+        return undefined;
     }
 }
 

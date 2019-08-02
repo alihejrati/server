@@ -1,5 +1,10 @@
 <script src="http://<%- _.carry.config.socket.host %>:<%- _.carry.config.socket.port %>/socket.io/socket.io.js"></script>
 <script>
     const socket = io("http://<%- _.carry.config.socket.host %>:<%- _.carry.config.socket.port %>"); 
-    socket.on('/response/connection', msg => alert(msg));
+    socket.on('/response/connection', msg => {
+        const captcha = msg.captcha;
+        $('#test').html(captcha);
+        socket.emit('/service/test/test2:/Auth/auth2:gg/2');
+        socket.on('/response/service/test/test2:/Auth/auth2:gg/2', msg => console.log('-------->', msg));
+    });
 </script>

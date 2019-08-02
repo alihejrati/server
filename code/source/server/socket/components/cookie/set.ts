@@ -25,4 +25,4 @@ async function set(key: string, value, socket, options: options) {
     }
 }
 
-export default callback(set);
+export default set;

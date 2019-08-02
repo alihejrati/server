@@ -98,4 +98,6 @@ var fastMongoose = require('fast-mongoose');
 exports.fastMongoose = fastMongoose;
 var expressUrlrewrite = require('express-urlrewrite');
 exports.expressUrlrewrite = expressUrlrewrite;
+var isPlainObject = require('is-plain-object');
+exports.isPlainObject = isPlainObject;
 expressExceptionHandler.handle();

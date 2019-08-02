@@ -37,60 +37,34 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var currentDir = require("current-dir");
 var fileExists = require("file-exists");
-function fileExist(path) {
+var directoryExists = require("directory-exists");
+function Import(path, tscFlag) {
+    if (tscFlag === void 0) { tscFlag = true; }
     return __awaiter(this, void 0, void 0, function () {
+        var MODE;
         return __generator(this, function (_a) {
-            return [2, fileExists.sync((currentDir() + "/" + path).replace(/\\/g, '/').replace(/\/+/g, '/'))];
-        });
-    });
-}
-function Import(path) {
-    return __awaiter(this, void 0, void 0, function () {
-        var extensions, filename, _a, changedPath;
-        return __generator(this, function (_b) {
-            switch (_b.label) {
-                case 0:
-                    path = ("/" + path).replace(/\\/g, '/').replace(/\/+/g, '/');
-                    extensions = (path.split('/').pop() || '').split('.');
-                    filename = extensions.shift();
-                    path = extensions.length == 0 ? path + ".ts" : path;
-                    extensions = extensions.length == 0 ? ['ts'] : extensions;
-                    if (!(extensions.length == 1)) return [3, 4];
-                    _a = extensions[0];
-                    switch (_a) {
-                        case 'ts': return [3, 1];
-                    }
-                    return [3, 3];
-                case 1:
-                    changedPath = path.replace(/\.ts$/g, '.js');
-                    return [4, fileExist(changedPath)];
-                case 2:
-                    if (_b.sent()) {
-                        path = changedPath;
-                    }
-                    else {
-                        path = "/compile/" + changedPath;
-                    }
-                    return [3, 4];
-                case 3: return [3, 4];
-                case 4: return [4, fileExist(path)];
-                case 5:
-                    if (_b.sent()) {
-                        console.log['kernel/import']({
-                            level: 'trace',
-                            path: (currentDir() + "/" + path).replace(/\\/g, '/').replace(/\/+/g, '/')
-                        });
-                        return [2, Promise.resolve().then(function () { return require((currentDir() + "/" + path).replace(/\\/g, '/').replace(/\/+/g, '/')); })];
-                    }
-                    else {
-                        console.log['kernel/import']({
-                            level: 'warn',
-                            path: (currentDir() + "/" + path).replace(/\\/g, '/').replace(/\/+/g, '/')
-                        });
-                        return [2, undefined];
-                    }
-                    return [2];
+            MODE = directoryExists(currentDir() + "/compile") ? 0 : 1;
+            path = ("/" + path).replace(/\\/g, '/').replace(/\/+/g, '/');
+            if (tscFlag) {
+                path = path.replace(/\.ts$/g, '.js');
+                path = MODE ? path : "/compile" + path;
             }
+            path = (currentDir() + "/" + path).replace(/\\/g, '/').replace(/\/+/g, '/');
+            if (fileExists.sync(path)) {
+                console.log['kernel/import']({
+                    level: 'trace',
+                    path: path
+                });
+                return [2, Promise.resolve().then(function () { return require(path); })];
+            }
+            else {
+                console.log['kernel/import']({
+                    level: 'warn',
+                    path: path
+                });
+                return [2, undefined];
+            }
+            return [2];
         });
     });
 }

@@ -12,17 +12,19 @@ async function extraction(socket: SocketIO.Socket, event, message, next, options
     const ip = socket.handshake.address;
     const socketId = socket.id;
     const unique = `${process.argv[2]}:${ip}`; // customizable!
-    npm.nodeIpDetails.initialise({ip: ip}).allInformation().then(details => socket['_'].ip.detection.details = details);
+    console.debug('11111111111111111111111111111111111111111111111111111111111111111111111111111', ip, socket.request.connection.remoteAddress);
+
     
     socket['_'] = {
+        timestamp: new Date(),
         status: statusCode.successful,
-        socketId: socketId,
+        socketId: socketId.toString(),
         unique: unique, // customizable!
         captcha: false,
         ip: {
             value: ip,
             detection: {
-                details: {} // Promise
+                details: undefined // Promise
             }
         },
         cookie: typeof npm.cookie.parse(socket.handshake.headers.cookie)[cookies.name] === 'string' ? npm.cookie.parse(socket.handshake.headers.cookie)[cookies.name] : '',
@@ -51,7 +53,12 @@ async function extraction(socket: SocketIO.Socket, event, message, next, options
             }
         },
     };
-
+    try {
+        npm.nodeIpDetails.initialise({ip: ip}).allInformation().then(details => socket['_'].ip.detection.details = details);
+    } catch (error) {
+        console.debug('--------------------------------------------------------->', error);
+    }
+    console.debug('222222222222222222222222222222222222222222222222222222222222222222222222222222222');
     next();
 }
 

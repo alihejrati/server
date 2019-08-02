@@ -22,4 +22,4 @@ async function get(key: string | null, socket, options: options) {
     return key == null ? cookieVAR : cookieVAR[key];
 }
 
-export default callback(get);
+export default get;

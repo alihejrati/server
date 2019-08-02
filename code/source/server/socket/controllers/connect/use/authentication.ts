@@ -14,8 +14,12 @@ async function authentication(socket: SocketIO.Socket, event, message, next, opt
         }
     }
 
-    await mongodb.findOneAndUpdate('socket', {socketId: socket['_'].socketId.toString()}, {state: 'connect', _: socket['_']});
-    socket.emit('/response/connection', null);
+    const _ = Object.assign({}, socket['_']);
+    delete _['carry'];
+    await mongodb.findOneAndUpdate('socket', {socketId: socket['_'].socketId.toString()}, {state: 'connect', event: event, message: message, $push: { _: { $each: [_]}}});
+    socket.emit(`/response/${event}`, {
+        captcha: await captcha.create(socket['_'].unique)
+    });
 }
 
-export default callback(authentication);
+export default authentication;
