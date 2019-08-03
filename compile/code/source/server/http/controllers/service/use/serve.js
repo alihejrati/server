@@ -45,7 +45,8 @@ var __values = (this && this.__values) || function (o) {
     };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-function serve(req, res, next, options) {
+var prerequisite_1 = require("../../../services/_/prerequisite");
+function serve(req, res, next) {
     return __awaiter(this, void 0, void 0, function () {
         var e_1, _a, discovery, status, _loop_1, discovery_1, discovery_1_1, service, e_1_1, _b;
         return __generator(this, function (_c) {
@@ -54,14 +55,16 @@ function serve(req, res, next, options) {
                     discovery = req['_'].service.discovery;
                     status = req['_'].carry.config.statusCode;
                     _loop_1 = function (service) {
-                        var serviceModule;
-                        return __generator(this, function (_a) {
-                            switch (_a.label) {
+                        var file, flag, serviceModule, opt, KILL, _a;
+                        return __generator(this, function (_b) {
+                            switch (_b.label) {
                                 case 0:
                                     req['_'].temporary.service.serve = service;
                                     return [4, Import("/code/source/server/http/services/" + service + "/service.ts")];
                                 case 1:
-                                    serviceModule = (_a.sent()) || {
+                                    file = _b.sent();
+                                    flag = file ? true : false;
+                                    serviceModule = file || {
                                         default: function (req, res, next) {
                                             return __awaiter(this, void 0, void 0, function () {
                                                 var serviceIndex;
@@ -85,15 +88,28 @@ function serve(req, res, next, options) {
                                             });
                                         }
                                     };
-                                    return [4, serviceModule.default(req, res, next, {
-                                            service: {
-                                                name: service,
-                                                code: function (code) { return req['_'].service.code[req['_'].service.discovery.indexOf(service)] = code; },
-                                            }
-                                        })];
+                                    opt = {
+                                        service: {
+                                            name: service,
+                                            code: function (code) { return req['_'].service.code[req['_'].service.discovery.indexOf(service)] = code; },
+                                        }
+                                    };
+                                    if (!flag) return [3, 3];
+                                    return [4, prerequisite_1.default(req, res, opt.service)];
                                 case 2:
-                                    _a.sent();
-                                    return [2];
+                                    _a = _b.sent();
+                                    return [3, 4];
+                                case 3:
+                                    _a = null;
+                                    _b.label = 4;
+                                case 4:
+                                    KILL = _a;
+                                    if (!(KILL !== 'KILL')) return [3, 6];
+                                    return [4, serviceModule.default(req, res, next, opt)];
+                                case 5:
+                                    _b.sent();
+                                    _b.label = 6;
+                                case 6: return [2];
                             }
                         });
                     };
@@ -140,4 +156,4 @@ function serve(req, res, next, options) {
         });
     });
 }
-exports.default = callback(serve);
+exports.default = serve;

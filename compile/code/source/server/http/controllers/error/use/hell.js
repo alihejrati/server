@@ -35,11 +35,12 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-function hell(req, res, next, options) {
+function hell(req, res, next) {
     return __awaiter(this, void 0, void 0, function () {
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0: return [4, view.send('/basic', '/t1/t2', req, res, {
+                        next: next,
                         variables: npm.jsonPrettyHtml.default({
                             _: req['_']
                         })
@@ -51,4 +52,4 @@ function hell(req, res, next, options) {
         });
     });
 }
-exports.default = callback(hell);
+exports.default = hell;

@@ -40,6 +40,4 @@ async function service(req, res, next, options: options) {
     }
 }
 
-export default callback(service, Promise.all([
-    import('../../../_/prerequisite')
-]));
+export default service;

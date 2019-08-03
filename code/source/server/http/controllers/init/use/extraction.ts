@@ -12,8 +12,8 @@ config('\\code\\source\\server\\http\\status.conf.json').then(conf => statusCode
 config('\\code\\source\\server\\http\\cookies.conf.json').then(conf => cookies = conf);
 config('\\npm\\jwt.conf.json').then(conf => npmJwt = conf);
 
-async function extraction(req, res, next, options: options) {
-    const ip = npm.clientIp(req);
+async function extraction(req, res, next) {
+    const ip = req.ip; // TODO => change to ipv6
     const host = req.headers.host.split(':')[0];
     const port = Number(req.headers.host.split(':')[1]);
     const unique = `${process.argv[2]}:${ip}`; // customizable!
@@ -85,4 +85,4 @@ async function extraction(req, res, next, options: options) {
     next();
 }
 
-export default callback(extraction);
+export default extraction;

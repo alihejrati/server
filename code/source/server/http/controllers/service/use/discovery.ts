@@ -1,4 +1,4 @@
-async function discovery(req, res, next, options: options) {
+async function discovery(req, res, next) {
     if (/^.*\/service\//g.test(req['_'].route.path.relative)) {
         const services: string[] = req['_'].route.path.relative.replace(/^.*\/service\//g, '').split(':');
         const discovery: string[] = [];
@@ -15,4 +15,4 @@ async function discovery(req, res, next, options: options) {
     next();
 }
 
-export default callback(discovery);
+export default discovery;

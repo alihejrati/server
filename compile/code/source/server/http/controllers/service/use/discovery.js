@@ -35,7 +35,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-function discovery(req, res, next, options) {
+function discovery(req, res, next) {
     return __awaiter(this, void 0, void 0, function () {
         var services, discovery_1, index;
         return __generator(this, function (_a) {
@@ -54,4 +54,4 @@ function discovery(req, res, next, options) {
         });
     });
 }
-exports.default = callback(discovery);
+exports.default = discovery;

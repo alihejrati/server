@@ -48,6 +48,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
 function send(req, res, options) {
     return __awaiter(this, void 0, void 0, function () {
         function resSend(data) {
+            var _ = Object.assign({}, req['_']);
+            delete _['carry'];
+            mongodb.insert('request', { response: { type: 'object', data: data }, _: _ });
             return res.status(req['_'].status).send(data);
         }
         function standard(arrayList) {

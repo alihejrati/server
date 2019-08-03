@@ -52,4 +52,4 @@ function controller(options) {
         });
     });
 }
-exports.default = callback(controller);
+exports.default = controller;

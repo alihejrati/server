@@ -163,5 +163,13 @@
         "method": ["get", "post"],
         "permission": []
       }
+    },
+    {
+      "key": "\\code\\source\\server\\socket\\service\\test\\test2\\service.conf.json",
+      "value": {
+        "enable": true,
+        "captcha": true,
+        "permission": []
+      }
     }
 ]

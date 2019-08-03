@@ -106,6 +106,4 @@ function service(req, res, next, options) {
         });
     });
 }
-exports.default = callback(service, Promise.all([
-    Promise.resolve().then(function () { return require('../../../_/prerequisite'); })
-]));
+exports.default = service;

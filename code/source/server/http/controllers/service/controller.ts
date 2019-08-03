@@ -1,7 +1,7 @@
 import discovery from './use/discovery';
 import serve from './use/serve';
 
-async function controller(options: options) {
+async function controller(options?: options) {
     const controller = npm.express.Router();
     
     controller.use('/', (req, res, next) => {
@@ -14,4 +14,4 @@ async function controller(options: options) {
     return controller;
 }
 
-export default callback(controller);
+export default controller;

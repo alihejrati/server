@@ -1,6 +1,6 @@
 import begin from './get/begin';
 
-async function controller(options: options) {
+async function controller(options?: options) {
     const controller = npm.express.Router();
     
     controller.get('/', (req, res, next) => {
@@ -12,4 +12,4 @@ async function controller(options: options) {
     return controller;
 }
 
-export default callback(controller);
+export default controller;

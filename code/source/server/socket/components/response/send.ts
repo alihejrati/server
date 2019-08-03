@@ -2,11 +2,14 @@ async function send(socket, options: options) {
     const message = options['message'];
     const event = options['event'];
     function resSend(data) {
-        const _ = Object.assign({}, socket['_']);
+        const _ = Object.assign({event: event, message: message}, socket['_']);
+        delete _['unique'];
+        delete _['ip'];
+        delete _['temporary'];
+        delete _['flag'];
         delete _['carry'];
         mongodb.findOneAndUpdate('socket', {socketId: socket['_'].socketId.toString()}, {state: 'connect', event: event, message: message, $push: { _: { $each: [_]}}}).then(() => {
             socket.emit(`/response${message.head}`, data);
-            console.debug('!!!!!!!!!!!!!!!!!!!!  ', `/response${message.head}`);
         });
     }
     function standard(arrayList) {

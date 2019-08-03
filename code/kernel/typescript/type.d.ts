@@ -24,6 +24,6 @@ declare type Specification = {
     error: Error;
 };
 declare type options = {
-    preCall: any,
-    specification: Specification,
+    preCall?: any,
+    specification?: Specification,
 };

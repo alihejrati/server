@@ -1,9 +1,10 @@
-async function hell(req, res, next, options: options) {
+async function hell(req, res, next) {
     await view.send('/basic', '/t1/t2', req, res, {
+        next: next,
         variables: npm.jsonPrettyHtml.default({
             _: req['_']
         })
     });
 }
 
-export default callback(hell);
+export default hell;

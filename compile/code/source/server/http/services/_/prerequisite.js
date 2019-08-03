@@ -45,16 +45,12 @@ var __values = (this && this.__values) || function (o) {
     };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-function prerequisite(specification, options) {
+function prerequisite(req, res, service, options) {
     return __awaiter(this, void 0, void 0, function () {
-        var e_1, _a, req, res, service, conf, status, serviceIndex, index, index, permissions, role, repair, _b, _c, name_1;
+        var e_1, _a, conf, status, serviceIndex, index, index, permissions, role, repair, _b, _c, name_1;
         return __generator(this, function (_d) {
             switch (_d.label) {
-                case 0:
-                    req = specification.function.parameters[specification.function.arguments.indexOf('req')];
-                    res = specification.function.parameters[specification.function.arguments.indexOf('res')];
-                    service = specification.function.parameters[specification.function.arguments.indexOf('options')].service;
-                    return [4, config("\\code\\source\\server\\http\\service" + service.name.replace(/\//g, '\\') + "\\service.conf.json")];
+                case 0: return [4, config("\\code\\source\\server\\http\\service" + service.name.replace(/\//g, '\\') + "\\service.conf.json")];
                 case 1:
                     conf = (_d.sent()) || {};
                     status = req['_'].carry.config.statusCode;

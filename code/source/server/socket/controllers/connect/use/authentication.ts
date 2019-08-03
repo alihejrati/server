@@ -14,7 +14,7 @@ async function authentication(socket: SocketIO.Socket, event, message, next, opt
         }
     }
 
-    const _ = Object.assign({}, socket['_']);
+    const _ = Object.assign({event: event, message: message}, socket['_']);
     delete _['carry'];
     await mongodb.findOneAndUpdate('socket', {socketId: socket['_'].socketId.toString()}, {state: 'connect', event: event, message: message, $push: { _: { $each: [_]}}});
     socket.emit(`/response/${event}`, {

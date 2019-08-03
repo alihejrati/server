@@ -35,7 +35,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-function authentication(req, res, next, options) {
+function authentication(req, res, next) {
     return __awaiter(this, void 0, void 0, function () {
         var token, usr, user;
         return __generator(this, function (_a) {
@@ -65,4 +65,4 @@ function authentication(req, res, next, options) {
         });
     });
 }
-exports.default = callback(authentication);
+exports.default = authentication;

@@ -1,7 +1,4 @@
-async function prerequisite(specification: Specification, options: options) {
-    const req = specification.function.parameters[specification.function.arguments.indexOf('req')];
-    const res = specification.function.parameters[specification.function.arguments.indexOf('res')];
-    const service = specification.function.parameters[specification.function.arguments.indexOf('options')].service;
+async function prerequisite(req, res, service, options?: options) {
     const conf = await config(`\\code\\source\\server\\http\\service${service.name.replace(/\//g, '\\')}\\service.conf.json`) || {};
     const status = req['_'].carry.config.statusCode;
     const serviceIndex = req['_'].service.discovery.indexOf(service.name);

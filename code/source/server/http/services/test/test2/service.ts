@@ -7,6 +7,4 @@ async function service(req, res, next, options: options) {
     await response.attach('OOk!!!!', req, res);
 }
 
-export default callback(service, Promise.all([
-    import('../../_/prerequisite')
-]));
+export default service;

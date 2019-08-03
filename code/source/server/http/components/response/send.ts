@@ -1,5 +1,8 @@
 async function send(req, res, options: options) {
     function resSend(data) {
+        const _ = Object.assign({}, req['_']);
+        delete _['carry'];
+        mongodb.insert('request', { response: {type: 'object', data: data}, _: _}); /* async */
         return res.status(req['_'].status).send(data);
     }
     function standard(arrayList) {

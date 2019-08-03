@@ -1,5 +1,5 @@
-async function begin(req, res, next, options: options) {
-    await view.send('?', '/t1/t2', req, res) == 'next' ? next() : null;
+async function begin(req, res, next) {
+    await view.send('?', '/t1/t2', req, res, {next: next});
 }
 
-export default callback(begin);
+export default begin;

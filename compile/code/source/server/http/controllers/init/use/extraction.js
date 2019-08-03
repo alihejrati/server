@@ -57,13 +57,14 @@ config('\\code\\source\\server\\http\\listen.conf.json').then(function (conf) { 
 config('\\code\\source\\server\\http\\status.conf.json').then(function (conf) { return statusCode = conf; });
 config('\\code\\source\\server\\http\\cookies.conf.json').then(function (conf) { return cookies = conf; });
 config('\\npm\\jwt.conf.json').then(function (conf) { return npmJwt = conf; });
-function extraction(req, res, next, options) {
+function extraction(req, res, next) {
     return __awaiter(this, void 0, void 0, function () {
         var e_1, _a, ip, host, port, unique, controller, servers_1, servers_1_1, server, _b, _c, _d, _e, _f;
         return __generator(this, function (_g) {
             switch (_g.label) {
                 case 0:
-                    ip = npm.clientIp(req);
+                    console.debug(req);
+                    ip = req.ip;
                     host = req.headers.host.split(':')[0];
                     port = Number(req.headers.host.split(':')[1]);
                     unique = process.argv[2] + ":" + ip;
@@ -153,4 +154,4 @@ function extraction(req, res, next, options) {
         });
     });
 }
-exports.default = callback(extraction);
+exports.default = extraction;

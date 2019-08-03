@@ -9,7 +9,7 @@ config('\\code\\source\\server\\socket\\cookies.conf.json').then(conf => cookies
 config('\\npm\\jwt.conf.json').then(conf => npmJwt = conf);
 
 async function extraction(socket: SocketIO.Socket, event, message, next, options: options) {
-    const ip = socket.handshake.address;
+    const ip = socket.request.connection.remoteAddress;
     const socketId = socket.id;
     const unique = `${process.argv[2]}:${ip}`; // customizable!
     console.debug('11111111111111111111111111111111111111111111111111111111111111111111111111111', ip, socket.request.connection.remoteAddress);

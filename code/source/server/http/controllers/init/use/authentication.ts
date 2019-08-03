@@ -1,4 +1,4 @@
-async function authentication(req, res, next, options: options) {
+async function authentication(req, res, next) {
     const token = await cookie.get('token', req, res) || req.body.token || req.query.token;  
 
     if (token) {
@@ -17,4 +17,4 @@ async function authentication(req, res, next, options: options) {
     next();
 }
 
-export default callback(authentication);
+export default authentication;
