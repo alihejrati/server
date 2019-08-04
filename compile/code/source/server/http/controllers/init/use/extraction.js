@@ -63,7 +63,6 @@ function extraction(req, res, next) {
         return __generator(this, function (_g) {
             switch (_g.label) {
                 case 0:
-                    console.debug(req);
                     ip = req.ip;
                     host = req.headers.host.split(':')[0];
                     port = Number(req.headers.host.split(':')[1]);
