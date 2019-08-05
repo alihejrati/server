@@ -133,6 +133,7 @@
       "value": {
         "enable": true,
         "captcha": false,
+        "controller": ["*"],
         "method": ["get", "post"],
         "permission": ["sdda", "adads=adsa", "adsad-asda-ads-a-d-d"]
       }
@@ -142,6 +143,7 @@
       "value": {
         "enable": true,
         "captcha": true,
+        "controller": ["*"],
         "method": ["post"],
         "permission": []
       }
@@ -151,6 +153,7 @@
       "value": {
         "enable": true,
         "captcha": true,
+        "controller": ["*"],
         "method": ["post"],
         "permission": []
       }
@@ -160,6 +163,17 @@
       "value": {
         "enable": true,
         "captcha": true,
+        "controller": ["*"],
+        "method": ["post"],
+        "permission": []
+      }
+    },
+    {
+      "key": "\\code\\source\\server\\http\\service\\captcha\\create\\service.conf.json",
+      "value": {
+        "enable": true,
+        "captcha": false,
+        "controller": ["*"],
         "method": ["post"],
         "permission": []
       }
@@ -169,6 +183,7 @@
       "value": {
         "enable": true,
         "captcha": true,
+        "controller": ["*"],
         "method": ["post"],
         "permission": ["*"]
       }

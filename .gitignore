@@ -2,4 +2,6 @@
 /file/public
 /node_modules
 /package-lock.json
+/pid
+/server.zip
 /compile

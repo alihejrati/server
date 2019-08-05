@@ -18,3 +18,4 @@ echo $! >> pid
 node $_DIR/init server/telegram/cli | tee -a "file/private/log/server/telegram/cli/$_DATE.log" &
 echo $! >> pid
 echo `jobs -p` >> pid
+exit 0;
