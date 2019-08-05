@@ -1,6 +1,6 @@
 import * as mongoose from 'mongoose';
 
-async function slave(role, permissions, req, res, next, options: options) {
+async function slave(flag: boolean, role, permissions, req, res, next, options: options) {
     const status = req['_'].carry.config.statusCode;
     const list: string[] = [];
     for (const permission of permissions) {
@@ -14,25 +14,37 @@ async function slave(role, permissions, req, res, next, options: options) {
             const query = mongoose.Types.ObjectId.isValid(role) ? {_id: role} : {name: role};
             const record = await mongodb.findOneAndUpdate('role', query, { $addToSet: {permission: { $each: permissions_id }} }, {options: {}});
             if (record) {
-                await response.attach(null, req, res);
+                if (flag) {
+                    await response.attach(null, req, res);
+                }
+                return status.successful;
             } else {
-                options['service'].code(status.notModified);
-                await response.attach(null, req, res);
+                if (flag) {
+                    options['service'].code(status.notModified);
+                    await response.attach(null, req, res);
+                }
+                return status.notModified;
             }
         } else {
-            options['service'].code(status.notAcceptable);
-            await response.attach(null, req, res);
+            if (flag) {
+                options['service'].code(status.notAcceptable);
+                await response.attach(null, req, res);
+            }
+            return status.notAcceptable;
         }
     } else {
-        options['service'].code(status.noContent);
-        await response.attach(null, req, res);
+        if (flag) {
+            options['service'].code(status.noContent);
+            await response.attach(null, req, res);
+        }
+        return status.noContent;
     }
 }
 
 async function service(req, res, next, options: options) {
     const role = typeof req.body['role'] === 'string' ? req.body['role'] || '' : '';
     const permissions = Array.isArray(req.body['permissions']) ? req.body['permissions'] : [];
-    await slave(role, permissions, req, res, next, options);
+    await slave(true, role, permissions, req, res, next, options);
 }
 
 export default service;

@@ -9,7 +9,8 @@ const name = process.argv[1].replace(/\\/g, '/').replace(/\/+/g, '/').split('/')
 
 const scripts = {
     "init": "bash code/bash/init/command.sh",
-    "start": "bash code/bash/start/command.sh"
+    "start": "bash code/bash/start/command.sh",
+    "stop": "bash code/bash/stop/command.sh"
 };
 
 file.unset('scripts');
@@ -43,6 +44,10 @@ stream.on('end', function() {
             configuration[key].sort = {
                 "type": "Number",
                 "default": 1
+            };
+            configuration[key].tag = {
+                "type": ["String"],
+                "default": []
             };
             schema.push(`var ${_key[3]}_${_key[5]} = ${_key[3]}.model('${_key[5]}', new mongoose.Schema(${JSON.stringify(configuration[key])}, {timestamps: true}));`);
             moduleExport.push(`module.exports.${_key[3]}_${_key[5]} = ${_key[3]}_${_key[5]};`);

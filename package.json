@@ -6,7 +6,8 @@
   "scripts": {
     "init": "bash code/bash/_init/command.sh",
     "build": "bash code/bash/_build/command.sh",
-    "start": "bash code/bash/_start/command.sh"
+    "start": "bash code/bash/_start/command.sh",
+    "stop": "bash code/bash/_stop/command.sh"
   },
   "keywords": [],
   "author": "alihejrati",
