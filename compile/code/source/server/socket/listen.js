@@ -47,7 +47,7 @@ function listen(options) {
                 case 0: return [4, config('\\code\\source\\server\\socket\\listen.conf.json')];
                 case 1:
                     socket = _a.sent();
-                    npm.server = npm.server(handler).listen(socket.port);
+                    npm.server = npm.server(handler).listen(socket.port, socket.host);
                     semaphore.emit('/server/socket/ready');
                     return [2];
             }

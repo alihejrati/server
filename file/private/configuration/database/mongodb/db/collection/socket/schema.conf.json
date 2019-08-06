@@ -6,10 +6,7 @@
         "required": true
     },
     "socketId": {
-        "type": "String",
-        "index": true,
-        "unique": true,
-        "required": true
+        "type": "String"
     },
     "event": {
         "type": "Object"
@@ -18,7 +15,6 @@
         "type": "Object"
     },
     "_": {
-        "type": "Array",
-        "default": []
+        "type": "Object"
     }
 }

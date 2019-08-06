@@ -1,5 +1,11 @@
 [
     {
+      "key": "\\code\\source\\components\\captcha\\check.conf.json",
+      "value": {
+        "expire": {"minute": 6}
+      }
+    },
+    {
         "key": "\\code\\source\\server\\http\\listen.conf.json",
         "value": [
             {

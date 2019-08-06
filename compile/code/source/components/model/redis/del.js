@@ -54,6 +54,7 @@ function del(pattern, options) {
         return __generator(this, function (_b) {
             switch (_b.label) {
                 case 0:
+                    pattern = pattern.replace(/\:null\:/g, ":" + process.argv[2] + ":");
                     database = options['database'] || 'db';
                     Model = model[database];
                     return [4, keys_1.default(pattern)];

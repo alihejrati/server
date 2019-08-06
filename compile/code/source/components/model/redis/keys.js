@@ -43,6 +43,7 @@ function keys(pattern, options) {
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
+                    pattern = pattern.replace(/\:null\:/g, ":" + process.argv[2] + ":");
                     database = options['database'] || 'db';
                     Model = model[database];
                     return [4, new Promise(function (resolve, reject) {

@@ -10,7 +10,7 @@ async function slave(flag: boolean, role, permissions, req, res, next, options: 
     }
     if (list.length != 0 && role && typeof role === 'string') {
         const permissions_id = await mongodb.find('permission', { name: {$in: list} }, {select: {_id: 1}}) || [];
-        if (permissions_id.length == list.length) {
+        if (permissions_id.length == list.length && list.length == permissions.length) {
             const query = mongoose.Types.ObjectId.isValid(role) ? {_id: role} : {name: role};
             const record = await mongodb.findOneAndUpdate('role', query, { $addToSet: {permission: { $each: permissions_id }} }, {options: {}});
             if (record) {

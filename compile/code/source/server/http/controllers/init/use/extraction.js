@@ -45,12 +45,14 @@ var __values = (this && this.__values) || function (o) {
     };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+var components = { captcha: {} };
 var socket = {};
 var router = {};
 var servers = [];
 var statusCode = {};
 var cookies = {};
 var npmJwt = {};
+config('\\code\\source\\components\\captcha\\check.conf.json').then(function (conf) { return components.captcha.check = conf; });
 config('\\code\\source\\server\\socket\\listen.conf.json').then(function (conf) { return socket = conf; });
 config('\\code\\source\\server\\http\\router.conf.json').then(function (conf) { return router = conf; });
 config('\\code\\source\\server\\http\\listen.conf.json').then(function (conf) { return servers = conf; });
@@ -89,7 +91,7 @@ function extraction(req, res, next) {
                         status: statusCode.successful,
                         unique: unique
                     };
-                    return [4, captcha.check(unique, req.body.captcha || req.query.captcha || '', { second: 59 })];
+                    return [4, captcha.check(unique, req.body.captcha || req.query.captcha || '', components.captcha.check.expire)];
                 case 1:
                     _d.captcha = _g.sent(),
                         _d.controller = controller.toLowerCase();
@@ -141,6 +143,7 @@ function extraction(req, res, next) {
                                 servers: servers,
                                 statusCode: statusCode,
                                 cookies: cookies,
+                                components: components,
                                 npm: {
                                     jwt: npmJwt
                                 }

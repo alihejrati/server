@@ -2,13 +2,15 @@ async function send(socket, options: options) {
     const message = options['message'];
     const event = options['event'];
     function resSend(data) {
-        const _ = Object.assign({event: event, message: message}, socket['_']);
-        delete _['unique'];
-        delete _['ip'];
+        const _ = Object.assign({}, socket['_']);
+        delete _['carry'];
         delete _['temporary'];
         delete _['flag'];
-        delete _['carry'];
-        mongodb.findOneAndUpdate('socket', {socketId: socket['_'].socketId.toString()}, {state: 'connect', event: event, message: message, $push: { _: { $each: [_]}}}).then(() => {
+        delete _['captcha'];
+        delete _['ip'];
+        _.captcha = socket['_'].captcha ? true : false;
+        _.ip = socket['_'].ip.value;
+        mongodb.insert('socket', {state: 'connect', socketId: socket['_'].socketId.toString(), event: event, message: message, _: _}).then(() => {
             socket.emit(`/response${message.head}`, data);
         });
     }

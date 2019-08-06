@@ -6,6 +6,7 @@ async function insert(collection: string, query, options: options) {
     const database = options['database'] || 'db';
     const Model = model[`${database}_${collection}`];
     const document = await new Promise((resolve, reject) => {
+        query = JSON.parse(npm.jsonStringifySafe(query));
         new Model(query).save((error, doc) => {
             if (error) {
                 errorHandler(error);

@@ -1,6 +1,6 @@
 async function discovery(socket: SocketIO.Socket, event, message, next, options: options) {
     socket['_'].timestamp = new Date();
-    socket['_'].captcha = await captcha.check(socket['_'].unique, message.tail[message.tail.length - 1].captcha || '', {second: 59}) || await captcha.check(`server/http:${socket['_'].ip.value.split(':').pop()}`, message.tail[message.tail.length - 1].captcha  || '', {second: 59});
+    socket['_'].captcha = await captcha.check(socket['_'].unique, message.tail[message.tail.length - 1].captcha || '', socket['_'].carry.config.components.captcha.check.expire) || await captcha.check(`server/http:${socket['_'].ip.value.split(':').pop()}`, message.tail[message.tail.length - 1].captcha  || '', socket['_'].carry.config.components.captcha.check.expire);
     socket['_'].service.discovery = [];
     socket['_'].service.code = [];
     socket['_'].temporary.watchdog.layer = '/service/**';

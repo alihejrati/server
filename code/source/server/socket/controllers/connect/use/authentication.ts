@@ -14,9 +14,16 @@ async function authentication(socket: SocketIO.Socket, event, message, next, opt
         }
     }
 
-    const _ = Object.assign({event: event, message: message}, socket['_']);
+    const _ = Object.assign({}, socket['_']);
     delete _['carry'];
-    await mongodb.findOneAndUpdate('socket', {socketId: socket['_'].socketId.toString()}, {state: 'connect', event: event, message: message, $push: { _: { $each: [_]}}});
+    delete _['temporary'];
+    delete _['flag'];
+    delete _['captcha'];
+    delete _['ip'];
+    _.captcha = socket['_'].captcha ? true : false;
+    _.ip = socket['_'].ip.value;
+    await mongodb.insert('socket', {state: 'connect', socketId: socket['_'].socketId.toString(), event: event, message: message, _: _});
+
     socket.emit(`/response/${event}`, {
         captcha: await captcha.create(socket['_'].unique)
     });

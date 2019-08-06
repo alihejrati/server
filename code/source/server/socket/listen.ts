@@ -1,6 +1,6 @@
 async function listen(options: options) {
     const socket = await config('\\code\\source\\server\\socket\\listen.conf.json');
-    npm.server = npm.server(handler).listen(socket.port);
+    npm.server = npm.server(handler).listen(socket.port, socket.host);
 
     function handler(req, res) {
         res.writeHead(200);

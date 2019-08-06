@@ -1,5 +1,12 @@
 async function errorHandler(error, type: string) {
-    if (divert.some(rx => ! rx.test(error))) {
+    let flag = true;
+    for (const rx of divert) {
+        if (rx.test(error.toString())) {
+            flag = false;
+            break;
+        }
+    }
+    if (flag) {
         const level = ['warning'].indexOf(type) >= 0 ? type : 'error';
         let err: string = '';
 
@@ -13,7 +20,8 @@ async function errorHandler(error, type: string) {
 }
 
 const divert = [
-    /^TypeError: console.log.\w* is not a function/
+    /^TypeError: console.log.\w* is not a function/,
+    /.*MongoError: Client Error: bad object in message: BSONObj exceeded maximum nested object depth: 200/,
 ];
 
 async function guard() {

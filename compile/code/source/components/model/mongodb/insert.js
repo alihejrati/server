@@ -47,6 +47,7 @@ function insert(collection, query, options) {
                     database = options['database'] || 'db';
                     Model = model[database + "_" + collection];
                     return [4, new Promise(function (resolve, reject) {
+                            query = JSON.parse(npm.jsonStringifySafe(query));
                             new Model(query).save(function (error, doc) {
                                 if (error) {
                                     errorHandler(error);

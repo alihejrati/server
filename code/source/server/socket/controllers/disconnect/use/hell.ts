@@ -7,10 +7,16 @@ async function hell(socket: SocketIO.Socket, event, message, next, options: opti
     socket['_'].temporary.service.serve = null;
     socket['_'].flag.response.attach = false;
     socket['_'].response = [];
-    const _ = Object.assign({event: event, message: message}, socket['_']);
-    delete _['carry'];
-    await mongodb.findOneAndUpdate('socket', {socketId: socket['_'].socketId.toString()}, {state: 'disconnect', event: event, message: message, $push: { _: { $each: [_]}}});
 
+    const _ = Object.assign({}, socket['_']);
+    delete _['carry'];
+    delete _['temporary'];
+    delete _['flag'];
+    delete _['captcha'];
+    delete _['ip'];
+    _.captcha = socket['_'].captcha ? true : false;
+    _.ip = socket['_'].ip.value;
+    await mongodb.insert('socket', {state: 'disconnect', socketId: socket['_'].socketId.toString(), event: event, message: message, _: _});
 }
 
 export default hell;

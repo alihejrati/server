@@ -34,12 +34,41 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
+var __values = (this && this.__values) || function (o) {
+    var m = typeof Symbol === "function" && o[Symbol.iterator], i = 0;
+    if (m) return m.call(o);
+    return {
+        next: function () {
+            if (o && i >= o.length) o = void 0;
+            return { value: o && o[i++], done: !o };
+        }
+    };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 function errorHandler(error, type) {
     return __awaiter(this, void 0, void 0, function () {
-        var level, err;
-        return __generator(this, function (_a) {
-            if (divert.some(function (rx) { return !rx.test(error); })) {
+        var e_1, _a, flag, divert_1, divert_1_1, rx, level, err;
+        return __generator(this, function (_b) {
+            console.error('------------------------> error: ', error.toString());
+            flag = true;
+            try {
+                for (divert_1 = __values(divert), divert_1_1 = divert_1.next(); !divert_1_1.done; divert_1_1 = divert_1.next()) {
+                    rx = divert_1_1.value;
+                    if (rx.test(error.toString())) {
+                        flag = false;
+                        break;
+                    }
+                }
+            }
+            catch (e_1_1) { e_1 = { error: e_1_1 }; }
+            finally {
+                try {
+                    if (divert_1_1 && !divert_1_1.done && (_a = divert_1.return)) _a.call(divert_1);
+                }
+                finally { if (e_1) throw e_1.error; }
+            }
+            console.error('--------------------------------->', flag);
+            if (flag) {
                 level = ['warning'].indexOf(type) >= 0 ? type : 'error';
                 err = '';
                 err += "<error handler>";
@@ -53,7 +82,8 @@ function errorHandler(error, type) {
     });
 }
 var divert = [
-    /^TypeError: console.log.\w* is not a function/
+    /^TypeError: console.log.\w* is not a function/,
+    /.*MongoError: Client Error: bad object in message: BSONObj exceeded maximum nested object depth: 200/,
 ];
 function guard() {
     return __awaiter(this, void 0, void 0, function () {

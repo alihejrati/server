@@ -1,3 +1,4 @@
+let components: any = {captcha: {}};
 let socket: any = {};     
 let router: any = {};     
 let servers: any = [];    
@@ -5,6 +6,7 @@ let statusCode: any = {};
 let cookies: any = {};    
 let npmJwt: any = {};     
 
+config('\\code\\source\\components\\captcha\\check.conf.json').then(conf => components.captcha.check = conf);
 config('\\code\\source\\server\\socket\\listen.conf.json').then(conf => socket = conf);
 config('\\code\\source\\server\\http\\router.conf.json').then(conf => router = conf);
 config('\\code\\source\\server\\http\\listen.conf.json').then(conf => servers = conf);
@@ -29,7 +31,7 @@ async function extraction(req, res, next) {
     req['_'] = {
         status: statusCode.successful,
         unique: unique, // customizable!
-        captcha: await captcha.check(unique, req.body.captcha  || req.query.captcha || '', {second: 59}),
+        captcha: await captcha.check(unique, req.body.captcha  || req.query.captcha || '', components.captcha.check.expire),
         controller: controller.toLowerCase(),
         ip: {
             value: ip,
@@ -75,6 +77,7 @@ async function extraction(req, res, next) {
                 servers: servers,
                 statusCode: statusCode,
                 cookies: cookies,
+                components: components,
                 npm: {
                     jwt: npmJwt
                 }
