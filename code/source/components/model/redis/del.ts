@@ -3,6 +3,7 @@ import * as currentDir from 'current-dir';
 const model = require(`${currentDir()}/file/private/database/redis/model.js`);
 
 async function del(pattern: string, options: options) {
+    pattern = pattern.replace(/\:null\:/g, `:${process.argv[2]}:`);
     const database = options['database'] || 'db';
     const Model = model[database];
     const keyss = await keys(pattern) || [];
