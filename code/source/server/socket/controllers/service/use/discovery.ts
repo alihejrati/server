@@ -7,10 +7,13 @@ async function discovery(socket: SocketIO.Socket, event, message, next, options:
     socket['_'].temporary.service.serve = null;
     socket['_'].flag.response.attach = false;
     socket['_'].response = [];
+    socket['_'].cookie = typeof npm.cookie.parse(socket.handshake.headers.cookie || '')[socket['_'].carry.config.cookies.name] === 'string' ? npm.cookie.parse(socket.handshake.headers.cookie || '')[socket['_'].carry.config.cookies.name] : '';
+
 
     console.debug('------------------------------------------------------------> cap: ', socket['_'].captcha);
 
-    const token = await cookie.get('token', socket);  
+    const msg = message.tail[message.tail.length - 1];
+    const token = await cookie.get('token', socket) || msg.token;  
 
     if (token) {
         const usr = await redis.get(`auth:null:${npm.objectHash(token)}`);

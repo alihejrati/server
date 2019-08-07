@@ -49,13 +49,13 @@ function service(req, res, next, options) {
                     return [4, mongodb.findOne('user', {
                             username: username,
                             password: password
-                        }, { select: { _id: 1 } })];
+                        })];
                 case 1:
                     user = _d.sent();
                     if (!user) return [3, 8];
                     token = npm.objectHash(user._id);
                     key = npm.objectHash(token);
-                    return [4, redis.set("auth:null:" + key, user)];
+                    return [4, redis.set("auth:null:" + key, { _id: user._id })];
                 case 2:
                     usr = _d.sent();
                     if (!usr) return [3, 5];

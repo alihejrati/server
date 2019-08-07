@@ -1,5 +1,5 @@
 async function authentication(socket: SocketIO.Socket, event, message, next, options: options) {
-    const token = await cookie.get('token', socket);  
+    const token = await cookie.get('token', socket);
 
     if (token) {
         const usr = await redis.get(`auth:null:${npm.objectHash(token)}`);

@@ -48,6 +48,7 @@ async function extraction(socket: SocketIO.Socket, event, message, next, options
         carry: {
             config: {
                 statusCode: statusCode,
+                cookies: cookies,
                 components: components,
                 npm: {
                     jwt: npmJwt

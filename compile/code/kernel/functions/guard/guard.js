@@ -49,7 +49,6 @@ function errorHandler(error, type) {
     return __awaiter(this, void 0, void 0, function () {
         var e_1, _a, flag, divert_1, divert_1_1, rx, level, err;
         return __generator(this, function (_b) {
-            console.error('------------------------> error: ', error.toString());
             flag = true;
             try {
                 for (divert_1 = __values(divert), divert_1_1 = divert_1.next(); !divert_1_1.done; divert_1_1 = divert_1.next()) {
@@ -67,7 +66,6 @@ function errorHandler(error, type) {
                 }
                 finally { if (e_1) throw e_1.error; }
             }
-            console.error('--------------------------------->', flag);
             if (flag) {
                 level = ['warning'].indexOf(type) >= 0 ? type : 'error';
                 err = '';
