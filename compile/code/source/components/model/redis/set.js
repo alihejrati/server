@@ -38,7 +38,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var currentDir = require("current-dir");
 var model = require(currentDir() + "/file/private/database/redis/model.js");
 var jwt = {};
+var modelRedisSetConf = { expire: 10 };
 config('\\npm\\jwt.conf.json').then(function (conf) { return jwt = conf; });
+config('\\code\\source\\components\\model\\redis\\set.conf.json').then(function (conf) { return modelRedisSetConf = conf; });
 function set(key, value, options) {
     return __awaiter(this, void 0, void 0, function () {
         var database, Model, _res, _a, res;
@@ -55,7 +57,7 @@ function set(key, value, options) {
                     catch (error) { }
                     value = value || null;
                     if (!key) return [3, 2];
-                    return [4, Model.set(key, npm.jwtSimple.encode(value, jwt.secret))];
+                    return [4, Model.set(key, npm.jwtSimple.encode(value, jwt.secret), 'EX', modelRedisSetConf.expire)];
                 case 1:
                     _a = _b.sent();
                     return [3, 3];
