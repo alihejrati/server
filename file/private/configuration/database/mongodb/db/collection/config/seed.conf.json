@@ -6,6 +6,12 @@
       }
     },
     {
+      "key": "\\code\\source\\components\\model\\redis\\set.conf.json",
+      "value": {
+        "expire": 900
+      }
+    },
+    {
         "key": "\\code\\source\\server\\http\\listen.conf.json",
         "value": [
             {

@@ -1,5 +1,5 @@
 async function check(key: string, value: string, options: options) {
-    const cap = await mongodb.findOne('captcha', {key: key}, {sort: {'createdAt': -1}});
+    const cap = await mongodb.findOne('captcha', {key: key, value: value}, {sort: {'createdAt': -1}});
 
     if (cap && cap['createdAt'] && cap['value'] && cap['value'] == value) {
         const startDate = cap['createdAt'];
