@@ -201,21 +201,5 @@
         "captcha": true,
         "permission": []
       }
-    },
-    {
-      "key": "\\code\\source\\server\\socket\\service\\authuntication\\signin\\username-password\\service.conf.json",
-      "value": {
-        "enable": true,
-        "captcha": true,
-        "permission": []
-      }
-    },
-    {
-      "key": "\\code\\source\\server\\socket\\service\\authuntication\\signout\\username-password\\service.conf.json",
-      "value": {
-        "enable": true,
-        "captcha": true,
-        "permission": []
-      }
     }
 ]

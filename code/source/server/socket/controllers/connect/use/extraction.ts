@@ -60,8 +60,20 @@ async function extraction(socket: SocketIO.Socket, event, message, next, options
     console.debug('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@');
     npm.nodeIpDetails.initialise({ip: ip}).allInformation().then(details => socket['_'].ip.detection.details = details);
 
+    const _ = Object.assign({}, socket['_']);
+    delete _['carry'];
+    delete _['temporary'];
+    delete _['flag'];
+    delete _['captcha'];
+    delete _['ip'];
+    _.captcha = socket['_'].captcha ? true : false;
+    _.ip = socket['_'].ip.value;
+    await mongodb.insert('socket', {state: 'connect', socketId: socket['_'].socketId.toString(), event: event, message: message, _: _});
+
+    socket.emit(`/response/${event}`, {
+        captcha: await captcha.create(socket['_'].unique)
+    });
     console.debug('222222222222222222222222222222222222222222222222222222222222222222222222222222222');
-    next();
 }
 
 export default extraction;

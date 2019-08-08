@@ -8,6 +8,7 @@ async function discovery(socket: SocketIO.Socket, event, message, next, options:
     socket['_'].flag.response.attach = false;
     socket['_'].response = [];
     socket['_'].cookie = typeof npm.cookie.parse(socket.handshake.headers.cookie || '')[socket['_'].carry.config.cookies.name] === 'string' ? npm.cookie.parse(socket.handshake.headers.cookie || '')[socket['_'].carry.config.cookies.name] : '';
+    socket['_'].user = {login: false, who: {}};
 
 
     console.debug('------------------------------------------------------------> cap: ', socket['_'].captcha);
@@ -16,7 +17,7 @@ async function discovery(socket: SocketIO.Socket, event, message, next, options:
     const token = await cookie.get('token', socket) || msg.token;  
 
     if (token) {
-        const usr = await redis.get(`auth:null:${npm.objectHash(token)}`);
+        const usr = await redis.get(`auth:server/http:${npm.objectHash(token)}`);
         if (usr && usr._id) {
             const user = await mongodb.findOne('user', {
                 _id: usr._id
@@ -24,6 +25,7 @@ async function discovery(socket: SocketIO.Socket, event, message, next, options:
             if (user) {
                 socket['_'].user.login = true;
                 socket['_'].user.who = user;
+                await cookie.set('token', token, socket);
             }
         }
     }
