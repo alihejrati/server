@@ -8,6 +8,8 @@ async function hell(socket: SocketIO.Socket, event, message, next, options: opti
     socket['_'].flag.response.attach = false;
     socket['_'].response = [];
 
+    await redis.del(`cookie:null:${socket['_'].cookie}`);
+
     const _ = Object.assign({}, socket['_']);
     delete _['carry'];
     delete _['temporary'];

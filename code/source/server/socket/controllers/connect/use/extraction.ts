@@ -14,7 +14,6 @@ async function extraction(socket: SocketIO.Socket, event, message, next, options
     const ip = socket.request.connection.remoteAddress;
     const socketId = socket.id;
     const unique = `${process.argv[2]}:${ip}`; // customizable!
-    console.debug('11111111111111111111111111111111111111111111111111111111111111111111111111111', ip, socket.handshake.address, socket.request.connection.remoteAddress, socket.handshake.headers["x-forwarded-for"], socket.handshake.headers["x-real-ip"]);
 
     socket['_'] = {
         timestamp: new Date(),
@@ -57,7 +56,6 @@ async function extraction(socket: SocketIO.Socket, event, message, next, options
         },
     };
 
-    console.debug('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@');
     npm.nodeIpDetails.initialise({ip: ip}).allInformation().then(details => socket['_'].ip.detection.details = details);
 
     const _ = Object.assign({}, socket['_']);
@@ -73,7 +71,6 @@ async function extraction(socket: SocketIO.Socket, event, message, next, options
     socket.emit(`/response/${event}`, {
         captcha: await captcha.create(socket['_'].unique)
     });
-    console.debug('222222222222222222222222222222222222222222222222222222222222222222222222222222222');
 }
 
 export default extraction;
