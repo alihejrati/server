@@ -5,7 +5,7 @@ async function prerequisite(socket, service, options?: options) {
     socket['_'].service.code[serviceIndex] = status.successful;
     conf.permission = Array.isArray(conf.permission) ? conf.permission : []; 
     conf.captcha = conf.captcha === true;
-    conf.enable = conf.enable === true;
+    conf.enable = conf.enable === false ? false : true;
     
     if (true) {
         if (conf.captcha) {

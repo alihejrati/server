@@ -3,7 +3,7 @@ const model = require(`${currentDir()}/file/private/database/mongodb/model.js`);
 
 async function findOneAndUpdate(collection: string, query, update, options: options) {
     const errorHandler = options['errorHandler'] || function (error) {}
-    const _options = options['options'] || { upsert: true, new: true, setDefaultsOnInsert: true };
+    const _options = options['options'] || { upsert: true, new: true, setDefaultsOnInsert: true, runValidators: true };
     const database = options['database'] || 'db';
     const Model = model[`${database}_${collection}`];
     const document = await Model.findOneAndUpdate(query, update, _options);

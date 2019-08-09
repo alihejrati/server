@@ -60,7 +60,7 @@ function prerequisite(req, res, service, options) {
                     conf.permission = Array.isArray(conf.permission) ? conf.permission : [];
                     conf.controller = Array.isArray(conf.controller) ? conf.controller : ['*'];
                     conf.captcha = conf.captcha === true;
-                    conf.enable = conf.enable === true;
+                    conf.enable = conf.enable === false ? false : true;
                     if (!true) return [3, 4];
                     for (index = 0; index < conf.controller.length; index++) {
                         conf.controller[index] = conf.controller[index].toLowerCase();

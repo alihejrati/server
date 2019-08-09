@@ -1,0 +1,17 @@
+{
+    "title": {
+        "type": "String",
+        "index": true,
+        "required": true,
+        "unique": true
+    },
+    "type": {
+        "type": "String",
+        "enum" : ["indore", "outdor"],
+        "index": true,
+        "required": true
+    },
+    "url": {
+        "type": "String"
+    }
+}

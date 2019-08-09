@@ -13,8 +13,12 @@ var mongoose = require('mongoose');
 mongoose.set('useCreateIndex', true);
 mongoose.set('useFindAndModify', false);
 
+var baran = mongoose.createConnection('mongodb://localhost:27017/SERVER#baran', {useNewUrlParser: true});
 var db = mongoose.createConnection('mongodb://localhost:27017/SERVER#db', {useNewUrlParser: true});
 
+var baran_faq = baran.model('faq', new mongoose.Schema({"question":{"type":"String","index":true,"required":true,"unique":true},"answer":{"type":"String","index":true,"required":true},"sort":{"type":"Number","default":1},"tag":{"type":["String"],"default":[]},"flag":{"type":"Object","default":{"hide":false}}}, {timestamps: true}));
+var baran_game = baran.model('game', new mongoose.Schema({"title":{"type":"String","index":true,"required":true,"unique":true},"type":{"type":"String","enum":["indore","outdor"],"index":true,"required":true},"url":{"type":"String"},"sort":{"type":"Number","default":1},"tag":{"type":["String"],"default":[]},"flag":{"type":"Object","default":{"hide":false}}}, {timestamps: true}));
+var baran_manualwork = baran.model('manualwork', new mongoose.Schema({"title":{"type":"String","index":true,"required":true,"unique":true},"level":{"type":"String","enum":["easy","medium","hard"],"index":true,"required":true},"url":{"type":"String"},"sort":{"type":"Number","default":1},"tag":{"type":["String"],"default":[]},"flag":{"type":"Object","default":{"hide":false}}}, {timestamps: true}));
 var db_captcha = db.model('captcha', new mongoose.Schema({"key":{"type":"String","index":true,"required":true},"value":{"type":"String","index":true,"required":true},"sort":{"type":"Number","default":1},"tag":{"type":["String"],"default":[]},"flag":{"type":"Object","default":{"hide":false}}}, {timestamps: true}));
 var db_config = db.model('config', new mongoose.Schema({"key":{"type":"String","index":true,"unique":true,"required":true},"value":{"type":"Object","default":{}},"sort":{"type":"Number","default":1},"tag":{"type":["String"],"default":[]},"flag":{"type":"Object","default":{"hide":false}}}, {timestamps: true}));
 var db_permission = db.model('permission', new mongoose.Schema({"label":"String","name":{"type":"String","index":true,"unique":true,"required":true},"sort":{"type":"Number","default":1},"tag":{"type":["String"],"default":[]},"flag":{"type":"Object","default":{"hide":false}}}, {timestamps: true}));
@@ -25,6 +29,9 @@ var db_stack = db.model('stack', new mongoose.Schema({"stack":{"type":"Array","d
 var db_user = db.model('user', new mongoose.Schema({"username":{"type":"String","index":true,"unique":true,"required":true},"password":{"type":"String","index":true,"required":true},"role":{"type":"ObjectId","index":true,"required":true},"view":{"type":"ObjectId","index":true,"required":true},"sort":{"type":"Number","default":1},"tag":{"type":["String"],"default":[]},"flag":{"type":"Object","default":{"hide":false}}}, {timestamps: true}));
 var db_view = db.model('view', new mongoose.Schema({"label":"String","name":{"type":"String","index":true,"unique":true,"required":true},"branch":{"type":"Object","index":true,"required":true,"default":{"@frontend":"/basic","@backend":"/robust/html/RTL/vertical-overlay-menu-template"}},"sort":{"type":"Number","default":1},"tag":{"type":["String"],"default":[]},"flag":{"type":"Object","default":{"hide":false}}}, {timestamps: true}));
 
+module.exports.baran_faq = baran_faq;
+module.exports.baran_game = baran_game;
+module.exports.baran_manualwork = baran_manualwork;
 module.exports.db_captcha = db_captcha;
 module.exports.db_config = db_config;
 module.exports.db_permission = db_permission;
@@ -44,6 +51,42 @@ module.exports.db_view = db_view;
 
 
 */
+
+(async () => {
+    const document = await baran_faq.findOne({}).sort({}).select({});
+    const value = JSON.parse(JSON.stringify(document));
+    const seed = [{"question":"چطوری بارانی بشم؟!","answer":"کافیه تا دفتر باران بیای :)"}];
+    if (!value) {
+        const database = 'baran';
+        const collection  = 'faq';
+        const documents = await baran_faq.insertMany(seed, { ordered: false });
+        documents.length > 0 ? console.debug('seeder: (mongodb, ' + database + ', ' + collection + ', ' + documents.length + ')') : null;
+    } 
+})();
+
+(async () => {
+    const document = await baran_game.findOne({}).sort({}).select({});
+    const value = JSON.parse(JSON.stringify(document));
+    const seed = [];
+    if (!value) {
+        const database = 'baran';
+        const collection  = 'game';
+        const documents = await baran_game.insertMany(seed, { ordered: false });
+        documents.length > 0 ? console.debug('seeder: (mongodb, ' + database + ', ' + collection + ', ' + documents.length + ')') : null;
+    } 
+})();
+
+(async () => {
+    const document = await baran_manualwork.findOne({}).sort({}).select({});
+    const value = JSON.parse(JSON.stringify(document));
+    const seed = [];
+    if (!value) {
+        const database = 'baran';
+        const collection  = 'manualwork';
+        const documents = await baran_manualwork.insertMany(seed, { ordered: false });
+        documents.length > 0 ? console.debug('seeder: (mongodb, ' + database + ', ' + collection + ', ' + documents.length + ')') : null;
+    } 
+})();
 
 (async () => {
     const document = await db_captcha.findOne({}).sort({}).select({});

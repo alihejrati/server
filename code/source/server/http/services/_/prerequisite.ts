@@ -7,7 +7,7 @@ async function prerequisite(req, res, service, options?: options) {
     conf.permission = Array.isArray(conf.permission) ? conf.permission : []; 
     conf.controller = Array.isArray(conf.controller) ? conf.controller : ['*'];
     conf.captcha = conf.captcha === true;
-    conf.enable = conf.enable === true;
+    conf.enable = conf.enable === false ? false : true;
     
 
     if (true) {
