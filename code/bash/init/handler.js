@@ -25,7 +25,7 @@ const stream = gulp.src('file/private/configuration/**/*.conf.json')
 .pipe(jsonTree({
     filename: 'configuration.conf.json'
 }))
-.pipe(gulp.dest('.'))
+.pipe(gulp.dest('.'));
 
 stream.on('end', function() {
     // file: mongodb/model.js
@@ -48,6 +48,10 @@ stream.on('end', function() {
             configuration[key].tag = {
                 "type": ["String"],
                 "default": []
+            };
+            configuration[key].flag = {
+                "type": "Object",
+                "default": {"hide": false}
             };
             schema.push(`var ${_key[3]}_${_key[5]} = ${_key[3]}.model('${_key[5]}', new mongoose.Schema(${JSON.stringify(configuration[key])}, {timestamps: true}));`);
             moduleExport.push(`module.exports.${_key[3]}_${_key[5]} = ${_key[3]}_${_key[5]};`);
