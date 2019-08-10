@@ -23,6 +23,7 @@ declare module NodeJS {
             set: typeof import('../../source/components/model/redis/set').default,  
         },
         stack: typeof import('../../source/components/stack/stack').default,
+        Tools: typeof import('../../source/components/tools/tools').default,
         captcha: {
             create: typeof import('../../source/components/captcha/create').default,
             check: typeof import('../../source/components/captcha/check').default,
@@ -52,6 +53,7 @@ declare const redis: {
     set: typeof import('../../source/components/model/redis/set').default,  
 };
 declare const stack: typeof import('../../source/components/stack/stack').default;
+declare const Tools: typeof import('../../source/components/tools/tools').default;
 declare const captcha: {
     create: typeof import('../../source/components/captcha/create').default,
     check: typeof import('../../source/components/captcha/check').default,

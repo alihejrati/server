@@ -1,8 +1,7 @@
 async function service(req, res, next, options: options) {
     const status = req['_'].carry.config.statusCode;
-    
-    const tag = Array.isArray(req.body.tag) ? req.body.tag : []; 
-    const regex = tag.reduce((filtered, element) => { typeof element == 'string' && element ? filtered.push(`\.*${element}\.*`) : null; return filtered; }, []).join('|') || '^$';
+    const tag = Tools.isArray(req.body.tag);
+    const regex = Tools.tag(tag);
     let error = null;
 
     try {
