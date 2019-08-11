@@ -2,8 +2,10 @@
     "title": {
         "type": "String",
         "index": true,
-        "required": true,
-        "unique": true
+        "required": true
+    },
+    "description": {
+        "type": "String"
     },
     "type": {
         "type": "String",
@@ -13,5 +15,20 @@
     },
     "url": {
         "type": "String"
+    },
+    "imgs": {
+        "type": ["String"]
+    },
+    "suggest": {
+        "type": "String"
+    },
+    "players": {
+        "type": "String"
+    },
+    "age": {
+        "type": "String",
+        "enum" : ["child", "teen", "young"],
+        "index": true,
+        "required": true
     }
 }

@@ -2,8 +2,10 @@
     "title": {
         "type": "String",
         "index": true,
-        "required": true,
-        "unique": true
+        "required": true
+    },
+    "description": {
+        "type": "String"
     },
     "level": {
         "type": "String",
@@ -13,5 +15,40 @@
     },
     "url": {
         "type": "String"
+    },
+    "imgs": {
+        "type": ["String"]
+    },
+    "suggest": {
+        "type": "String"
+    },
+    "requiredsupplies": {
+        "type": [
+            {
+                "key": "String",
+                "value": "String"
+            }
+        ]
+    },
+    "Kind": {
+        "type": ["String"],
+        "index": true,
+        "required": true
+    },
+    "primarysubstance": {
+        "type": ["String"],
+        "index": true,
+        "required": true
+    },
+    "time": {
+        "type": {
+            "count": "integer",
+            "step": "integer",
+            "unit": {
+                "type": "String",
+                "enum" : ["sec", "min", "hour"],
+                "default": "min"
+            }
+        }
     }
 }

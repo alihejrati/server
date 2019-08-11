@@ -25,6 +25,8 @@ async function serve(req, res, next) {
             service: {
                 name: service,
                 code: code => req['_'].service.code[req['_'].service.discovery.indexOf(service)] = code,
+                status: req['_'].carry.config.statusCode,
+                error: null
             }
         };
         const KILL = flag ? await prerequisite(req, res, opt.service) : null
