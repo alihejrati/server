@@ -37,7 +37,8 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var boot_1 = require("./model/boot");
 var boot_2 = require("./stack/boot");
-var boot_3 = require("./captcha/boot");
+var boot_3 = require("./tools/boot");
+var boot_4 = require("./captcha/boot");
 function boot(options) {
     return __awaiter(this, void 0, void 0, function () {
         return __generator(this, function (_a) {
@@ -45,7 +46,8 @@ function boot(options) {
                 case 0: return [4, Promise.all([
                         boot_1.default(),
                         boot_2.default(),
-                        boot_3.default()
+                        boot_3.default(),
+                        boot_4.default()
                     ])];
                 case 1:
                     _a.sent();

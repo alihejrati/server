@@ -1,7 +1,6 @@
 {
     "title": {
         "type": "String",
-        "index": true,
         "required": true
     },
     "description": {
@@ -10,7 +9,6 @@
     "level": {
         "type": "String",
         "enum" : ["easy", "medium", "hard"],
-        "index": true,
         "required": true
     },
     "url": {
@@ -32,12 +30,10 @@
     },
     "Kind": {
         "type": ["String"],
-        "index": true,
         "required": true
     },
     "primarysubstance": {
         "type": ["String"],
-        "index": true,
         "required": true
     },
     "time": {

@@ -1,13 +1,11 @@
 {
     "question": {
         "type": "String",
-        "index": true,
         "required": true,
         "unique": true
     },
     "answer": {
         "type": "String",
-        "index": true,
         "required": true
     }
 }

@@ -1,7 +1,6 @@
 {
     "title": {
         "type": "String",
-        "index": true,
         "required": true
     },
     "description": {
@@ -10,7 +9,6 @@
     "type": {
         "type": "String",
         "enum" : ["indore", "outdor"],
-        "index": true,
         "required": true
     },
     "url": {
@@ -28,7 +26,6 @@
     "age": {
         "type": "String",
         "enum" : ["child", "teen", "young"],
-        "index": true,
         "required": true
     }
 }

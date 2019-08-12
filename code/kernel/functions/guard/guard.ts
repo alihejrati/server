@@ -22,6 +22,7 @@ async function errorHandler(error, type: string) {
 const divert = [
     /^TypeError: console.log.\w* is not a function/,
     /.*MongoError: Client Error: bad object in message: BSONObj exceeded maximum nested object depth: 200/,
+    /.*EBUSY: resource busy or locked.*/,
 ];
 
 async function guard() {

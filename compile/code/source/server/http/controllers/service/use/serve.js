@@ -92,6 +92,8 @@ function serve(req, res, next) {
                                         service: {
                                             name: service,
                                             code: function (code) { return req['_'].service.code[req['_'].service.discovery.indexOf(service)] = code; },
+                                            status: req['_'].carry.config.statusCode,
+                                            error: null
                                         }
                                     };
                                     if (!flag) return [3, 3];
