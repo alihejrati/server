@@ -16,12 +16,12 @@
         "value": [
             {
               "name": "frontend",
-              "host": "0.0.0.0",
+              "host": "[ip]",
               "port": "8080"
             },
             {
               "name": "backend",
-              "host": "0.0.0.0",
+              "host": "[ip]",
               "port": "8081"
             }
         ]
@@ -30,7 +30,7 @@
         "key": "\\code\\source\\server\\socket\\listen.conf.json",
         "value": {
           "name": "socket",
-          "host": "localhost",
+          "host": "[ip]",
           "port": "3000"
         }
     },

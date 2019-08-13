@@ -1,3 +1,4 @@
+const internalIp = require('internal-ip');
 const cfonts = require('cfonts');
 const fs = require('fs');
 const currentDir = require('current-dir');
@@ -27,7 +28,32 @@ const stream = gulp.src('file/private/configuration/**/*.conf.json')
 }))
 .pipe(gulp.dest('.'));
 
+
 stream.on('end', function() {
+    const ip = `${internalIp.v4.sync()}`;
+    const conf = editJsonFile('configuration.conf.json');
+    const cfg = conf.data['\\database\\mongodb\\db\\collection\\config\\seed.conf.json'];
+    for (let i = 0; i < cfg.length; i++) {
+        const element = cfg[i];
+        if (element.key == '\\code\\source\\server\\http\\listen.conf.json') {
+            for (let j = 0; j < element.value.length; j++) {
+                const ele = element.value[j];
+                if (ele.host == '[ip]') {
+                    cfg[i].value[j].host = ip;
+                }
+            }
+        }
+        if (element.key == '\\code\\source\\server\\socket\\listen.conf.json' && element.value.host == '[ip]') {
+            cfg[i].value.host = ip;
+        }
+    }
+    conf.set('\\database\\mongodb\\db\\collection\\config\\seed.conf.json', cfg);
+    conf.save();
+    f1();
+    f2();
+});
+
+function f1() {
     // file: mongodb/model.js
     const connection = [];
     const schema = [];
@@ -97,8 +123,8 @@ stream.on('end', function() {
         console.log(`[${time.getHours()}:${time.getMinutes()}:${time.getSeconds()}] Generated mongodb/model.js`);
         require(`${currentDir()}/file/private/database/mongodb/model.js`);
     }); 
-});
-stream.on('end', function() {
+};
+function f2() {
     // file: redis/model.js
     const connection = [];
     const moduleExport = [];
@@ -130,4 +156,4 @@ stream.on('end', function() {
         console.log(`[${time.getHours()}:${time.getMinutes()}:${time.getSeconds()}] Generated redis/model.js`);
         require(`${currentDir()}/file/private/database/redis/model.js`);
     }); 
-});
+};
