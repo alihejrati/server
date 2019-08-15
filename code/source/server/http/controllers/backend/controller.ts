@@ -1,4 +1,4 @@
-import begin from './get/begin';
+import table from './get/table';
 
 async function controller(options?: options) {
     const controller = npm.express.Router();
@@ -7,7 +7,7 @@ async function controller(options?: options) {
         req['_'].temporary.watchdog.layer = '/backend/**';
         next();
     });
-    controller.get('/', begin);
+    controller.get('/table/:table', table);
 
     return controller;
 }

@@ -35,7 +35,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var begin_1 = require("./get/begin");
+var table_1 = require("./get/table");
 function controller(options) {
     return __awaiter(this, void 0, void 0, function () {
         var controller;
@@ -45,7 +45,7 @@ function controller(options) {
                 req['_'].temporary.watchdog.layer = '/backend/**';
                 next();
             });
-            controller.get('/', begin_1.default);
+            controller.get('/table/:table', table_1.default);
             return [2, controller];
         });
     });

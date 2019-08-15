@@ -67,6 +67,13 @@
         }
     },
     {
+        "key": "\\code\\source\\server\\http\\view\\hell.conf.json",
+        "value": {
+          "VIEW": "status", 
+          "PAGE": "spaghetti"
+        }
+    },
+    {
         "key": "\\code\\source\\server\\http\\status.conf.json",
         "value": {
           "continue": 100,

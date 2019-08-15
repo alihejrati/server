@@ -35,19 +35,65 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+var viewHell = { VIEW: '', PAGE: '' };
+config('\\code\\source\\server\\http\\view\\hell.conf.json').then(function (conf) { return viewHell = conf; });
+function statusCode(code, req, res) {
+    var status = req['_'].carry.config.statusCode;
+    req['_'].status = req['_'].status == status.successful ? code : req['_'].status;
+}
 function hell(req, res, next) {
     return __awaiter(this, void 0, void 0, function () {
+        var code, status, VIEW, PAGE, SEND, NEXT;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4, view.send('/basic', '/t1/t2', req, res, {
-                        next: next,
-                        variables: npm.jsonPrettyHtml.default({
-                            _: req['_']
-                        })
-                    })];
+                case 0:
+                    status = req['_'].carry.config.statusCode;
+                    VIEW = req['_'].user.login ? '?' : viewHell.VIEW;
+                    PAGE = req['_'].user.login ? 'error/code' : viewHell.PAGE;
+                    SEND = function () {
+                        res.render('error/handler');
+                    };
+                    NEXT = function () {
+                        req['_'].status = code;
+                        if (VIEW == '?') {
+                            view.send(viewHell.VIEW, viewHell.PAGE, req, res, { next: SEND, variables: {} });
+                        }
+                        else {
+                            SEND();
+                        }
+                    };
+                    if (!(req['_'].service.discovery.length == 0)) return [3, 6];
+                    statusCode(status.notFound, req, res);
+                    if (!(req['_'].route.method == 'get')) return [3, 2];
+                    code = req['_'].status;
+                    return [4, view.send(VIEW, PAGE, req, res, { next: NEXT, variables: {} })];
                 case 1:
                     _a.sent();
-                    return [2];
+                    return [3, 5];
+                case 2: return [4, response.attach(null, req, res)];
+                case 3:
+                    _a.sent();
+                    return [4, response.send(req, res)];
+                case 4:
+                    _a.sent();
+                    _a.label = 5;
+                case 5: return [3, 11];
+                case 6:
+                    statusCode(status.multiStatus, req, res);
+                    if (!(req['_'].route.method == 'get')) return [3, 8];
+                    code = req['_'].status;
+                    return [4, view.send(VIEW, PAGE, req, res, { next: NEXT, variables: {} })];
+                case 7:
+                    _a.sent();
+                    return [3, 11];
+                case 8: return [4, response.attach(null, req, res)];
+                case 9:
+                    _a.sent();
+                    return [4, response.send(req, res)];
+                case 10:
+                    _a.sent();
+                    _a.label = 11;
+                case 11: return [2];
             }
         });
     });

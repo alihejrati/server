@@ -5,6 +5,8 @@ async function send(VIEW: string, PAGE: string, req, res, options: options) {
     let path: string;
     let variables = {
         _layoutFile: '',
+        template: `/template/${VIEW}`.replace(/\/+/g, '/'),
+        status: {code: req['_'].status, msg: (str => str.replace(/([a-z]+)([A-Z][a-z]+)/, "$1 $2"))(Object.keys(status)[Object.values(status).indexOf(req['_'].status)])},
         _: req['_'],
         variables: options['variables'] || {}
     };
@@ -16,6 +18,7 @@ async function send(VIEW: string, PAGE: string, req, res, options: options) {
             });
             if (viewport) {
                 path = `/${viewport.branch['@' + req['_'].controller]}/pages/${PAGE}/index.ejs`;
+                variables.template = `/template/${viewport.branch['@' + req['_'].controller]}`.replace(/\/+/g, '/');
             } else {
                 req['_'].status = status.failedDependency;
                 next();
@@ -29,8 +32,8 @@ async function send(VIEW: string, PAGE: string, req, res, options: options) {
     } else {
         path = `/${VIEW}/pages/${PAGE}/index.ejs`;
     }
-    path = path.replace(/\\/g, '/').replace(/\/+/g, '/').replace(/\/+$/g, '').toLowerCase();;
-    
+    path = path.replace(/\\/g, '/').replace(/\/+/g, '/').replace(/\/+$/g, '').toLowerCase();
+
     if (npm.fileExists.sync(`${npm.currentDir()}/code/source/server/http/views/${path}`)) {
         const _layoutFile = path.replace(new RegExp(`/${PAGE}/index\.ejs$`, 'g'), '/layout-' + PAGE.replace(/^\//g, '').split('/')[0]).replace(/^\//g, '');
         npm.fileExists.sync(`${npm.currentDir()}/code/source/server/http/views/${_layoutFile}.ejs`) ? variables._layoutFile = _layoutFile : null;

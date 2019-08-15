@@ -4,7 +4,7 @@ npm.app.use(npm.bodyParser.urlencoded({
     extended: false
 }));
 npm.app.use(npm.bodyParser.json());
-npm.app.use(npm.express.static(npm.currentDir() + "/file/static/public"));
+npm.app.use(npm.express.static(npm.currentDir() + "/file/public"));
 npm.app.use(function (req, res, next) {
     var regex = /^\/.+\/@.+\/.+\.((js)|(css))$/g.test(req.url);
     var path = (npm.currentDir() + "/code/source/server/http/view/" + req.url).replace(/\/+/g, '/');

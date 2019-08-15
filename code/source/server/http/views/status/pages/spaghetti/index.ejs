@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title><%-status.code%> - <%-status.msg%></title>
+    <link rel="stylesheet" href="<%-template%>/src/spaghetti.css">
+</head>
+<body>
+    <div class="error-500" data-text="Oh no! <%-status.code%> <%-status.msg%>. We will be back soon!">
+        <spaguetti>
+            <fork></fork>
+            <meat></meat>
+            <pasta></pasta>
+            <plate></plate>
+        </spaguetti>
+    </div>
+    <script src="<%-template%>/src/spaghetti.js"></script>
+</body>
+</html>
