@@ -1,0 +1,37 @@
+{
+    "category": {
+        "type": "String"
+    },
+    "name": {
+        "type": "String",
+        "required": true,
+        "unique": true
+    },
+    "label": {
+        "type": "String"
+    },
+    "description": {
+        "type": "String"
+    },
+    "pagetitle": {
+        "type": "String"
+    },
+    "columns": {
+        "type": "Object",
+        "required": true
+    },
+    "buttons": {
+        "type": "Object",
+        "required": true,
+        "default": {
+            "copy": {"extend": "copy", "text": "copy", "html": {"title": "رونوشت"}},
+            "csv": {"extend": "csv", "text": "csv", "html": {"title": "لیست"}},
+            "excel": {"extend": "excel", "text": "excel", "html": {"title": "اکسل"}},
+            "pdf": {"extend": "pdf", "text": "pdf", "html": {"title": "کتاب الکترونیک"}},
+            "print": {"extend": "print", "text": "print", "html": {"title": "چاپ"}}
+        }
+    },
+    "service": {
+        "type": "Object"
+    }
+}

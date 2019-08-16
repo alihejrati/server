@@ -1,0 +1,76 @@
+<script>
+    $('#tbl-label').html('<%-variables.label%>');
+    $('#tbl-text').html('<%-variables.description%>');
+    const buttons = JSON.parse('<%-JSON.stringify(variables.buttons)%>');
+    const _buttons = Object.keys(buttons).reverse().map((ele, i) => {
+        buttons[ele].text = map(buttons[ele].text, buttons[ele].html);
+        return buttons[ele];
+    });
+    const config = JSON.parse('<%-JSON.stringify(variables.columns)%>');
+    const columns = Object.keys(config).reverse();
+    const _columns = columns.map((col, i) => config[col]);
+    const btn = (columns.indexOf('tools') >= 0 ? config['tools'].defaultContent.split(':') : []).map((btn, i) => map(
+        btn, {
+            title: config['tools'].html.title.split(':')[i]
+        }));
+    if (columns.indexOf('tools') >= 0) {
+        config['tools'].defaultContent = btn.join('');
+    }
+    $('#thead').html('');
+    $('#tfoot').html('');
+    for (const col of columns) {
+        $('#thead').append(`<th>${config[col].title || config[col].data}</th>`);
+        $('#tfoot').append(`<th>${config[col].title || config[col].data}</th>`);
+    }
+    var table = $('#table').DataTable({
+        responsive: true,
+        "dom": '<"toolbar">Bfrltip',
+        buttons: _buttons,
+        "deferRender": true,
+        "serverSide": true,
+        "ajax": function (data, callback, settings) {
+            var sort_column_name = data.columns[data.order[0].column].data.replace(/\./g, "__");
+            var direction = "";
+
+            if (data.order[0].dir == "desc") {
+                direction = "-"
+            };
+
+            $.post('<%-variables.service.read%>', {
+                limit: data.length,
+                offset: data.start,
+                your_search_field__searchattr: data
+                    .search.value,
+                order_by: direction +
+                    sort_column_name
+            }, function (res) {
+                $("div.toolbar").html('');
+                $("div#table_filter label").html($("div#table_filter label").html().replace('Search', 'جستجو'));
+                $("div#table_length label").html($("div#table_length label").html().replace('Show', 'دسته').replace('entries', ''));
+                const response = eval(
+                    'res.<%-variables.service.read%>'
+                    .replace(/\/+/g,
+                        '/')
+                    .replace(/\//g,
+                        '.')
+                    .replace(/\.+/g,
+                        '.')
+                ) || {};
+                callback({
+                    recordsTotal: response
+                        .body
+                        .length,
+                    recordsFiltered: response
+                        .body
+                        .length,
+                    data: response
+                        .body
+                });
+            });
+        },
+        "columns": _columns,
+        "order": [
+            [1, "asc"]
+        ]
+    });
+</script>

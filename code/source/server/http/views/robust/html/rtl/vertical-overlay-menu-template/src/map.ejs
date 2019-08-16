@@ -1,0 +1,23 @@
+<script>
+    const MAP = {
+        // tools
+        'del': `<div  style="cursor: pointer; display: inline;" class="fonticon-container"><div style="" title="{{TITLE}}" class="fonticon-wrap"><i onclick="service('tools', 'del')" class="icon-ei-trash"></i></div>`,
+        'edit': `<div  style="cursor: pointer; display: inline;" class="fonticon-container"><div style="" title="{{TITLE}}" class="fonticon-wrap"><i onclick="service('tools', 'edit')" class="icon-ei-pencil"></i></div>`,
+        'check': `<div  style="cursor: pointer; display: inline;" class="fonticon-container"><div style="" title="{{TITLE}}" class="fonticon-wrap"><i onclick="service('tools', 'check')" class="icon-ei-check"></i></div>`,
+        'up': `<div  style="cursor: pointer; display: inline;" class="fonticon-container"><div style="" title="{{TITLE}}" class="fonticon-wrap"><i onclick="service('tools', 'up')" class="icon-ei-arrow-up"></i></div>`,
+        'down': `<div  style="cursor: pointer; display: inline;" class="fonticon-container"><div style="" title="{{TITLE}}" class="fonticon-wrap"><i onclick="service('tools', 'down')" class="icon-ei-arrow-down"></i></div>`,
+        // btn
+        'copy': `<div style="cursor: pointer;" class="" title="{{TITLE}}"><div style="" class=""><i class="fad fa-copy"></i></div>`,
+        'csv': `<div style="cursor: pointer;" class="" title="{{TITLE}}"><div style="" class=""><i class="fas fa-file-csv"></i></div>`,
+        'excel': `<div style="cursor: pointer;" class="" title="{{TITLE}}"><div style="" class=""><i class="fa fa-file-excel-o" aria-hidden="true"></i></div>`,
+        'pdf': `<div style="cursor: pointer;" class="" title="{{TITLE}}"><div style="" class=""><i class="far fa-file-pdf"></i></div>`,
+        'print': `<div style="cursor: pointer;" class="" title="{{TITLE}}"><div style="" class=""><i class="fas fa-print"></i></div>`,
+    };
+    const map = (str, html = {}) => {
+        let res = MAP[str] || str;
+        for (const iterator of Object.keys(html)) {
+            res = res.replace(new RegExp(`{{${iterator.toUpperCase()}}}`, 'g'), html[iterator]);
+        }
+        return res;
+    };
+</script>

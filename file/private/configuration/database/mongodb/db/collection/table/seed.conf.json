@@ -1,0 +1,21 @@
+[
+    {
+        "category": "",
+        "name": "tables",
+        "label": "جداول",
+        "description": "گزارش گیری از جدول های منطقی",
+        "pagetitle": "",
+        "columns": {
+            "tools": {"title": "ابزارها", "data": "tools", "defaultContent": "del:edit:check", "orderable": false, "visible": true, "html": {"title": "حذف:ویرایش:انتخاب"}},
+            "_id": {"title": "شناسه ها", "data": "_id", "defaultContent": "یافت نشد", "orderable": false, "visible": false, "html": {"title": "قابلیت مرتب سازی ندارد"}},
+            "description": {"title": "توضیحات", "data": "description", "defaultContent": "یافت نشد", "orderable": false, "visible": true, "html": {"title": "قابلیت مرتب سازی ندارد"}},
+            "label": {"title": "برچسب", "data": "label", "defaultContent": "یافت نشد", "orderable": true, "visible": true, "html": {"title": "مرتب سازی براساس برچسب"}},
+            "name": {"title": "نام", "data": "name", "defaultContent": "یافت نشد", "orderable": true, "visible": true, "html": {"title": "مرتب سازی براساس نام"}}
+        },
+        "service": {
+            "read": "/service/crud/read",
+            "del": "/service/crud/delete",
+            "edit": "/service/crud/update"
+        }
+    }
+]
