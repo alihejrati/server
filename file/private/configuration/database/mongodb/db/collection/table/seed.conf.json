@@ -13,9 +13,9 @@
             "name": {"title": "نام", "data": "name", "defaultContent": "یافت نشد", "orderable": true, "visible": true, "html": {"title": "مرتب سازی براساس نام"}}
         },
         "service": {
-            "read": "/service/crud/read",
-            "del": "/service/crud/delete",
-            "edit": "/service/crud/update"
+            "read": {"server": "http", "route": "/service/crud/read"},
+            "del": {"server": "http", "route": "/service/crud/delete"},
+            "edit": {"server": "http", "route": "/service/crud/update"}
         }
     }
 ]

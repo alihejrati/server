@@ -13,11 +13,4 @@
         'pdf': `<div style="cursor: pointer;" class="" title="{{TITLE}}"><div style="" class=""><i class="far fa-file-pdf"></i></div>`,
         'print': `<div style="cursor: pointer;" class="" title="{{TITLE}}"><div style="" class=""><i class="fas fa-print"></i></div>`,
     };
-    const map = (str, html = {}) => {
-        let res = MAP[str] || str;
-        for (const iterator of Object.keys(html)) {
-            res = res.replace(new RegExp(`{{${iterator.toUpperCase()}}}`, 'g'), html[iterator]);
-        }
-        return res;
-    };
 </script>

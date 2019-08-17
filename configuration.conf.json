@@ -10,12 +10,135 @@
       "watchdog": "trace"
     }
   },
-  "\\database\\mongodb\\db\\dsn.conf.json": "mongodb://localhost:27017/[db]",
   "\\database\\mongodb\\baran\\dsn.conf.json": "mongodb://localhost:27017/[baran]",
+  "\\database\\mongodb\\db\\dsn.conf.json": "mongodb://localhost:27017/[db]",
   "\\database\\redis\\db\\dsn.conf.json": {
     "host": "localhost",
     "port": 6379
   },
+  "\\database\\mongodb\\baran\\collection\\faq\\schema.conf.json": {
+    "question": {
+      "type": "String",
+      "required": true,
+      "unique": true
+    },
+    "answer": {
+      "type": "String",
+      "required": true
+    }
+  },
+  "\\database\\mongodb\\baran\\collection\\faq\\seed.conf.json": [
+    {
+      "question": "چطوری بارانی بشم؟!",
+      "answer": "کافیه تا دفتر باران بیای :)"
+    }
+  ],
+  "\\database\\mongodb\\baran\\collection\\game\\schema.conf.json": {
+    "title": {
+      "type": "String",
+      "required": true
+    },
+    "description": {
+      "type": "String"
+    },
+    "type": {
+      "type": "String",
+      "enum": [
+        "indore",
+        "outdor"
+      ],
+      "required": true
+    },
+    "url": {
+      "type": "String"
+    },
+    "imgs": {
+      "type": [
+        "String"
+      ]
+    },
+    "suggest": {
+      "type": "String"
+    },
+    "players": {
+      "type": "String"
+    },
+    "age": {
+      "type": "String",
+      "enum": [
+        "child",
+        "teen",
+        "young"
+      ],
+      "required": true
+    }
+  },
+  "\\database\\mongodb\\baran\\collection\\game\\seed.conf.json": [],
+  "\\database\\mongodb\\baran\\collection\\manualwork\\schema.conf.json": {
+    "title": {
+      "type": "String",
+      "required": true
+    },
+    "description": {
+      "type": "String"
+    },
+    "level": {
+      "type": "String",
+      "enum": [
+        "easy",
+        "medium",
+        "hard"
+      ],
+      "required": true
+    },
+    "url": {
+      "type": "String"
+    },
+    "imgs": {
+      "type": [
+        "String"
+      ]
+    },
+    "suggest": {
+      "type": "String"
+    },
+    "requiredsupplies": {
+      "type": [
+        {
+          "key": "String",
+          "value": "String"
+        }
+      ]
+    },
+    "Kind": {
+      "type": [
+        "String"
+      ],
+      "required": true
+    },
+    "primarysubstance": {
+      "type": [
+        "String"
+      ],
+      "required": true
+    },
+    "time": {
+      "type": {
+        "count": "integer",
+        "step": "integer",
+        "unit": {
+          "type": "String",
+          "enum": [
+            "sec",
+            "min",
+            "hour"
+          ],
+          "default": "min"
+        }
+      }
+    }
+  },
+  "\\database\\mongodb\\baran\\collection\\manualwork\\seed.conf.json": [],
   "\\database\\mongodb\\db\\collection\\captcha\\schema.conf.json": {
     "key": {
       "type": "String",
@@ -484,9 +607,18 @@
         }
       },
       "service": {
-        "read": "/service/crud/read",
-        "del": "/service/crud/delete",
-        "edit": "/service/crud/update"
+        "read": {
+          "server": "http",
+          "route": "/service/crud/read"
+        },
+        "del": {
+          "server": "http",
+          "route": "/service/crud/delete"
+        },
+        "edit": {
+          "server": "http",
+          "route": "/service/crud/update"
+        }
       }
     }
   ],
@@ -531,129 +663,6 @@
       }
     }
   },
-  "\\database\\mongodb\\baran\\collection\\faq\\schema.conf.json": {
-    "question": {
-      "type": "String",
-      "required": true,
-      "unique": true
-    },
-    "answer": {
-      "type": "String",
-      "required": true
-    }
-  },
-  "\\database\\mongodb\\baran\\collection\\faq\\seed.conf.json": [
-    {
-      "question": "چطوری بارانی بشم؟!",
-      "answer": "کافیه تا دفتر باران بیای :)"
-    }
-  ],
-  "\\database\\mongodb\\baran\\collection\\game\\schema.conf.json": {
-    "title": {
-      "type": "String",
-      "required": true
-    },
-    "description": {
-      "type": "String"
-    },
-    "type": {
-      "type": "String",
-      "enum": [
-        "indore",
-        "outdor"
-      ],
-      "required": true
-    },
-    "url": {
-      "type": "String"
-    },
-    "imgs": {
-      "type": [
-        "String"
-      ]
-    },
-    "suggest": {
-      "type": "String"
-    },
-    "players": {
-      "type": "String"
-    },
-    "age": {
-      "type": "String",
-      "enum": [
-        "child",
-        "teen",
-        "young"
-      ],
-      "required": true
-    }
-  },
-  "\\database\\mongodb\\baran\\collection\\game\\seed.conf.json": [],
-  "\\database\\mongodb\\baran\\collection\\manualwork\\schema.conf.json": {
-    "title": {
-      "type": "String",
-      "required": true
-    },
-    "description": {
-      "type": "String"
-    },
-    "level": {
-      "type": "String",
-      "enum": [
-        "easy",
-        "medium",
-        "hard"
-      ],
-      "required": true
-    },
-    "url": {
-      "type": "String"
-    },
-    "imgs": {
-      "type": [
-        "String"
-      ]
-    },
-    "suggest": {
-      "type": "String"
-    },
-    "requiredsupplies": {
-      "type": [
-        {
-          "key": "String",
-          "value": "String"
-        }
-      ]
-    },
-    "Kind": {
-      "type": [
-        "String"
-      ],
-      "required": true
-    },
-    "primarysubstance": {
-      "type": [
-        "String"
-      ],
-      "required": true
-    },
-    "time": {
-      "type": {
-        "count": "integer",
-        "step": "integer",
-        "unit": {
-          "type": "String",
-          "enum": [
-            "sec",
-            "min",
-            "hour"
-          ],
-          "default": "min"
-        }
-      }
-    }
-  },
-  "\\database\\mongodb\\baran\\collection\\manualwork\\seed.conf.json": [],
   "\\database\\mongodb\\db\\collection\\config\\seed": {
     "conf": {
       "json": [

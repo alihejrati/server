@@ -36,7 +36,7 @@
                 direction = "-"
             };
 
-            $.post('<%-variables.service.read%>', {
+            $.post('<%-variables.service.read.route%>', {
                 limit: data.length,
                 offset: data.start,
                 your_search_field__searchattr: data
@@ -48,7 +48,7 @@
                 $("div#table_filter label").html($("div#table_filter label").html().replace('Search', 'جستجو'));
                 $("div#table_length label").html($("div#table_length label").html().replace('Show', 'دسته').replace('entries', ''));
                 const response = eval(
-                    'res.<%-variables.service.read%>'
+                    'res.<%-variables.service.read.route%>'
                     .replace(/\/+/g,
                         '/')
                     .replace(/\//g,

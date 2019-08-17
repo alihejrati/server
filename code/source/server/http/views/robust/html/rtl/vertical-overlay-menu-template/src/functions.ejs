@@ -1,0 +1,28 @@
+<script>
+    const map = (str, html = {}) => {
+        let res = MAP[str] || str;
+        for (const iterator of Object.keys(html)) {
+            res = res.replace(new RegExp(`{{${iterator.toUpperCase()}}}`, 'g'), html[iterator]);
+        }
+        return res;
+    };
+</script>
+
+<script>
+    let services = JSON.parse('<%-JSON.stringify(variables.service)%>') || {};
+    function service(...arg) {
+        const type = arg[0];
+
+        if (type == 'tools') {
+            const tool = arg[1]
+            if (services[tool].server == 'http') {
+                const route = services[tool].route;
+                const json = {};
+                $.post(route, json, res => {
+                    console.log('---------->', res);
+                });
+                console.log('hoooooooooooooo!!', tool, route);
+            }
+        }
+    }
+</script>
