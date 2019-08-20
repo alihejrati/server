@@ -1,0 +1,9 @@
+<script>
+    const map = (str, html = {}) => {
+        let res = MAP[str] || str;
+        for (const iterator of Object.keys(html)) {
+            res = res.replace(new RegExp(`{{${iterator.toUpperCase()}}}`, 'g'), html[iterator] || '');
+        }
+        return res;
+    };
+</script>

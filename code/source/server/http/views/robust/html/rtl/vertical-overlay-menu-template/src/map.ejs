@@ -1,16 +1,27 @@
 <script>
     const MAP = {
         // tools
-        'del': `<div  style="cursor: pointer; display: inline;" class="fonticon-container"><div style="" title="{{TITLE}}" class="fonticon-wrap"><i onclick="service('tools', 'del')" class="icon-ei-trash"></i></div>`,
-        'edit': `<div  style="cursor: pointer; display: inline;" class="fonticon-container"><div style="" title="{{TITLE}}" class="fonticon-wrap"><i onclick="service('tools', 'edit')" class="icon-ei-pencil"></i></div>`,
-        'check': `<div  style="cursor: pointer; display: inline;" class="fonticon-container"><div style="" title="{{TITLE}}" class="fonticon-wrap"><i onclick="service('tools', 'check')" class="icon-ei-check"></i></div>`,
-        'up': `<div  style="cursor: pointer; display: inline;" class="fonticon-container"><div style="" title="{{TITLE}}" class="fonticon-wrap"><i onclick="service('tools', 'up')" class="icon-ei-arrow-up"></i></div>`,
-        'down': `<div  style="cursor: pointer; display: inline;" class="fonticon-container"><div style="" title="{{TITLE}}" class="fonticon-wrap"><i onclick="service('tools', 'down')" class="icon-ei-arrow-down"></i></div>`,
+        'del': `<div style="cursor: pointer; display: inline;" class="fonticon-container"><div style=""  title="{{TITLE}}" class="fonticon-wrap"><i onclick="service('tools', 'del', this)" class="icon-ei-trash"></i></div>`,
+        'edit': `<div onclick="$('#btn-add').click()" style="cursor: pointer; display: inline;" class="fonticon-container"><div style=""  title="{{TITLE}}" class="fonticon-wrap"><i onclick="service('tools', 'edit', this)" class="icon-ei-pencil"></i></div>`,
+        'check': `<div style="cursor: pointer; display: inline;" class="fonticon-container"><div style="" title="{{TITLE}}" class="fonticon-wrap"><i onclick="service('tools', 'check', this)" class="icon-ei-check"></i></div>`,
+        'up': `<div style="cursor: pointer; display: inline;" class="fonticon-container"><div style="" title="{{TITLE}}" class="fonticon-wrap"><i onclick="service('tools', 'up', this)" class="icon-ei-arrow-up"></i></div>`,
+        'down': `<div style="cursor: pointer; display: inline;" class="fonticon-container"><div style="" title="{{TITLE}}" class="fonticon-wrap"><i onclick="service('tools', 'down', this)" class="icon-ei-arrow-down"></i></div>`,
         // btn
-        'copy': `<div style="cursor: pointer;" class="" title="{{TITLE}}"><div style="" class=""><i class="fad fa-copy"></i></div>`,
-        'csv': `<div style="cursor: pointer;" class="" title="{{TITLE}}"><div style="" class=""><i class="fas fa-file-csv"></i></div>`,
-        'excel': `<div style="cursor: pointer;" class="" title="{{TITLE}}"><div style="" class=""><i class="fa fa-file-excel-o" aria-hidden="true"></i></div>`,
-        'pdf': `<div style="cursor: pointer;" class="" title="{{TITLE}}"><div style="" class=""><i class="far fa-file-pdf"></i></div>`,
-        'print': `<div style="cursor: pointer;" class="" title="{{TITLE}}"><div style="" class=""><i class="fas fa-print"></i></div>`,
+        'copy': `<div data-toggle="tooltip" data-popup="tooltip-custom" data-original-title="{{TITLE}}" data-text-color="info" style="cursor: pointer;" class="" title="{{TITLE}}"><div style="" class=""><i class="fad fa-copy"></i></div>`,
+        'csv': `<div data-toggle="tooltip" data-popup="tooltip-custom" data-original-title="{{TITLE}}" data-text-color="info" style="cursor: pointer;" class="" title="{{TITLE}}"><div style="" class=""><i class="fas fa-file-csv"></i></div>`,
+        'excel': `<div data-toggle="tooltip" data-popup="tooltip-custom" data-original-title="{{TITLE}}" data-text-color="info" style="cursor: pointer;" class="" title="{{TITLE}}"><div style="" class=""><i class="fa fa-file-excel-o" aria-hidden="true"></i></div>`,
+        'pdf': `<div data-toggle="tooltip" data-popup="tooltip-custom" data-original-title="{{TITLE}}" data-text-color="info" style="cursor: pointer;" class="" title="{{TITLE}}"><div style="" class=""><i class="far fa-file-pdf"></i></div>`,
+        'print': `<div data-toggle="tooltip" data-popup="tooltip-custom" data-original-title="{{TITLE}}" data-text-color="info" style="cursor: pointer;" class="" title="{{TITLE}}"><div style="" class=""><i class="fas fa-print"></i></div>`,
+        'add': `<div data-toggle="tooltip" data-popup="tooltip-custom" data-original-title="{{TITLE}}" data-text-color="info" style="cursor: pointer;" class="" title="{{TITLE}}"><div style="" class=""><i class="fa fa-plus" aria-hidden="true"></i></div>`,
+        'del-multi': `<div data-toggle="tooltip" data-popup="tooltip-custom" data-original-title="{{TITLE}}" data-text-color="info" style="cursor: pointer;" class="" title="{{TITLE}}"><div style="" class=""><i class="fa fa-trash" aria-hidden="true"></i></div>`,
+        // col
+        'checkmark': ``,
+        'table': `<div onclick="{{ONCLICK}}" data-toggle="tooltip" data-popup="tooltip-custom" data-original-title="{{TITLE}}" data-text-color="info" style="cursor: pointer; display: inline;" class="fonticon-container" title="{{TITLE}}"><div class="fonticon-wrap" style="color: #939393;"><i class="fa fa-table" aria-hidden="true"></i></div>`,
+        // form
+        'text': `<div class="form-group"><label for="{{ID}}">{{LABEL}}</label><input type="text" class="form-control" id="{{ID}}" name="{{NAME}}"></div>`,
+        'text-required': `<div class="form-group"><label for="{{ID}}">{{LABEL}}<span class="danger">*</span></label><input type="text" class="form-control required" id="{{ID}}" name="{{NAME}}"></div>`,
+        'textarea': `<div class="form-group"><label for="{{ID}}">{{LABEL}}</label><textarea name="{{NAME}}" id="{{ID}}" rows="4" class="form-control"></textarea></div>`,
+        'boolean': `<label style="margin-right: 0;" class="display-inline-block custom-control custom-checkbox"><input type="checkbox" name="{{NAME}}" checked class="custom-control-input"><span class="c-indicator bg-purple custom-control-indicator"></span><span class="custom-control-description">{{LABEL}}</span></label>`,
+        'boolean-required': `<label style="margin-right: 0;" class="display-inline-block custom-control custom-checkbox"><input type="checkbox" name="{{NAME}}" checked class="custom-control-input"><span class="c-indicator bg-purple custom-control-indicator"></span><span class="custom-control-description">{{LABEL}}</span></label>`,
     };
 </script>

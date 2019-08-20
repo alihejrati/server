@@ -24,14 +24,19 @@
         "type": "Object",
         "required": true,
         "default": {
-            "copy": {"extend": "copy", "text": "copy", "html": {"title": "رونوشت"}},
-            "csv": {"extend": "csv", "text": "csv", "html": {"title": "لیست"}},
-            "excel": {"extend": "excel", "text": "excel", "html": {"title": "اکسل"}},
-            "pdf": {"extend": "pdf", "text": "pdf", "html": {"title": "کتاب الکترونیک"}},
-            "print": {"extend": "print", "text": "print", "html": {"title": "چاپ"}}
+            "copy": {"extend": "copy", "text": "copy", "html": {"title": "رونوشت"}, "attr": {"title": "رونوشت", "btn": "copy"}},
+            "csv": {"extend": "csv", "text": "csv", "html": {"title": "لیست"}, "attr": {"title": "لیست", "btn": "csv"}},
+            "excel": {"extend": "excel", "text": "excel", "html": {"title": "اکسل"}, "attr": {"title": "اکسل", "btn": "excel"}},
+            "pdf": {"extend": "pdf", "text": "pdf", "html": {"title": "کتاب الکترونیک"}, "attr": {"title": "کتاب الکترونیک", "btn": "pdf"}},
+            "print": {"extend": "print", "text": "print", "html": {"title": "چاپ"}, "attr": {"title": "چاپ", "btn": "print"}},
+            "del-multi": {"extend": "copyHtml5", "text": "del-multi", "html": {"title": "حذف رکورد های انتخابی"}, "attr": {"title": "حذف رکورد های انتخابی", "btn": "del-multi"}},
+            "add": {"extend": "copyHtml5", "text": "add", "html": {"title": "اضافه کردن سطر جدید"}, "attr": {"title": "اضافه کردن سطر جدید", "btn": "add"}}
         }
     },
     "service": {
         "type": "Object"
+    },
+    "form": {
+        "type": ["Object"]
     }
 }

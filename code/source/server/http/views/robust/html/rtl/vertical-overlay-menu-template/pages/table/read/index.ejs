@@ -1,2 +1,400 @@
 <% layout('robust/html/rtl/vertical-overlay-menu-template/pages/layout') -%>
 <% include ../../../src/data-table %>
+
+<button id="btn-add" style="display: none;" type="button" class="btn btn-outline-success block btn-lg"
+    data-toggle="modal" data-target="#crud">
+    Launch Modal
+</button>
+<button id="btn-obj" style="display: none;" type="button" class="btn btn-outline-success block btn-lg"
+    data-toggle="modal" data-target="#obj">
+    Launch Modal
+</button>
+
+<!-- Modal crud -->
+<div class="modal fade text-xs-left" id="crud" tabindex="-1" role="dialog" aria-labelledby="myModalLabel16"
+    aria-hidden="true">
+    <div class="modal-dialog modal-xl" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="myModalLabel16">111111111111111Basic Modal</h4>
+            </div>
+            <div class="modal-body" style="border: 0px;">
+                <!-- Form wzard with step validation section start -->
+                <section id="validation" style="border: 0px;">
+                    <div class="row" style="border: 0px;">
+                        <div class="col-xs-12" style="border: 0px;">
+                            <div class="card" style="border: 0px;">
+                                <!-- <div class="card-header">
+                                    <h4 class="card-title">Validation Example</h4>
+                                    <a class="heading-elements-toggle"><i class="icon-ellipsis font-medium-3"></i></a>
+                                    <div class="heading-elements">
+                                        <ul class="list-inline mb-0">
+                                            <li><a data-action="collapse"><i class="icon-minus4"></i></a></li>
+                                            <li><a data-action="reload"><i class="icon-reload"></i></a></li>
+                                            <li><a data-action="expand"><i class="icon-expand2"></i></a></li>
+                                            <li><a data-action="close"><i class="icon-cross2"></i></a></li>
+                                        </ul>
+                                    </div>
+                                </div> -->
+                                <div class="card-body collapse in">
+                                    <div class="card-block">
+                                        <form id="form" action="#" class="steps-validation wizard-notification">
+
+
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <!-- Form wzard with step validation section end -->
+                <!-- <h5>Check First Paragraph</!-->
+                <!-- <p>Oat cake ice cream candy chocolate cake chocolate cake cotton
+                    candy dragée apple pie. Brownie carrot cake candy canes bonbon
+                    fruitcake topping halvah. Cake sweet roll cake cheesecake cookie
+                    chocolate cake liquorice. Apple pie sugar plum powder donut
+                    soufflé.</p>
+                <p>Sweet roll biscuit donut cake gingerbread. Chocolate cupcake
+                    chocolate bar ice cream. Danish candy cake.</p>
+                <hr>
+                <h5>Some More Text</h5>
+                <p>Cupcake sugar plum dessert tart powder chocolate fruitcake jelly.
+                    Tootsie roll bonbon toffee danish. Biscuit sweet cake gummies
+                    danish. Tootsie roll cotton candy tiramisu lollipop candy cookie
+                    biscuit pie.</p>  -->
+            </div>
+            <!-- <div class="modal-footer">
+                <button type="button" class="btn grey btn-outline-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-outline-primary">Save
+                    changes</button>
+            </div> -->
+        </div>
+    </div>
+</div>
+<!-- Modal obj -->
+<div class="modal fade text-xs-left" id="obj" tabindex="-1" role="dialog" aria-labelledby="myModalLabel16"
+    aria-hidden="true">
+    <div class="modal-dialog modal-xl" role="document">
+        <div id="objectTableModel" class="modal-content">
+            <div class="modal-header">
+                <div id="btnBack" style="display: none">
+                    <button onclick="back()" type="button" class="close" data-dismiss="" aria-label="back">
+                        <ul class="list-inline mb-0">
+                            <li style="margin-right: 5px"><a data-action="collapse"><span style="font-size: 13px"
+                                        aria-hidden="true"><i class="fas fa-undo"></i>
+                                    </span></a>
+                            </li>
+                        </ul>
+
+                    </button>
+                </div>
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <ul class="list-inline mb-0">
+                        <li><a data-action="collapse"><span style="font-size: 15px" aria-hidden="true"><i
+                                        class="fa fa-times" aria-hidden="true"></i>
+                                </span></a>
+                        </li>
+                    </ul>
+
+                </button>
+
+                <h4 class="modal-title objHeaderModal" id="myModalLabel16"></h4>
+            </div>
+            <div class="modal-body table-responsive">
+                <table class="testTable table table-hover"></table>
+                <!-- <button type="button" class="btn btn-primary" onclick="addRow()">Add row</button>
+                <button type="button" class="btn btn-danger" onclick="removeFirstRow()">Remove first row</button>
+                <button type="button" class="btn btn-warning" onclick="convertToJson()">Table to JSON</button> -->
+                <!-- <a href="https://github.com/adalenv/htmlson.js/" target="_blank" class="btn btn-dark">Fork on Github</a> -->
+                <!-- <pre class="echoJson" style="background:grey;margin:50px"></pre> -->
+                <!-- <h5>Check First Paragraph</h5>
+                <p>Oat cake ice cream candy chocolate cake chocolate cake cotton
+                    candy dragée apple pie. Brownie carrot cake candy canes bonbon
+                    fruitcake topping halvah. Cake sweet roll cake cheesecake cookie
+                    chocolate cake liquorice. Apple pie sugar plum powder donut
+                    soufflé.</p>
+                <p>Sweet roll biscuit donut cake gingerbread. Chocolate cupcake
+                    chocolate bar ice cream. Danish candy cake.</p>
+                <hr>
+                <h5>Some More Text</h5>
+                <p>Cupcake sugar plum dessert tart powder chocolate fruitcake jelly.
+                    Tootsie roll bonbon toffee danish. Biscuit sweet cake gummies
+                    danish. Tootsie roll cotton candy tiramisu lollipop candy cookie
+                    biscuit pie.</p> -->
+            </div>
+            <!-- <div class="modal-footer"> -->
+            <!-- <button type="button" class="btn grey btn-outline-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-outline-primary">Save
+                    changes</button> -->
+            <!-- </div> -->
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+<!-- Step 1 -->
+<h6>Step 1</h6>
+<fieldset>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="firstName3">
+                    First Name :
+                    <span class="danger">*</span>
+                </label>
+                <input type="text" class="form-control required" id="firstName3" name="firstName">
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="lastName3">
+                    Last Name :
+                    <span class="danger">*</span>
+                </label>
+                <input type="text" class="form-control required" id="lastName3" name="lastName">
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="emailAddress5">
+                    Email Address :
+                    <span class="danger">*</span>
+                </label>
+                <input type="email" class="form-control required" id="emailAddress5" name="emailAddress">
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="location">
+                    Select City :
+                    <span class="danger">*</span>
+                </label>
+                <select class="c-select form-control required" id="location" name="location">
+                    <option value="">Select City</option>
+                    <option value="Amsterdam">Amsterdam</option>
+                    <option value="Berlin">Berlin</option>
+                    <option value="Frankfurt">Frankfurt</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="phoneNumber3">Phone Number :</label>
+                <input type="tel" class="form-control" id="phoneNumber3">
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="date3">Date of Birth :</label>
+                <input type="date" class="form-control" id="date3">
+            </div>
+        </div>
+    </div>
+</fieldset>
+
+<!-- Step 2 -->
+<h6>Step 2</h6>
+<fieldset>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="proposalTitle3">
+                    Proposal Title :
+                    <span class="danger">*</span>
+                </label>
+                <input type="text" class="form-control required" id="proposalTitle3" name="proposalTitle">
+            </div>
+            <div class="form-group">
+                <label for="emailAddress6">
+                    Email Address :
+                    <span class="danger">*</span>
+                </label>
+                <input type="email" class="form-control required" id="emailAddress6" name="emailAddress">
+            </div>
+            <div class="form-group">
+                <label for="videoUrl3">Video URL :</label>
+                <input type="url" class="form-control" id="videoUrl3" name="videoUrl">
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="jobTitle3">
+                    Job Title :
+                    <span class="danger">*</span>
+                </label>
+                <input type="text" class="form-control required" id="jobTitle3" name="jobTitle">
+            </div>
+            <div class="form-group">
+                <label for="shortDescription3">Short Description :</label>
+                <textarea name="shortDescription" id="shortDescription3" rows="4" class="form-control"></textarea>
+            </div>
+        </div>
+    </div>
+</fieldset>
+
+<!-- Step 3 -->
+<h6>Step 3</h6>
+<fieldset>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="eventName3">
+                    Event Name :
+                    <span class="danger">*</span>
+                </label>
+                <input type="text" class="form-control required" id="eventName3" name="eventName">
+            </div>
+            <div class="form-group">
+                <label for="eventType3">
+                    Event Type :
+                    <span class="danger">*</span>
+                </label>
+                <select class="c-select form-control required" id="eventType3" name="eventType3">
+                    <option value="Banquet">Banquet</option>
+                    <option value="Fund Raiser">Fund Raiser</option>
+                    <option value="Dinner Party">Dinner Party</option>
+                    <option value="Wedding">Wedding</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="eventLocation3">Event Location :</label>
+                <select class="c-select form-control" id="eventLocation3" name="eventLocation">
+                    <option value="">Select City</option>
+                    <option value="Amsterdam">Amsterdam</option>
+                    <option value="Berlin">Berlin</option>
+                    <option value="Frankfurt">Frankfurt</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="eventDate">
+                    Event Date - Time :
+                    <span class="danger">*</span>
+                </label>
+                <div class='input-group'>
+                    <input type='text' class="form-control datetime required" id="eventDate" name="eventDate" />
+                    <span class="input-group-addon">
+                        <span class="li_calendar"></span>
+                    </span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="eventStatus3">
+                    Event Status :
+                    <span class="danger">*</span>
+                </label>
+                <select class="c-select form-control required" id="eventStatus3" name="eventStatus">
+                    <option value="Planning">Planning</option>
+                    <option value="In Progress">In Progress</option>
+                    <option value="Finished">Finished</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Requirements :</label>
+                <div class="c-inputs-stacked">
+                    <label class="inline custom-control custom-checkbox block">
+                        <input type="checkbox" class="custom-control-input">
+                        <span class="custom-control-indicator"></span>
+                        <span class="custom-control-description ml-0">Staffing</span>
+                    </label>
+                    <label class="inline custom-control custom-checkbox block">
+                        <input type="checkbox" class="custom-control-input">
+                        <span class="custom-control-indicator"></span>
+                        <span class="custom-control-description ml-0">Catering</span>
+                    </label>
+                </div>
+            </div>
+        </div>
+    </div>
+</fieldset>
+
+<!-- Step 4 -->
+<h6>Step 4</h6>
+<fieldset>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="meetingName3">
+                    Name of Meeting :
+                    <span class="danger">*</span>
+                </label>
+                <input type="text" class="form-control required" id="meetingName3" name="meetingName">
+            </div>
+
+            <div class="form-group">
+                <label for="meetingLocation3">
+                    Location :
+                    <span class="danger">*</span>
+                </label>
+                <input type="text" class="form-control required" id="meetingLocation3" name="meetingLocation">
+            </div>
+
+            <div class="form-group">
+                <label for="participants3">Names of Participants</label>
+                <textarea name="participants" id="participants3" rows="4" class="form-control"></textarea>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="decisions3">Decisions Reached</label>
+                <textarea name="decisions" id="decisions3" rows="4" class="form-control"></textarea>
+            </div>
+            <div class="form-group">
+                <label>Agenda Items :</label>
+                <div class="c-inputs-stacked">
+                    <label class="c-input c-checkbox">
+                        <input type="checkbox">
+                        <span class="c-indicator"></span>1st item
+                    </label>
+                    <label class="c-input c-checkbox">
+                        <input type="checkbox">
+                        <span class="c-indicator"></span>2nd item
+                    </label>
+                    <label class="c-input c-checkbox">
+                        <input type="checkbox">
+                        <span class="c-indicator"></span>3rd item
+                    </label>
+                    <label class="c-input c-checkbox">
+                        <input type="checkbox">
+                        <span class="c-indicator"></span>4th item
+                    </label>
+                    <label class="c-input c-checkbox">
+                        <input type="checkbox">
+                        <span class="c-indicator"></span>5th item
+                    </label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="cap">
+                    کد امنیتی را وارد کنید
+                    <span class="danger">*</span>
+                </label>
+                <input type="text" class="form-control required" id="cap" name="meetingLocation">
+                <%-captcha%>
+            </div>
+        </div>
+    </div>
+</fieldset>

@@ -26,7 +26,8 @@ async function table(req, res, next) {
             description: table.description,
             columns: table.columns,
             buttons: table.buttons,
-            service: table.service
+            service: table.service,
+            form: table.form
         }});
     } else {
         req['_'].status = status.notFound;

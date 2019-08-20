@@ -1,0 +1,89 @@
+<script>
+    const before = $('#form').html();
+    $('#form').html('');
+    var Form = JSON.parse('<%-JSON.stringify(variables.form)%>');
+    for (let index = 0; index < Form.length; index++) {
+        let HTML = `<h6>Step ${index+1}</h6><fieldset><div class="row">`;
+        let left = `<div class="col-md-6">`;
+        let right = `<div class="col-md-6">`;
+        let down = [];
+        const step = Form[index];
+        const stepKeys = Object.keys(step);
+        for (const key of stepKeys) {
+            const field = step[key];
+            if (field.type.toLowerCase() == 'object') {
+                let _obj = `<div class="row">`;
+                let _left = `<div name="left" class="col-md-6">`;
+                let _right = `<div name="right" class="col-md-6">`;
+                let _count = 0;
+
+                function bind() {
+                    if (_count + 1 != field.max) {
+                        _count++;
+
+                        if (true) {
+                            const _html = map(
+                                `${field.element.key.type}${field.element.key.required ? '-required' : ''}`, {
+                                    label: field.element.key.html.label,
+                                    id: `${key}_${index}`,
+                                    name: key
+                                });
+                            if (field.element.key.html.right) {
+                                _right += _html;
+                            } else {
+                                _left += _html;
+                            }
+                        }
+
+                        if (true) {
+                            for (const iterator of Object.keys(field.element.value)) {
+                                if (field.element.value[iterator].type.toLowerCase() == 'object') {
+
+                                } else {
+                                    const _html = map(`${field.element.value[iterator].type}${field.element.value[iterator].required ? '-required' : ''}`, {
+                                        label: field.element.value[iterator].html.label,
+                                        id: `${key}_${index}_${iterator}`,
+                                        name: `${key}-${iterator}`
+                                    });
+                                    if (field.element.value[iterator].html.right) {
+                                        _right += _html;
+                                    } else {
+                                        _left += _html;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                bind();
+
+
+                _left += `</div>`;
+                _right += `</div>`;
+                _obj += `${_right}${_left}</div>`;
+                down.push(_obj);
+            } else {
+                const _html = map(`${field.type}${field.required ? '-required' : ''}`, {
+                    label: field.html.label,
+                    id: `${key}_${index}`,
+                    name: key
+                });
+                if (field.html.right) {
+                    right += _html;
+                } else {
+                    left += _html;
+                }
+            }
+        }
+        left += `</div>`;
+        right += `</div>`;
+        HTML += `${right}${left}</div>${down.join('')}</fieldset>`;
+        $('#form').append(HTML);
+    }
+    $('#form').append(before);
+    setTimeout(() => {
+        $('form#form a[href="#next"]').html('<i class="fas fa-arrow-left"></i>')
+        $('form#form a[href="#previous"]').html('<i class="fas fa-arrow-right"></i>')
+        $('form#form a[href="#finish"]').html('<i class="fa fa-paper-plane" aria-hidden="true"></i>')
+    }, 500);
+</script>

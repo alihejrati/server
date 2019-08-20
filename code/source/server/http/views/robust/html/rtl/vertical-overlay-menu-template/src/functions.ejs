@@ -1,28 +1,74 @@
 <script>
-    const map = (str, html = {}) => {
-        let res = MAP[str] || str;
-        for (const iterator of Object.keys(html)) {
-            res = res.replace(new RegExp(`{{${iterator.toUpperCase()}}}`, 'g'), html[iterator]);
-        }
-        return res;
-    };
+
 </script>
 
 <script>
-    let services = JSON.parse('<%-JSON.stringify(variables.service)%>') || {};
+    const services = JSON.parse('<%-JSON.stringify(variables.service)%>') || {};
+
     function service(...arg) {
         const type = arg[0];
 
         if (type == 'tools') {
-            const tool = arg[1]
+            const tool = arg[1];
+            const _this = arg[2];
+            const _id = $(_this).closest('tr').attr('id');
+            if (tool == 'check') {
+                let flag = $(_this).css('color') == 'rgb(0, 255, 0)';
+                console.log('------>', $(_this).css('color'));
+                !flag ? $(_this).css('color', 'rgb(0, 255, 0)') : $(_this).css('color', '');
+            }
+
             if (services[tool].server == 'http') {
                 const route = services[tool].route;
                 const json = {};
+                json['_id'] = _id;
                 $.post(route, json, res => {
-                    console.log('---------->', res);
+                    console.log('---------->_id', _id, res);
                 });
-                console.log('hoooooooooooooo!!', tool, route);
+                console.log('hoooooooooooooo!!', _id, tool, route);
             }
+        }
+    }
+</script>
+
+<script>
+    function objrev(obj) {
+        const newObj = {};
+        const keys = Object.keys(obj).reverse();
+        for (const key of keys) {
+            newObj[key] = obj[key];
+        }
+        return newObj;
+    }
+</script>
+
+<script>
+    function rerender(_this, d, name, fullname) {
+        testTable = $('.testTable').htmlson({ //the magic
+            data: Array.isArray(d) ? d : [d],
+            // headers: {
+            //     1: 'FIRST NAME',
+            //     4: 'CUSTOM HEADER'
+            // },
+            debug: true
+        });
+        const c= '<sup><i class="fa fa-quote-left COT" aria-hidden="true"></i></sup>' + `${$('div#obj h4#myModalLabel16').html()} {{REP}} ${fullname} {{REP}} ${name}`.replace(/جزئیات ستون /, '').replace(/"/g, '') + '<sup><i class="fa fa-quote-right COT" aria-hidden="true"></i></sup>';
+        $('div#obj h4#myModalLabel16').html(`جزئیات ستون ${c.replace(/{{REP}}/g, '<i class="fa fa-caret-right COT" aria-hidden="true"></i>')}`);
+        $('#btnBack').css('display', 'block');
+        STACK.push($('#objectTableModel').html());
+    }
+</script>
+
+<script>
+    function back() {
+        let last, final;
+        last = $('#objectTableModel').html();
+        $('#objectTableModel').html(STACK[STACK.length - 2]);
+        final = $('#objectTableModel').html();
+        if (last == final) {
+
+        } else {
+            STACK.pop();
         }
     }
 </script>

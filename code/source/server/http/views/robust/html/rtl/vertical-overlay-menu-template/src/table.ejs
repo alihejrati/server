@@ -1,7 +1,48 @@
 <script>
+    var RENDER;
+    var COL;
+    var DATA;
+    var ROW;
+    var COLNAME;
+    var STACK;
+    $('#table tbody').on('click', 'tr', function () {
+        STACK = [];
+        $('#btnBack').css('display', 'none');
+        COLNAME = '';
+        for (const row of DATA) {
+            if (row._id == table.row(this).data()['_id']) {
+                ROW = row;
+                testTable = $('.testTable').htmlson({ //the magic
+                    data: Array.isArray(row[COL]) ? row[COL] : [objrev(row[COL])],
+                    // headers: {
+                    //     1: 'FIRST NAME',
+                    //     4: 'CUSTOM HEADER'
+                    // },
+                    debug: true
+                });
+                COLNAME += COL;
+                $('div#obj h4#myModalLabel16').html(`جزئیات ستون <sup><i class="fa fa-quote-left COT" aria-hidden="true"></i></sup>${COLNAME}<sup><i class="fa fa-quote-right COT" aria-hidden="true"></i></sup>`);
+                STACK.push($('#objectTableModel').html());
+                console.log('-------------------------------------------------------------------->', STACK.length);
+                break;
+            }
+        }
+    });
+    $(window).scroll(function (event) {
+        var scroll = $(window).scrollTop();
+        // Do something
+        // console.log('----------->scroll', scroll);
+    });
     $('#tbl-label').html('<%-variables.label%>');
     $('#tbl-text').html('<%-variables.description%>');
     const buttons = JSON.parse('<%-JSON.stringify(variables.buttons)%>');
+    if (buttons.add) {
+        buttons.add.action = (e, dt, node, config) => $('#btn-add').click();
+    }
+    if (buttons['del-multi']) {
+        buttons['del-multi'].action = (e, dt, node, config) => null;
+    }
+
     const _buttons = Object.keys(buttons).reverse().map((ele, i) => {
         buttons[ele].text = map(buttons[ele].text, buttons[ele].html);
         return buttons[ele];
@@ -23,10 +64,19 @@
         $('#tfoot').append(`<th>${config[col].title || config[col].data}</th>`);
     }
     var table = $('#table').DataTable({
+        select: {
+            style: 'single'
+        },
+        rowId: "_id",
+        "autoWidth": false,
+        "processing": true,
+        oLanguage: {
+            sProcessing: "درحال پردازش..."
+        },
         responsive: true,
-        "dom": '<"toolbar">Bfrltip',
+        "dom": 'Bfrltip',
         buttons: _buttons,
-        "deferRender": true,
+        // "deferRender": true,
         "serverSide": true,
         "ajax": function (data, callback, settings) {
             var sort_column_name = data.columns[data.order[0].column].data.replace(/\./g, "__");
@@ -45,8 +95,10 @@
                     sort_column_name
             }, function (res) {
                 $("div.toolbar").html('');
-                $("div#table_filter label").html($("div#table_filter label").html().replace('Search', 'جستجو'));
-                $("div#table_length label").html($("div#table_length label").html().replace('Show', 'دسته').replace('entries', ''));
+                $("div#table_filter label").html($("div#table_filter label").html().replace(
+                    'Search', 'جستجو'));
+                $("div#table_length label").html($("div#table_length label").html().replace('Show',
+                    'تعداد').replace('entries', ''));
                 const response = eval(
                     'res.<%-variables.service.read.route%>'
                     .replace(/\/+/g,
@@ -56,15 +108,25 @@
                     .replace(/\.+/g,
                         '.')
                 ) || {};
+                var data = JSON.parse(JSON.stringify(response.body));
+                DATA = JSON.parse(JSON.stringify(response.body));
+                for (let index = 0; index < response.body.length; index++) {
+                    const keys = Object.keys(response.body[index]);
+                    for (const key of keys) {
+                        if (typeof response.body[index][key] == 'object') {
+                            data[index][key] = map('table', {
+                                title: 'نمایش جزئیات',
+                                onclick: `$('#btn-obj').click();COL='${key}'`
+                            })
+                        } else {
+                            // not statement!!
+                        }
+                    }
+                }
                 callback({
-                    recordsTotal: response
-                        .body
-                        .length,
-                    recordsFiltered: response
-                        .body
-                        .length,
-                    data: response
-                        .body
+                    recordsTotal: data.length,
+                    recordsFiltered: data.length,
+                    data: data
                 });
             });
         },
