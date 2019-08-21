@@ -31,13 +31,12 @@
                     "type": "object", 
                     "max": -1,
                     "element": {
-                        "key": {"type": "text", "required": true, "html": {"right": true, "label": "نام ستون", "example": "مثال: tools", "id": "form-2-columns-key-i", "name": "form-2-columns-key-i", "key": "columns-i"}},
+                        "key": {"type": "text", "required": true, "html": {"right": true, "label": "نام ستون", "example": "مثال: tools", "id": "form-2-columns-key-i", "name": "form-2-columns-key-i", "key": "columns-data-i"}},
                         "value": {
                             "title": {"type": "text", "required": true, "html": {"right": true, "label": "نام مستعار برای ستون", "example": "مثال: ابزارها", "id": "form-2-columns-value-title-i", "name": "form-2-columns-value-title-i", "key": "columns-title-i"}},
-                            "data": {"type": "text", "required": true, "html": {"right": true, "label": "تکرار نام ستون", "example": "مثال: tools", "id": "form-2-columns-value-data-i", "name": "form-2-columns-value-data-i", "key": "columns-data-i"}},
-                            "defaultContent": {"type": "text", "required": true, "html": {"right": true, "label": "مقدار پیشفرض ستون", "example": "مثال: del:edit:check", "id": "form-2-columns-value-defaultContent-i", "name": "form-2-columns-value-defaultContent-i", "key": "columns-defaultContent-i"}},
-                            "orderable": {"type": "boolean", "required": true, "html": {"right": true, "label": "آیا قابلیت مرتب سازی بر اساس این ستون فعال باشد؟!", "example": "مثال: true", "id": "form-2-columns-value-orderable-i", "name": "form-2-columns-value-orderable-i", "key": "columns-orderable-i"}},
-                            "visible": {"type": "boolean", "required": true, "html": {"right": true, "label": "آیا این ستون قابل مشاهده باشد؟!", "example": "مثال: true", "id": "form-2-columns-value-visible-i", "name": "form-2-columns-value-visible-i", "key": "columns-visible-i"}},
+                            "defaultContent": {"type": "text", "required": true, "html": {"right": false, "label": "مقدار پیشفرض ستون", "example": "مثال: del:edit:check", "id": "form-2-columns-value-defaultContent-i", "name": "form-2-columns-value-defaultContent-i", "key": "columns-defaultContent-i"}},
+                            "orderable": {"type": "boolean", "required": true, "html": {"right": false, "label": "آیا قابلیت مرتب سازی بر اساس این ستون فعال باشد؟!", "example": "مثال: true", "id": "form-2-columns-value-orderable-i", "name": "form-2-columns-value-orderable-i", "key": "columns-orderable-i"}},
+                            "visible": {"type": "boolean", "required": true, "html": {"right": false, "label": "آیا این ستون قابل مشاهده باشد؟!", "example": "مثال: true", "id": "form-2-columns-value-visible-i", "name": "form-2-columns-value-visible-i", "key": "columns-visible-i"}},
                             "html": {
                                 "type": "object", 
                                 "max": -1,

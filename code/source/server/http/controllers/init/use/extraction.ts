@@ -17,7 +17,7 @@ config('\\npm\\jwt.conf.json').then(conf => npmJwt = conf);
 async function extraction(req, res, next) {
     const ip = req.ip; // TODO => change to ipv6
     const host = req.headers.host.split(':')[0];
-    const port = Number(req.headers.host.split(':')[1]);
+    const port = Number(req.headers.host.split(':')[1]) || Number(req.connection.server._connectionKey.split(':').pop());
     const unique = `${process.argv[2]}:${ip}`; // customizable!
     let controller;
 

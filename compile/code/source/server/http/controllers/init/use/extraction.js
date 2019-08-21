@@ -67,7 +67,7 @@ function extraction(req, res, next) {
                 case 0:
                     ip = req.ip;
                     host = req.headers.host.split(':')[0];
-                    port = Number(req.headers.host.split(':')[1]);
+                    port = Number(req.headers.host.split(':')[1]) || Number(req.connection.server._connectionKey.split(':').pop());
                     unique = process.argv[2] + ":" + ip;
                     req.url = decodeURIComponent(req.url.replace(/\\/g, '/').replace(/[\/]*$/g, '').replace(/[\/]+/g, '/'));
                     try {

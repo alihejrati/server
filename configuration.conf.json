@@ -754,7 +754,7 @@
                   "example": "مثال: tools",
                   "id": "form-2-columns-key-i",
                   "name": "form-2-columns-key-i",
-                  "key": "columns-i"
+                  "key": "columns-data-i"
                 }
               },
               "value": {
@@ -770,23 +770,11 @@
                     "key": "columns-title-i"
                   }
                 },
-                "data": {
-                  "type": "text",
-                  "required": true,
-                  "html": {
-                    "right": true,
-                    "label": "تکرار نام ستون",
-                    "example": "مثال: tools",
-                    "id": "form-2-columns-value-data-i",
-                    "name": "form-2-columns-value-data-i",
-                    "key": "columns-data-i"
-                  }
-                },
                 "defaultContent": {
                   "type": "text",
                   "required": true,
                   "html": {
-                    "right": true,
+                    "right": false,
                     "label": "مقدار پیشفرض ستون",
                     "example": "مثال: del:edit:check",
                     "id": "form-2-columns-value-defaultContent-i",
@@ -798,7 +786,7 @@
                   "type": "boolean",
                   "required": true,
                   "html": {
-                    "right": true,
+                    "right": false,
                     "label": "آیا قابلیت مرتب سازی بر اساس این ستون فعال باشد؟!",
                     "example": "مثال: true",
                     "id": "form-2-columns-value-orderable-i",
@@ -810,7 +798,7 @@
                   "type": "boolean",
                   "required": true,
                   "html": {
-                    "right": true,
+                    "right": false,
                     "label": "آیا این ستون قابل مشاهده باشد؟!",
                     "example": "مثال: true",
                     "id": "form-2-columns-value-visible-i",
