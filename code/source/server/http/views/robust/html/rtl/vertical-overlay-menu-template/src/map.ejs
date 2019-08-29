@@ -18,10 +18,16 @@
         'checkmark': ``,
         'table': `<div onclick="{{ONCLICK}}" data-toggle="tooltip" data-popup="tooltip-custom" data-original-title="{{TITLE}}" data-text-color="info" style="cursor: pointer; display: inline;" class="fonticon-container" title="{{TITLE}}"><div class="fonticon-wrap" style="color: #939393;"><i class="fa fa-table" aria-hidden="true"></i></div>`,
         // form
-        'text': `<div class="form-group"><label for="{{ID}}">{{LABEL}}</label><input type="text" class="form-control" id="{{ID}}" name="{{NAME}}"></div>`,
-        'text-required': `<div class="form-group"><label for="{{ID}}">{{LABEL}}<span class="danger">*</span></label><input type="text" class="form-control required" id="{{ID}}" name="{{NAME}}"></div>`,
-        'textarea': `<div class="form-group"><label for="{{ID}}">{{LABEL}}</label><textarea name="{{NAME}}" id="{{ID}}" rows="4" class="form-control"></textarea></div>`,
-        'boolean': `<label style="margin-right: 0;" class="display-inline-block custom-control custom-checkbox"><input type="checkbox" name="{{NAME}}" checked class="custom-control-input"><span class="c-indicator bg-purple custom-control-indicator"></span><span class="custom-control-description">{{LABEL}}</span></label>`,
-        'boolean-required': `<label style="margin-right: 0;" class="display-inline-block custom-control custom-checkbox"><input type="checkbox" name="{{NAME}}" checked class="custom-control-input"><span class="c-indicator bg-purple custom-control-indicator"></span><span class="custom-control-description">{{LABEL}}</span></label>`,
+        'text': `<div class="form-group"><label for="{{ID}}">{{LABEL}}</label><input type="text" class="form-control" id="{{ID}}" key="{{KEY}}" name="{{NAME}}"></div>`,
+        'text-required': `<div class="form-group"><label for="{{ID}}">{{LABEL}}<span class="danger">*</span></label><input type="text" class="form-control required" id="{{ID}}" key="{{KEY}}" name="{{NAME}}"></div>`,
+        'textarea': `<div class="form-group"><label for="{{ID}}">{{LABEL}}</label><textarea name="{{NAME}}" id="{{ID}}" key="{{KEY}}" rows="4" class="form-control"></textarea></div>`,
+        'boolean': `<label style="margin-right: 0;" class="display-inline-block custom-control custom-checkbox"><input type="checkbox" id="{{ID}}" key="{{KEY}}" name="{{NAME}}" checked class="custom-control-input"><span class="c-indicator bg-purple custom-control-indicator"></span><span class="custom-control-description">{{LABEL}}</span></label>`,
+        'boolean-required': `<label style="margin-right: 0;" class="display-inline-block custom-control custom-checkbox"><input type="checkbox" id="{{ID}}" key="{{KEY}}" name="{{NAME}}" checked class="custom-control-input"><span class="c-indicator bg-purple custom-control-indicator"></span><span class="custom-control-description">{{LABEL}}</span></label>`,
+        'captcha': `</div></div><div class="row"><fieldset class="" style="width: 70%;display: block;margin: 1.2rem auto 0 auto;" id="capInput"><div class="input-group"><span class="input-group-addon" id="basic-addon12">گذرواژه امنیتی را وارد کنید:</span><input key="{{KEY}}" name="{{NAME}}" id="{{ID}}" type="text" class="form-control" placeholder="کپچا" aria-describedby="basic-addon12"></div></fieldset><div id="cap">{{LABEL}}</div>`,
+        // element
+        'button': `<button onclick="{{ONCLICK}}" str="{{STR}}" type="button" class="btn btn-outline-primary btn-min-width mr-1 mb-1">{{LABEL}}</button>`,
+        'button2': `<button onclick="{{ONCLICK}}" str="{{STR}}" type="button" class="btn btn-primary">{{LABEL}}</button>`,
+        'buttonC': `<button onclick="{{ONCLICK}}" str="{{STR}}" type="button" class="btn btn-icon btn-primary btn-round mr-1">{{LABEL}}</button>`,
+        'buttonC2': `<button onclick="{{ONCLICK}}" str="{{STR}}" type="button" class="btn btn-default btn-circle btn">{{LABEL}}</button>`,
     };
 </script>

@@ -30,7 +30,11 @@ async function hell(req, res, next) {
         statusCode(status.notFound, req, res);
         if (req['_'].route.method == 'get') {
             code = req['_'].status;
-            await view.send(VIEW, PAGE, req, res, {next: NEXT, variables: {}});
+            if (!req['_'].user.login && req['_'].controller == 'backend') {
+                res.redirect('/signin');
+            } else {
+                await view.send(VIEW, PAGE, req, res, {next: NEXT, variables: {}});
+            }
         } else {
             await response.attach(null, req, res);
             await response.send(req, res);
@@ -39,7 +43,11 @@ async function hell(req, res, next) {
         statusCode(status.multiStatus, req, res);
         if (req['_'].route.method == 'get') {
             code = req['_'].status;
-            await view.send(VIEW, PAGE, req, res, {next: NEXT, variables: {}});
+            if (!req['_'].user.login && req['_'].controller == 'backend') {
+                res.redirect('/signin');
+            } else {
+                await view.send(VIEW, PAGE, req, res, {next: NEXT, variables: {}});
+            }
         } else {
             await response.attach(null, req, res);
             await response.send(req, res);

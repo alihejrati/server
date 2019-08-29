@@ -300,3 +300,20 @@
         $('.echoJson').html(JSON.stringify(obj));
     }
 </script>
+<script>
+    function deep(selector) {
+        let i = 1;
+        for (i = 1; true; i++) {
+            i+= $(selector).prevAll().length
+            selector = $(selector).parent();
+            if (selector[0].nodeName.toLocaleLowerCase() == 'html') {
+                break;
+            }
+        }
+        console.log('FUNCTION', i)
+        return i;
+    }
+
+    var log = console.log;
+    console.log = () => null;
+</script>

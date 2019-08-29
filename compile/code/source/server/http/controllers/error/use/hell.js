@@ -62,38 +62,46 @@ function hell(req, res, next) {
                             SEND();
                         }
                     };
-                    if (!(req['_'].service.discovery.length == 0)) return [3, 6];
+                    if (!(req['_'].service.discovery.length == 0)) return [3, 8];
                     statusCode(status.notFound, req, res);
-                    if (!(req['_'].route.method == 'get')) return [3, 2];
+                    if (!(req['_'].route.method == 'get')) return [3, 4];
                     code = req['_'].status;
-                    return [4, view.send(VIEW, PAGE, req, res, { next: NEXT, variables: {} })];
-                case 1:
+                    if (!(!req['_'].user.login && req['_'].controller == 'backend')) return [3, 1];
+                    res.redirect('/signin');
+                    return [3, 3];
+                case 1: return [4, view.send(VIEW, PAGE, req, res, { next: NEXT, variables: {} })];
+                case 2:
                     _a.sent();
-                    return [3, 5];
-                case 2: return [4, response.attach(null, req, res)];
-                case 3:
+                    _a.label = 3;
+                case 3: return [3, 7];
+                case 4: return [4, response.attach(null, req, res)];
+                case 5:
                     _a.sent();
                     return [4, response.send(req, res)];
-                case 4:
-                    _a.sent();
-                    _a.label = 5;
-                case 5: return [3, 11];
                 case 6:
+                    _a.sent();
+                    _a.label = 7;
+                case 7: return [3, 15];
+                case 8:
                     statusCode(status.multiStatus, req, res);
-                    if (!(req['_'].route.method == 'get')) return [3, 8];
+                    if (!(req['_'].route.method == 'get')) return [3, 12];
                     code = req['_'].status;
-                    return [4, view.send(VIEW, PAGE, req, res, { next: NEXT, variables: {} })];
-                case 7:
-                    _a.sent();
+                    if (!(!req['_'].user.login && req['_'].controller == 'backend')) return [3, 9];
+                    res.redirect('/signin');
                     return [3, 11];
-                case 8: return [4, response.attach(null, req, res)];
-                case 9:
-                    _a.sent();
-                    return [4, response.send(req, res)];
+                case 9: return [4, view.send(VIEW, PAGE, req, res, { next: NEXT, variables: {} })];
                 case 10:
                     _a.sent();
                     _a.label = 11;
-                case 11: return [2];
+                case 11: return [3, 15];
+                case 12: return [4, response.attach(null, req, res)];
+                case 13:
+                    _a.sent();
+                    return [4, response.send(req, res)];
+                case 14:
+                    _a.sent();
+                    _a.label = 15;
+                case 15: return [2];
             }
         });
     });

@@ -1,7 +1,62 @@
 <script>
-    function f(field) {
+    function counter(key, INC_DEC = true /*INC*/ ) {
+        FORM_BACKUP_COUNT[key] = FORM_BACKUP_COUNT[key] == undefined ? 0 : FORM_BACKUP_COUNT[key];
+        FORM_BACKUP_COUNT[key] = INC_DEC ? FORM_BACKUP_COUNT[key] + 1 : FORM_BACKUP_COUNT[key] - 1;
+        return FORM_BACKUP_COUNT[key];
+    }
+
+    function RandomString() {
+        return Math.random().toString(36);
+    }
+
+    function FORM_BTN(_this, isFirstTimes) {
+        let html = FORM_BACKUP[$(_this).attr('str')];
+        let id_len = html.match(/id=\"[^\"]+\"/g).length;
+        let name_len = html.match(/name=\"[^\"]+\"/g).length;
+        for (let i = 0; i < id_len; i++) {
+            html = html.replace(/id=\"[^\"]+\"/, `ID="${RandomString()}"`);
+        }
+        for (let i = 0; i < name_len; i++) {
+            html = html.replace(/name=\"[^\"]+\"/, `NAME="${RandomString()}"`);
+        }
+        isFirstTimes ? $(_this).closest('section').after(
+                `<section root="true" id="${RandomString()}">${html}</section>`).hide().show('slow') : $(_this)
+            .closest('div.row').after(html.replace(/root=\"false\"/g, 'root="true"')).hide().show('slow');
+        counter($(_this).attr('str'), true);
+        $(`button[str="${$(_this).attr('str')}"]`).prop("disabled", false);
+    }
+
+    function FORM_BTN_DEL(_this, isFirstTimes) {
+        if (!isFirstTimes) {
+            if (counter($(_this).attr('str'), false) > 0) {
+                $(`button[str="${$(_this).attr('str')}"]`).prop("disabled", false);
+                $(_this).closest('div.row').hide('slow', function () {
+                    $(_this).closest('div.row').remove()
+                });
+            } else {
+                counter($(_this).attr('str'), true);
+                $(_this).prop("disabled", true);
+            }
+        } else {
+            if (counter($(_this).attr('str'), false) > 0) {
+                $(`button[str="${$(_this).attr('str')}"]`).prop("disabled", false);
+                $(_this).closest('section').hide('slow', function () {
+                    $(_this).closest('section').remove()
+                });
+            } else {
+                counter($(_this).attr('str'), true);
+                $(_this).prop("disabled", true);
+            }
+        }
+        console.log('------------------------------------------>', $(_this).attr('str'));
+    }
+</script>
+<script>
+    function f(field, isFirstTimes = false) {
         let down = [];
-        let _obj = `<div class="row">`;
+        const STR_FOMR = RandomString();
+        let _obj =
+            `<div root="true" class="row" id="${RandomString()}">${!isFirstTimes ? '<div class="form-group" style="margin-bottom: 0; padding: 0.75rem;">' + map('buttonC2', {label: '<i class="fas fa-plus white"></i>', str: STR_FOMR, onclick: "FORM_BTN(this, false)"}) + ' ' + map('buttonC2', {label: '<i class="fa fa-minus white" aria-hidden="true"></i>', str: STR_FOMR, onclick: "FORM_BTN_DEL(this, false)"}) + '</div>' : '<div class="form-group" style="margin-bottom: 0; padding: 0.75rem;">' + map('button', {label: 'اضافه کردن', str: STR_FOMR, onclick: "FORM_BTN(this, true)"}) + '' + map('button', {label: 'حذف کردن', str: STR_FOMR, onclick: "FORM_BTN_DEL(this, true)"}) + '</div>' }`;
         let _left = `<div name="left" class="col-md-6">`;
         let _right = `<div name="right" class="col-md-6">`;
 
@@ -10,10 +65,14 @@
 
             const _html = map(`${field.element.key.type}${field.element.key.required ? '-required' : ''}`, {
                 label: field.element.key.html.label,
-                id: field.element.key.html.id,
-                name: field.element.key.html.name,
+                id: RandomString(),
+                name: RandomString(),
+                example: field.element.key.html.example,
                 key: field.element.key.html.key
             });
+            KEY_FORM.push(Object.assign({}, {
+                type: field.element.key.type
+            }, field.element.key.html));
             if (field.element.key.html.right) {
                 _right += _html;
             } else {
@@ -31,10 +90,14 @@
                 } else {
                     const _html = map(`${e.type}${e.required ? '-required' : ''}`, {
                         label: e.html.label,
-                        id: e.html.id,
-                        name: e.html.name,
+                        id: RandomString(),
+                        name: RandomString(),
+                        example: e.html.example,
                         key: e.html.key
                     });
+                    KEY_FORM.push(Object.assign({}, {
+                        type: e.type
+                    }, e.html));
                     if (e.html.right) {
                         _right += _html;
                     } else {
@@ -47,14 +110,200 @@
         _left += `</div>`;
         _right += `</div>`;
         _obj += `${_right}${_left}</div>${down.join('')}`;
+        FORM_BACKUP[STR_FOMR] = _obj;
+        counter(STR_FOMR, true);
         return _obj;
     }
 </script>
 
 <script>
+</script>
+
+<script>
+    var KEY_FORM = [];
+    var test;
+
+    function makeJson() {
+        let json = {};
+        for (let index = 0; index < KEY_FORM.length; index++) {
+            let ele = KEY_FORM[index];
+            if (ele.p_key) {
+                // object element!
+                let k_var = ele.key.match(/\.\$key[^\.]*/g);
+                if (k_var.length != ele.p_key.length) {
+                    continue;
+                }
+
+                let len = $('*[key="' + ele.key + '"]').length;
+                for (let _i = 0; _i < len; _i++) {
+                    const _e = $($('*[key="' + ele.key + '"]')[`${_i}`]);
+                    const _e_pos = Math.abs(deep(_e));
+                    let k = ele.key; // => process\
+                    let val = "''";
+
+                    if (ele.type == 'text' || ele.type == "textarea" || ele.type == "captcha") {
+                        val = '`' + _e.val() + '`';
+                    } else {
+                        // TODO Other Input ... developed open! ... ==> goal load "val"
+                    }
+                    let p_index = 0;
+                    for (const private_key of ele.p_key) {
+                        let all_diff_pos = [];
+                        let _idRoot = $(_e.closest('section[root="true"]')['0']).attr('id');
+                        let idRoot = $(_e.closest('*[root="true"]')['0']).attr('id');
+                        let _len_private = $('*[id="' + _idRoot + '"] *[key="' + private_key + '"]').length;
+                        let len_private = $('*[id="' + idRoot + '"] *[key="' + private_key + '"]').length;
+
+                        if (len_private == 0) {
+                            len_private = _len_private;
+                            idRoot = _idRoot;
+                        }
+
+                        for (let _j = 0; _j < len_private; _j++) {
+                            let p_e = $($('*[id="' + idRoot + '"] *[key="' + private_key + '"]')[`${_j}`]);
+                            let p_e_pos = Math.abs(deep(p_e));
+                            // all_diff_pos.push(Math.abs( p_e_pos -_e_pos));
+                            all_diff_pos.push((p_e_pos - _e_pos));
+                        }
+                        let __index = all_diff_pos.indexOf(Math.min(...all_diff_pos));
+                        let __key = $($('*[id="' + idRoot + '"] *[key="' + private_key + '"]')[`${__index}`]).val();
+                        k = k.replace(/\.\$key[^\.]*/, `.${__key}`);
+                        p_index = p_index + 1;
+                    }
+
+                    let k2 = '';
+                    for (const iterator of k.split('.')) {
+                        if (iterator === "") {
+                            continue
+                        }
+                        k2 += `["${iterator}"]`;
+                        if (eval(`json${k2}`) === undefined) {
+                            eval(`json${k2}={}`);
+                        }
+                    }
+                    eval(`json${k2}=${val}`);
+                }
+
+
+
+            } else {
+                // regular element
+                let k = '';
+                let val = "''";
+                if (ele.type == 'text' || ele.type == "textarea" || ele.type == "captcha") {
+                    let e1 = 'input';
+                    switch (ele.type) {
+                        case 'text':
+                            e1 = 'input'
+                            break;
+                        case 'captcha':
+                            e1 = 'input'
+                            break;
+                        case 'textarea':
+                            e1 = 'textarea'
+                            break;
+                    }
+                    val = '`' + $(e1 + '[key="' + ele.key + '"]').val() + '`';
+                } else {
+                    // TODO Other Input ... developed open! ... ==> goal load "val"
+                }
+                for (const iterator of ele.key.split('.')) {
+                    k += `["${iterator}"]`;
+                    if (eval(`json${k}`) === undefined) {
+                        eval(`json${k}={}`);
+                    }
+                }
+                eval(`json${k}=${val}`);
+            }
+        }
+        log('---------------------->', json, KEY_FORM.length);
+    }
     const before = $('#form').html();
     $('#form').html('');
+    var SEND_FLAG = false;
+    var FORM_BACKUP_COUNT = {};
+    var FORM_BACKUP = {};
     var Form = JSON.parse('<%-JSON.stringify(variables.form)%>');
+
+    if (true) {
+        function capCtrl() {
+            setTimeout(() => {
+                if ($('#capInput').html() == undefined) {
+                    capCtrl();
+                } else {
+                    $('#capInput div input').on('input', () => {
+                        try {
+                            clearInterval(SEND_FLAG_CHECKER)
+                        } catch (error) {}
+                        SEND_FLAG = true;
+                        if ($('#capInput div input').val().length == 4) {
+                            $('#capInput').removeClass();
+                            $('#capInput').addClass('has-success');
+                            $('ul[role="menu"] li a[href="#finish"]').parent().fadeIn();
+                        } else if ($('#capInput div input').val().length == 0) {
+                            $('#capInput').removeClass();
+                            $('ul[role="menu"] li a[href="#finish"]').parent().fadeOut();
+                        } else {
+                            $('#capInput').removeClass();
+                            $('#capInput').addClass('has-danger');
+                            $('ul[role="menu"] li a[href="#finish"]').parent().fadeOut();
+                        }
+                    });
+                }
+            }, 1000);
+        }
+        capCtrl();
+
+
+        function send() {
+            setTimeout(() => {
+                if ($('ul[role="menu"]').html() == undefined) {
+                    send();
+                } else {
+                    $('ul[role="menu"] li a[href="#finish"]').click(() => {
+                        if ($('#capInput div input').val().length == 4) {
+                            $('#capInput').removeClass();
+                            $('#capInput').addClass('has-success');
+                            const JJ = makeJson();
+                            // send Request!!
+                        } else if ($('#capInput div input').val().length == 0) {
+                            $('#capInput').removeClass();
+                            $('#capInput').addClass('has-danger');
+                        } else {
+                            $('#capInput').removeClass();
+                            $('#capInput').addClass('has-danger');
+                        }
+                    });
+                }
+            }, 500);
+        }
+        send();
+    }
+
+    if (true) {
+        function capp() {
+            setTimeout(() => {
+                if ($('div#cap svg').html() == undefined) {
+                    capp();
+                } else {
+                    $('div#cap svg').css('display', 'block').css('margin', '0 auto');
+                }
+            }, 500);
+        }
+        capp();
+        Form.push({
+            captcha: {
+                type: 'captcha',
+                html: {
+                    label: '<%-captcha%>',
+                    key: 'captcha',
+                    id: RandomString(),
+                    name: RandomString()
+                }
+            }
+        });
+    }
+
     for (let index = 0; index < Form.length; index++) {
         let HTML = `<h6>Step ${index+1}</h6><fieldset><div class="row">`;
         let left = `<div class="col-md-6">`;
@@ -65,14 +314,18 @@
         for (const key of stepKeys) {
             const field = step[key];
             if (field.type.toLowerCase() == 'object') {
-                down.push(`<section>${f(field)}</section>`);
+                down.push(`<section root="true" id="${RandomString()}">${f(field, true)}</section>`);
             } else {
                 const _html = map(`${field.type}${field.required ? '-required' : ''}`, {
                     label: field.html.label,
-                    id: field.html.id,
-                    name: field.html.name,
+                    id: RandomString(),
+                    name: RandomString(),
+                    example: field.html.example,
                     key: field.html.key
                 });
+                KEY_FORM.push(Object.assign({}, {
+                    type: field.type
+                }, field.html));
                 if (field.html.right) {
                     right += _html;
                 } else {
@@ -84,11 +337,21 @@
         right += `</div>`;
         HTML += `${right}${left}</div>${down.join('')}</fieldset>`;
         $('#form').append(HTML);
+        setTimeout(() => {
+            $('#form a#form-t-' + index + ' span.step').html((index == Form.length - 1 ?
+                '<i class="fa fa-paper-plane" aria-hidden="true"></i>' : '<i class="far fa-edit"></i>'
+            ) || (index + 1));
+        }, 500);
     }
     $('#form').append(before);
     setTimeout(() => {
         $('form#form a[href="#next"]').html('<i class="fas fa-arrow-left"></i>')
         $('form#form a[href="#previous"]').html('<i class="fas fa-arrow-right"></i>')
         $('form#form a[href="#finish"]').html('<i class="fa fa-paper-plane" aria-hidden="true"></i>')
-    }, 500);
+    }, 1000);
+    var SEND_FLAG_CHECKER = setInterval(() => {
+        if (!SEND_FLAG) {
+            $('form#form a[href="#finish"]').parent().hide();
+        }
+    }, 100);
 </script>
