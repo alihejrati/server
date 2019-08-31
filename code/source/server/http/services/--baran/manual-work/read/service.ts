@@ -7,7 +7,7 @@ async function service(req, res, next, options: options) {
     const suggest               = Tools.isString(req.body.suggest);
     const requiredsupplies      = Tools.isArray(req.body.requiredsupplies);
     const time                  = Tools.isJson(req.body.time);
-    const all                   = Tools.isBoolean(req.body.all);
+    const all                   = Tools.isBoolean(req.body.all) || true;
     const Kind                  = Tools.isArray(req.body.Kind);
     const primarysubstance      = Tools.isArray(req.body.primarysubstance);
     const tag                   = Tools.isArray(req.body.tag); 

@@ -16,7 +16,8 @@
         "service": {
             "read": {"server": "http", "route": "/service/crud/read"},
             "del": {"server": "http", "route": "/service/crud/delete"},
-            "edit": {"server": "http", "route": "/service/crud/update"}
+            "edit": {"server": "http", "route": "/service/crud/update"},
+            "insert": {"server": "http", "route": "/service/crud/insert"}
         },
         "form": [
             {
@@ -63,6 +64,94 @@
                         }
                     }
                 }
+            }
+        ]
+    },
+    {
+        "category": "baran",
+        "name": "game",
+        "label": "بازی ها",
+        "description": "گزارش گیری از جدول بازی ها",
+        "pagetitle": "",
+        "columns": {
+            "tools": {"title": "ابزارها", "data": "tools", "defaultContent": "del:edit:check", "orderable": false, "visible": true, "html": {"title": "حذف:ویرایش:انتخاب"}},
+            "url": {"title": "لینک کاور", "data": "url", "defaultContent": "یافت نشد", "orderable": true, "visible": true, "html": {"title": "مرتب سازی براساس لینک کاور"}},
+            "age": {"title": "رده سنی", "data": "age", "defaultContent": "یافت نشد", "orderable": true, "visible": true, "html": {"title": "مرتب سازی براساس رده های سنی"}},
+            "players": {"title": "بازیکنان", "data": "players", "defaultContent": "یافت نشد", "orderable": true, "visible": true, "html": {"title": "مرتب سازی براساس بازیکنان"}},
+            "suggest": {"title": "پیشنهاد", "data": "suggest", "defaultContent": "یافت نشد", "orderable": true, "visible": true, "html": {"title": "مرتب سازی براساس پیشنهاد ها"}},
+            "type": {"title": "نوع", "data": "type", "defaultContent": "یافت نشد", "orderable": true, "visible": true, "html": {"title": "مرتب سازی براساس نوع"}},
+            "description": {"title": "توضیحات", "data": "description", "defaultContent": "یافت نشد", "orderable": true, "visible": true, "html": {"title": "مرتب سازی براساس توضیحات"}},
+            "title": {"title": "عنوان", "data": "title", "defaultContent": "یافت نشد", "orderable": true, "visible": true, "html": {"title": "مرتب سازی براساس عنوان ها"}}
+        },
+        "service": {
+            "read": {"server": "http", "route": "/service/--baran/game/read"},
+            "del": {"server": "http", "route": "/service/crud/delete"},
+            "edit": {"server": "http", "route": "/service/crud/update"},
+            "insert": {"server": "http", "route": "/service/--baran/game/create"}
+        },
+        "form": [
+            {
+                "title": {"type": "text", "required": true, "html": {"right": true, "label": "عنوان", "example": "", "key": "title"}},
+                "age": {"type": "text", "required": true, "html": {"right": true, "label": "رده سنی", "example": "", "key": "age"}},
+                "url": {"type": "text", "required": true, "html": {"right": true, "label": "لینک کاور", "example": "", "key": "url"}},
+                "type": {"type": "text", "required": true, "html": {"right": true, "label": "نوع", "example": "", "key": "type"}},
+                "description": {"type": "textarea", "required": true, "html": {"right": false, "label": "توضیحات", "example": "", "key": "description"}},
+                "suggest": {"type": "textarea", "required": true, "html": {"right": false, "label": "پیشنهادات", "example": "", "key": "suggest"}},
+                "players": {"type": "textarea", "required": true, "html": {"right": false, "label": "بازیکنان", "example": "", "key": "players"}}
+            }
+        ]
+    },
+    {
+        "category": "baran",
+        "name": "manualwork",
+        "label": "کاردستی ها",
+        "description": "گزارش گیری از جدول کاردستی ها",
+        "pagetitle": "",
+        "columns": {
+            "tools": {"title": "ابزارها", "data": "tools", "defaultContent": "del:edit:check", "orderable": false, "visible": true, "html": {"title": "حذف:ویرایش:انتخاب"}},
+            "url": {"title": "لینک کاور", "data": "url", "defaultContent": "یافت نشد", "orderable": true, "visible": true, "html": {"title": "مرتب سازی براساس لینک کاور"}},
+            "suggest": {"title": "پیشنهاد", "data": "suggest", "defaultContent": "یافت نشد", "orderable": true, "visible": true, "html": {"title": "مرتب سازی براساس پیشنهاد ها"}},
+            "level": {"title": "سطح", "data": "level", "defaultContent": "یافت نشد", "orderable": true, "visible": true, "html": {"title": "مرتب سازی براساس سطح ها"}},
+            "description": {"title": "توضیحات", "data": "description", "defaultContent": "یافت نشد", "orderable": true, "visible": true, "html": {"title": "مرتب سازی براساس توضیحات"}},
+            "title": {"title": "عنوان", "data": "title", "defaultContent": "یافت نشد", "orderable": true, "visible": true, "html": {"title": "مرتب سازی براساس عنوان ها"}}
+        },
+        "service": {
+            "read": {"server": "http", "route": "/service/--baran/manual-work/read"},
+            "del": {"server": "http", "route": "/service/crud/delete"},
+            "edit": {"server": "http", "route": "/service/crud/update"},
+            "insert": {"server": "http", "route": "/service/--baran/manual-work/create"}
+        },
+        "form": [
+            {
+                "title": {"type": "text", "required": true, "html": {"right": true, "label": "عنوان", "example": "", "key": "title"}},
+                "level": {"type": "text", "required": true, "html": {"right": true, "label": "سطح", "example": "", "key": "level"}},
+                "url": {"type": "text", "required": true, "html": {"right": true, "label": "لینک کاور", "example": "", "key": "url"}},
+                "description": {"type": "textarea", "required": true, "html": {"right": false, "label": "توضیحات", "example": "", "key": "description"}},
+                "suggest": {"type": "textarea", "required": true, "html": {"right": false, "label": "پیشنهادات", "example": "", "key": "suggest"}}
+            }
+        ]
+    },
+    {
+        "category": "baran",
+        "name": "faq",
+        "label": "پرسش و پاسخ ها",
+        "description": "گزارش گیری از جدول پرسش و پاسخ ها",
+        "pagetitle": "",
+        "columns": {
+            "tools": {"title": "ابزارها", "data": "tools", "defaultContent": "del:edit:check", "orderable": false, "visible": true, "html": {"title": "حذف:ویرایش:انتخاب"}},
+            "answer": {"title": "پاسخ", "data": "answer", "defaultContent": "یافت نشد", "orderable": true, "visible": true, "html": {"title": "مرتب سازی براساس پاسخ ها"}},
+            "question": {"title": "پرسش", "data": "question", "defaultContent": "یافت نشد", "orderable": false, "visible": true, "html": {"title": "مرتب سازی براساس پرسش ها"}}
+        },
+        "service": {
+            "read": {"server": "http", "route": "/service/--baran/faq/read"},
+            "del": {"server": "http", "route": "/service/crud/delete"},
+            "edit": {"server": "http", "route": "/service/crud/update"},
+            "insert": {"server": "http", "route": "/service/--baran/faq/create"}
+        },
+        "form": [
+            {
+                "answer": {"type": "textarea", "required": true, "html": {"right": false, "label": "پاسخ", "example": "", "key": "answer"}},
+                "question": {"type": "textarea", "required": true, "html": {"right": true, "label": "پرسش", "example": "", "key": "question"}}
             }
         ]
     }

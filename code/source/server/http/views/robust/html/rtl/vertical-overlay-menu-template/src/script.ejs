@@ -1,6 +1,24 @@
 <script>
     alert = () => null
 </script>
+<script>
+    var msg = {
+        tbl: {
+            empty: "داده ای یافت نشد"
+        },
+        btn: {
+            confirm: 'بسیار خب',
+        },
+        success: {
+            head: '',
+            description: ''
+        },
+        error: {
+            head: '',
+            description: ''
+        }
+    };
+</script>
 <script src="<%-template%>/robust-assets/js/plugins/ui/tether.min.js" type="text/javascript"></script>
 <script src="<%-template%>/robust-assets/js/core/libraries/bootstrap.min.js" type="text/javascript"></script>
 <script src="<%-template%>/robust-assets/js/plugins/ui/perfect-scrollbar.jquery.min.js" type="text/javascript">
@@ -12,6 +30,7 @@
 <script src="<%-template%>/robust-assets/js/plugins/ui/jquery-sliding-menu.js" type="text/javascript"></script>
 <script src="<%-template%>/robust-assets/js/plugins/sliders/slick/slick.min.js" type="text/javascript"></script>
 <script src="<%-template%>/robust-assets/js/plugins/ui/screenfull.min.js" type="text/javascript"></script>
+<script src="<%-template%>/robust-assets/js/plugins/extensions/sweetalert.min.js" type="text/javascript"></script>
 <!-- /build-->
 <!-- BEGIN VENDOR JS-->
 <!-- BEGIN PAGE VENDOR JS-->
@@ -54,6 +73,7 @@
 <script src="https://kit.fontawesome.com/1992f02a31.js"></script>
 <script src="<%-template%>/robust-assets/js/components/forms/wizard-steps.js" type="text/javascript"></script>
 <script src="<%-template%>/robust-assets/js/components/forms/checkbox-radio.js" type="text/javascript"></script>
+<script src="<%-template%>/robust-assets/js/components/extensions/sweet-alerts.js" type="text/javascript"></script>
 <script>
     /*
      * htmlson.js v.1 (Adalen VLADI, Redjan Ymeraj) | MIT
@@ -304,7 +324,7 @@
     function deep(selector) {
         let i = 1;
         for (i = 1; true; i++) {
-            i+= $(selector).prevAll().length
+            i += $(selector).prevAll().length
             selector = $(selector).parent();
             if (selector[0].nodeName.toLocaleLowerCase() == 'html') {
                 break;

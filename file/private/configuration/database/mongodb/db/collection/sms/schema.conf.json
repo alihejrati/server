@@ -1,0 +1,26 @@
+{
+    "app": {
+        "type": "String",
+        "required": true
+    },
+    "server": {
+        "type": "String",
+        "enum" : ["dandelion", "kavenegar"],
+        "required": true
+    },
+    "code": {
+        "type": "String"
+    },
+    "mobile": {
+        "type": ["String"],
+        "required": true
+    },
+    "json": {
+        "type": "Object",
+        "required": true
+    },
+    "result": {
+        "type": "Object",
+        "required": true
+    }
+}

@@ -216,7 +216,59 @@
                 eval(`json${k}=${val}`);
             }
         }
+
+
         log('---------------------->', json, KEY_FORM.length);
+        $.post(Service.insert.route, json, (res) => {
+            const _subkey = '<%-variables.service.insert.route%>'
+                    .replace(/\/+/g,
+                        '/')
+                    .replace(/\//g,
+                        '.')
+                    .replace(/\.+/g,
+                        '.');
+                let subkey = '';
+                for (const iterator of _subkey.split('.')) {
+                    if (iterator == '') {
+                        continue;
+                    }
+                    subkey += `["${iterator}"]`;
+                }
+                subkey = subkey.replace(/\./g, '');
+                const response = eval(
+                    `res${subkey}`
+                ) || {};
+            msg.success.code = '';
+            msg.success.description = '';
+            msg.error.code = '';
+            msg.error.description = '';
+
+            if (response.code == 200) {
+                msg.success.description = 'تراکنش با موفقیت انجام شد';
+                $('button#type-success').click();
+                $('button.confirm').click(() => {
+                    $('button[data-dismiss="modal"]').click();
+                    $('a[data-action="reload"]').click();
+                });
+            } else {
+                switch (response.code) {
+                    case 503:
+                        msg.error.description = 'سرویس در دسترس نیست';
+                        break;
+                
+                    default:
+                        msg.error.description = 'تراکنش موفقیت آمیز نبود';
+                        break;
+                }
+
+                msg.error.code = "'" + response.code + "'";
+                $('button#type-error').click();
+                $('button.confirm').click(() => {
+                    $('button[data-dismiss="modal"]').click();
+                });
+            }
+        });
+
     }
     const before = $('#form').html();
     $('#form').html('');
@@ -224,6 +276,7 @@
     var FORM_BACKUP_COUNT = {};
     var FORM_BACKUP = {};
     var Form = JSON.parse('<%-JSON.stringify(variables.form)%>');
+    var Service = JSON.parse('<%-JSON.stringify(variables.service)%>');
 
     if (true) {
         function capCtrl() {

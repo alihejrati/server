@@ -1,5 +1,21 @@
 [
     {
+      "key": "\\code\\source\\components\\sms\\dandelion\\send.conf.json",
+      "value": {
+        "method": "POST",
+        "url": "https://api.ghasedak.io/v2/sms/send/simple",
+        "apikey": "a53d4003d0bf383aa4c64516a9b0ad55f26d8dd73c2d6310089b089f00226116",
+        "linenumber": "10008566,300002525,5000121212,2000235,10008642,210002100,5000570"
+      }
+    },
+    {
+      "key": "\\code\\source\\components\\sms\\kavenegar\\send.conf.json",
+      "value": {
+        "apikey": "79423173534746456D56615544557333307851617A7A41516F6879724C4F53466B386E716E716E6135486F3D",
+        "sender": "1000596446"
+      }
+    },
+    {
       "key": "\\code\\source\\components\\captcha\\check.conf.json",
       "value": {
         "expire": {"minute": 6}

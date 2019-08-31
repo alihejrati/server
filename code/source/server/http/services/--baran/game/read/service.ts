@@ -6,7 +6,7 @@ async function service(req, res, next, options: options) {
     const suggest     = Tools.isString(req.body.suggest);
     const players     = Tools.isString(req.body.players);
     const age         = Tools.isString(req.body.age);
-    const all         = Tools.isBoolean(req.body.all);
+    const all         = Tools.isBoolean(req.body.all) || true;
     const hasBall     = Tools.isBoolean(req.body.hasBall);
     const type        = Tools.isString(req.body.type);
     const tag         = Tools.isArray(req.body.tag);

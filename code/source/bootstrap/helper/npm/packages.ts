@@ -42,7 +42,9 @@ import * as methodOverride from 'method-override';
 import * as dateTimestampDiff from 'date-timestamp-diff';
 import * as socketIoCookie from 'socket.io-cookie';
 import * as cookie from 'cookie';
-
+import * as request from 'request';
+import * as nexmo from 'nexmo';
+import * as kavenegar from 'kavenegar';
 
 const app = express();
 const server = require('http').createServer;
@@ -103,5 +105,8 @@ export {
     dateTimestampDiff,
     socketIoCookie,
     cookie,
-    isPlainObject
+    isPlainObject,
+    request,
+    nexmo,
+    kavenegar
 };

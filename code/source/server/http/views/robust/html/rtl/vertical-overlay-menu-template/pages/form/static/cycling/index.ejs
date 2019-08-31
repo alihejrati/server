@@ -54,7 +54,7 @@
     <link rel="stylesheet" type="text/css" href="<%-template%>/assets/css/style-rtl.css">
     <style>
         html body.bg-full-screen-image {
-            background: url(<%-template%>/robust-assets/images/login.jpg) no-repeat center center fixed;
+            background: url(/src/img/bg-bike-1.jpg) no-repeat center center fixed;
             background-size: cover;
         }
     </style>
@@ -85,15 +85,7 @@
         </div>
         <div class="loader-section section-top bg-primary"></div>
         <div class="loader-section section-bottom bg-primary"></div>
-    </!-->
-
-    <div id="preloader-wrapper">
-        <div id="loader" class="ball-scale loader-white"
-            style="background: url(/src/img/logo-pishkhan-copy.png) no-repeat center center;width: 324px;height: 100px;">
-        </div>
-        <div style="background-color: #1d2b36;" class="loader-section section-top"></div>
-        <div style="background-color: #1d2b36;" class="loader-section section-bottom"></div>
-    </div>
+    </div> -->
 
     <!-- END PRELOADER-->
     <!-- ////////////////////////////////////////////////////////////////////////////-->
@@ -106,42 +98,37 @@
                     <div class="col-md-4 offset-md-4 col-xs-10 offset-xs-1 box-shadow-3 p-0">
                         <div class="card border-grey border-lighten-3 px-1 py-1 m-0">
                             <div class="card-header no-border">
-                                <div class="card-title text-xs-center">
-                                    <img src="/src/img/logo-pishkhan (1).png"
+                                <!-- <div class="card-title text-xs-center">
+                                    <img src="/src/img/robust-logo-dark copy.png"
                                         alt="branding logo">
-                                </div>
-                                <h6 class="card-subtitle line-on-side text-muted text-xs-center font-small-3 pt-2">
-                                    <span>می‌توانید از سرویس های زیر برای احراز هویت خود استفاده کنید</span></h6>
+                                </div> -->
                             </div>
                             <div class="card-body collapse in">
-                                <div class="text-xs-center">
-                                    <a href="#" class="btn btn-social-icon mr-1 mb-1 btn-outline-facebook"><span
-                                            class="icon-facebook3"></span></a>
-                                    <a href="#" class="btn btn-social-icon mr-1 mb-1 btn-outline-twitter"><span
-                                            class="icon-twitter3"></span></a>
-                                    <a href="#" class="btn btn-social-icon mr-1 mb-1 btn-google"><span
-                                            class="icon-google font-medium-3"></span></a>
-                                    <a href="#" class="btn btn-social-icon mr-1 mb-1 btn-outline-linkedin"><span
-                                            class="icon-linkedin3 font-medium-4"></span></a>
-                                    <a href="#" class="btn btn-social-icon mr-1 mb-1 btn-outline-github"><span
-                                            class="icon-github font-medium-4"></span></a>
+                                <div>
+                                    <img style="display: block; margin: 0 auto;" src="/src/img/logo-bike-1.jpg"
+                                        alt="branding logo" class="img-responsive">
                                 </div>
-                                <p class="card-subtitle line-on-side text-muted text-xs-center font-small-3 mx-2 my-1">
-                                    <span>مشخصات کاربری</span></p>
                                 <div class="card-block">
                                     <form class="form-horizontal" novalidate>
                                         <fieldset class="form-group has-feedback has-icon-left">
-                                            <input type="text" class="form-control" id="user-name"
-                                                placeholder="نام کاربری" required>
+                                            <input type="text" class="form-control" id="user-name" placeholder="نام "
+                                                required>
                                             <div class="form-control-position">
-                                                <i class="icon-head"></i>
+                                                <i class="fa fa-user" aria-hidden="true"></i>
                                             </div>
                                         </fieldset>
                                         <fieldset class="form-group has-feedback has-icon-left">
-                                            <input type="password" class="form-control" id="user-password"
-                                                placeholder="کلمه عبور" required>
+                                            <input type="text" class="form-control" id="user-name"
+                                                placeholder="نام خانوادگی" required>
                                             <div class="form-control-position">
-                                                <i class="icon-key3"></i>
+                                                <i class="fa fa-user" aria-hidden="true"></i>
+                                            </div>
+                                        </fieldset>
+                                        <fieldset class="form-group has-feedback has-icon-left">
+                                            <input type="tel" class="form-control" id="user-password"
+                                                placeholder="شماره تماس" required>
+                                            <div class="form-control-position">
+                                                <i class="fa fa-phone"></i>
                                             </div>
                                         </fieldset>
                                         <fieldset class="form-group has-feedback has-icon-left">
@@ -154,27 +141,19 @@
                                         <fieldset class="form-group row">
                                             <center style="margin-bottom: 0.75rem;"><%-captcha%></center>
                                             <div class="col-md-6 col-xs-12 text-xs-center">
-                                                <fieldset>
-                                                    <input type="checkbox" id="remember-me" class="chk-remember">
-                                                    <label for="remember-me">به خاطر بسپار</label>
-                                                </fieldset>
-                                            </div>
-                                            <div class="col-md-6 col-xs-12 float-sm-left text-xs-center"><a href="#"
-                                                    class="card-link">رمز عبور را فراموش
-                                                    کرده اید؟!</a>
                                             </div>
                                         </fieldset>
                                         <a id="login" href="#" onclick="exec()"
-                                            class="btn btn-outline-primary btn-block"><i class="icon-head"></i>
-                                            ورود</a>
+                                            class="btn btn-outline-warning btn-block">
+                                            <!-- <i class="fa fa-paper-plane"
+                                                aria-hidden="true"></i> -->
+
+                                            ارسال درخواست</a>
                                         <!-- <button onclick="exec()" class="btn btn-outline-primary btn-block"><i
                                                 class="icon-unlock2"></i> ورود</button> -->
                                     </form>
                                 </div>
                                 <div class="card-block" style="padding-top: 0;">
-                                    <a href="/signup" class="btn btn-outline-primary btn-block"><i
-                                            class="icon-head"></i>
-                                        ثبت نام</a>
                                 </div>
                                 <!-- <p class="card-subtitle line-on-side text-muted text-xs-center font-small-3 mx-2 my-1">
                                     <span>New to Robust ?</span></p> -->

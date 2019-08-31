@@ -6,12 +6,12 @@
 
 <body data-open="click" data-menu="vertical-overlay-menu" data-col="2-columns"
         class="vertical-layout vertical-overlay-menu 2-columns  fixed-navbar">
+
         <div id="preloader-wrapper">
-                <div id="loader" class="ball-scale loader-white">
-                        <div></div>
+                <div id="loader" class="ball-scale loader-white" style="background: url(/src/img/logo-pishkhan-copy.png) no-repeat center center;width: 324px;height: 100px;">
                 </div>
-                <div class="loader-section section-top bg-primary"></div>
-                <div class="loader-section section-bottom bg-primary"></div>
+                <div style="background-color: #1d2b36;" class="loader-section section-top"></div>
+                <div style="background-color: #1d2b36;" class="loader-section section-bottom"></div>
         </div>
         <% include ../src/nav %>
         <% include ../src/fullscreen-search-overlay %>
@@ -28,12 +28,20 @@
                         </div>
                 </div>
         </div>
+
         <% include ../src/footer %>
         <% include ../src/form %>
         <% include ../src/script %>
         <% include ../src/functions %>
         <% include ../src/table %>
         <%- block('eof').toString() %>
+        <button style="display: none;" id="wait"
+                class="btn btn-lg btn-block font-medium-1 btn-outline-pink mb-1 block-page onoverlay-click-callback">Block
+                Page</button>
+        <button style="display: none;" type="button" class="btn btn-lg btn-block btn-outline-success mb-2"
+                id="type-success">Success</button>
+        <button style="display: none;" type="button" class="btn btn-lg btn-block btn-outline-danger mb-2"
+                id="type-error">Error</button>
 </body>
 
 </html>

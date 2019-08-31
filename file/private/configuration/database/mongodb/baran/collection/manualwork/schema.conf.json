@@ -30,11 +30,11 @@
     },
     "Kind": {
         "type": ["String"],
-        "required": true
+        "required": false
     },
     "primarysubstance": {
         "type": ["String"],
-        "required": true
+        "required": false
     },
     "time": {
         "type": {

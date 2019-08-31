@@ -21,9 +21,12 @@
                     debug: true
                 });
                 COLNAME += COL;
-                $('div#obj h4#myModalLabel16').html(`جزئیات ستون <sup><i class="fa fa-quote-left COT" aria-hidden="true"></i></sup>${COLNAME}<sup><i class="fa fa-quote-right COT" aria-hidden="true"></i></sup>`);
+                $('div#obj h4#myModalLabel16').html(
+                    `جزئیات ستون <sup><i class="fa fa-quote-left COT" aria-hidden="true"></i></sup>${COLNAME}<sup><i class="fa fa-quote-right COT" aria-hidden="true"></i></sup>`
+                );
                 STACK.push($('#objectTableModel').html());
-                console.log('-------------------------------------------------------------------->', STACK.length);
+                console.log('-------------------------------------------------------------------->', STACK
+                    .length);
                 break;
             }
         }
@@ -99,34 +102,46 @@
                     'Search', 'جستجو'));
                 $("div#table_length label").html($("div#table_length label").html().replace('Show',
                     'تعداد').replace('entries', ''));
-                const response = eval(
-                    'res.<%-variables.service.read.route%>'
+                const _subkey = '<%-variables.service.read.route%>'
                     .replace(/\/+/g,
                         '/')
                     .replace(/\//g,
                         '.')
                     .replace(/\.+/g,
-                        '.')
+                        '.');
+                let subkey = '';
+                for (const iterator of _subkey.split('.')) {
+                    if (iterator == '') {
+                        continue;
+                    }
+                    subkey += `["${iterator}"]`;
+                }
+                subkey = subkey.replace(/\./g, '');
+                const response = eval(
+                    `res${subkey}`
                 ) || {};
-                var data = JSON.parse(JSON.stringify(response.body));
-                DATA = JSON.parse(JSON.stringify(response.body));
-                for (let index = 0; index < response.body.length; index++) {
-                    const keys = Object.keys(response.body[index]);
-                    for (const key of keys) {
-                        if (typeof response.body[index][key] == 'object') {
-                            data[index][key] = map('table', {
-                                title: 'نمایش جزئیات',
-                                onclick: `$('#btn-obj').click();COL='${key}'`
-                            })
-                        } else {
-                            // not statement!!
+                if (response.code == 200) {
+                    var data = response.code == 200 ? JSON.parse(JSON.stringify(response.body)) :
+                [];
+                    DATA = response.code == 200 ? JSON.parse(JSON.stringify(response.body)) : [];
+                    for (let index = 0; index < response.body.length; index++) {
+                        const keys = Object.keys(response.body[index]);
+                        for (const key of keys) {
+                            if (typeof response.body[index][key] == 'object') {
+                                data[index][key] = map('table', {
+                                    title: 'نمایش جزئیات',
+                                    onclick: `$('#btn-obj').click();COL='${key}'`
+                                })
+                            } else {
+                                // not statement!!
+                            }
                         }
                     }
                 }
                 callback({
-                    recordsTotal: data.length,
-                    recordsFiltered: data.length,
-                    data: data
+                    recordsTotal: response.code == 200 ? data.length : 0,
+                    recordsFiltered: response.code == 200 ? data.length : 0,
+                    data: response.code == 200 ? data : []
                 });
             });
         },
