@@ -45,6 +45,7 @@ import * as cookie from 'cookie';
 import * as request from 'request';
 import * as nexmo from 'nexmo';
 import * as kavenegar from 'kavenegar';
+import * as getFolderSize from 'get-folder-size';
 
 const app = express();
 const server = require('http').createServer;
@@ -108,5 +109,6 @@ export {
     isPlainObject,
     request,
     nexmo,
-    kavenegar
+    kavenegar,
+    getFolderSize
 };

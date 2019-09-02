@@ -39,6 +39,11 @@
               "name": "backend",
               "host": "[ip]",
               "port": "8081"
+            },
+            {
+              "name": "browser",
+              "host": "[ip]",
+              "port": "8082"
             }
         ]
     },

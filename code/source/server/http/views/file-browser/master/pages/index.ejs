@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html>
+
+<head lang="en">
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+	<title>مدیر فایل</title>
+
+
+	<!-- Include our stylesheet -->
+	<link href="<%-template%>/assets/css/styles.css" rel="stylesheet" />
+
+	<style>
+		a {
+			cursor: pointer;
+			border: 0;
+		}
+
+		a:hover {
+			text-decoration: none;
+			border: 0;
+			color: orange;
+		}
+
+		a:link {
+			text-decoration: none;
+			border: 0;
+		}
+
+		a:visited {
+			border: 0;
+			text-decoration: none;
+		}
+
+		a:active {
+			border: 0;
+			text-decoration: none;
+		}
+
+		.bg {
+			display: block;
+			margin: 0 auto;
+			text-align: center;
+			font-size: 16rem;
+			color: whitesmoke;
+		}
+
+		.bgTitle {
+			display: block;
+			font-size: 2rem;
+		}
+
+		.textHighlight:hover {
+			color: orange;
+			/* content: '<i class="fas fa-eye"></i>' */
+		}
+	</style>
+	<style>
+		.loader {
+			border: 16px solid #42424E;
+			border-radius: 50%;
+			border-top: 16px solid #AEB8C1;
+			width: 120px;
+			height: 120px;
+			-webkit-animation: spin 2s linear infinite;
+			/* Safari */
+			animation: spin 2s linear infinite;
+		}
+
+		/* Safari */
+		@-webkit-keyframes spin {
+			0% {
+				-webkit-transform: rotate(0deg);
+			}
+
+			100% {
+				-webkit-transform: rotate(360deg);
+			}
+		}
+
+		@keyframes spin {
+			0% {
+				transform: rotate(0deg);
+			}
+
+			100% {
+				transform: rotate(360deg);
+			}
+		}
+	</style>
+</head>
+
+<body>
+	<div id="loader" class="loader" style="margin-top: 20%;display: block;margin-left: auto;margin-right: auto;"></div>
+	<div class="filemanager">
+
+		<!-- <div class="search">
+			<input type="search" placeholder="Find a file.." />
+		</div> -->
+
+		<div id="route" class="breadcrumbs"></div>
+
+		<ul id="data" class="data">
+
+
+
+		</ul>
+
+		<div class="nothingfound">
+			<div class="nofiles"></div>
+			<span>No files here.</span>
+		</div>
+
+	</div>
+	<div id="notic" style="width: 100%; height: 200px"></div>
+	<a id="tab" style="display: none;" href="#" target="_blank" rel="noopener noreferrer">hoooooooooooo!!</a>
+
+	<!-- <footer>
+        <a class="tz" href="http://tutorialzine.com/2014/09/cute-file-browser-jquery-ajax-php/">Cute File Browser with jQuery, AJAX and PHP</a>
+        <div id="tzine-actions"></div>
+        <span class="close"></span>
+    </footer> -->
+
+	<!-- Include our script files -->
+	<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+	<script src="https://kit.fontawesome.com/1992f02a31.js"></script>
+	<script>
+		var select = {};
+		var url = '/';
+
+		function goto(_this) {
+			window.open($(_this).attr('link'), 'name');
+		}
+
+		function spanMouseOver(_this) {
+			$(_this).html('<i class="fas fa-eye"></i>')
+		}
+
+		function spanMouseOut(_this) {
+			$(_this).html($(_this).attr('ext'))
+		}
+
+		function bytesToSize(bytes) {
+			var sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
+			if (bytes == 0) return '0 Byte';
+			var i = parseInt(Math.floor(Math.log(bytes) / Math.log(1024)));
+			return Math.round(bytes / Math.pow(1024, i), 2) + ' ' + sizes[i];
+		}
+
+		function exec(_this) {
+			url = $(_this).attr('path');
+			render();
+		}
+		var a = ''
+
+		function view(_this) {
+			$('a#tab').attr('href', '/upload' + $(_this).attr('link'));
+			$('a#tab')['0'].click();
+		}
+
+		function file(_this) {
+			const pid = $(_this).attr('pid');
+			const tag = $(_this).attr('tag');
+			a = $('p[id="' + pid + '"]');
+			if (select[tag]) {
+				$('p[id="' + pid + '"]').css('display', 'none');
+			} else {
+				$('p[id="' + pid + '"]').css('display', 'inline');
+			}
+			select[tag] = !select[tag];
+			console['______'] = select;
+			// console.debug(select[tag], pid, tag);
+		}
+
+		function render() {
+			$('div.filemanager').css('display', 'none');
+			$('div#notic').css('display', 'none');
+			$('div#loader').css('display', 'block');
+			$.post('/service/file-manager/read', {
+				path: url
+			}, (res) => {
+				$('div#notic').css('display', 'block');
+				$('div.filemanager').css('display', 'block');
+				$('#loader').css('display', 'none');
+				let temp = url.substr(0).replace(/\/+/g, '/').replace(/\/+$/g, '').split('/');
+				$('#route').html(`${temp.map((e, i) => {
+					return e ? `<a style="text-decoration: none;" onclick="exec(this)" path="/${temp.slice(0, i+1).join('/')}">${e}</a>` : '<a style="text-decoration: none;" onclick="exec(this)" path="/"><i class="fa fa-link" aria-hidden="true"></i></a>'
+				}).join(' → ')}` ||
+					'<a style="text-decoration: none;" onclick="exec(this)" path="/"><i class="fa fa-link" aria-hidden="true"></i></a>'
+					);
+				$('#data').html('');
+				let response = res['service']['file-manager']['read'];
+				let data = response.body;
+				if (response.code == 200) {
+					for (const e of data.items) {
+						e.type == 'folder' ?
+							$('#data').append(`
+							<li onclick="exec(this)" path="${e.path}" class="folders"><a style="text-decoration: none;" class="folders"><span class="icon folder"
+							></span><span class="name">${e.name}</span> <span
+							class="details">${e.size != 0 ? bytesToSize(e.size) : 'Empty'}</span></a></li>`).hide().fadeIn('fast') :
+							$('#data').append(`
+								<li class="files">
+									<p id="${e.path}" style="${ select[e.path] ? 'display: inline;' : 'display: none;' }" class="tik">✔</p><a style="text-decoration: none;" pid="${e.path}"
+										onclick="file(this)" tag="${e.path}"
+										class="files">
+										<span link="${e.path}" ext="${e.path.split('.').slice(1).join()}" ${e.path.split('.').slice(1).join()}" class="icon file f-${e.path.split('.').slice(1).join()}">${e.path.split('.').slice(1).join()}</span><span class="name">${e.name}</span>
+										<span class="details">${bytesToSize(e.size)}<span> &nbsp; <i class="textHighlight fas fa-external-link-alt" link="/upload${e.path}" onclick="goto(this)"></i> </span></span>
+										</a>
+								</li>`).hide().fadeIn('fast');
+					}
+
+					if (data.items.length == 0) {
+						$('#notic').css(`display`, 'block');
+						// $('#notic').html(`<img class="bg" src="/src/img/logo-bike-1.jpg" alt="">`);
+						$('#notic').html(
+							`<div class="bg"><i class="fas fa-folder"></i><span class="bgTitle">Empty</span></div>`
+						);
+					} else {
+						$('#notic').css(`display`, 'none');
+					}
+
+
+				} else {
+
+				}
+			});
+		}
+
+		render();
+	</script>
+</body>
+
+</html>

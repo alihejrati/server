@@ -75,6 +75,16 @@
 <script src="<%-template%>/robust-assets/js/components/forms/checkbox-radio.js" type="text/javascript"></script>
 <script src="<%-template%>/robust-assets/js/components/extensions/sweet-alerts.js" type="text/javascript"></script>
 <script>
+    var SOURCE = '';
+    function filemanager(_this) {
+        let source = $(_this).attr('soruce');
+        SOURCE = source;
+        console.log('filemanaer ========================>', source);
+        $('div#iframeSpace').html(`<iframe src="http://192.168.1.106:8082" style="height: -webkit-fill-available;" width="100%"></iframe>`);
+        $('#btn-filemanager').click();
+    }
+</script>
+<script>
     /*
      * htmlson.js v.1 (Adalen VLADI, Redjan Ymeraj) | MIT
      * Github: https://github.com/adalenv/htmlson.js

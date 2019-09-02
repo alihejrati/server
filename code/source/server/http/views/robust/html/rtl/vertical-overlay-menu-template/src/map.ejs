@@ -18,6 +18,22 @@
         'checkmark': ``,
         'table': `<div onclick="{{ONCLICK}}" data-toggle="tooltip" data-popup="tooltip-custom" data-original-title="{{TITLE}}" data-text-color="info" style="cursor: pointer; display: inline;" class="fonticon-container" title="{{TITLE}}"><div class="fonticon-wrap" style="color: #939393;"><i class="fa fa-table" aria-hidden="true"></i></div>`,
         // form
+        'TEXT-file-one': `<div class="form-group"><label for="{{ID}}">{{LABEL}}</label><fieldset>
+							<div class="input-group">
+								<span class="input-group-btn" id="button-addon5">
+									<button onclick="filemanager(this)" source="{{KEY}}" class="btn btn-primary bg-primary border-primary" type="button">انتخاب</button>
+								</span>
+								<input id="{{ID}}" key="{{KEY}}" name="{{NAME}}" type="text" class="form-control" placeholder="" aria-describedby="button-addon5" readonly="readonly">
+							</div>
+						</fieldset>`,
+        'TEXT-file-one-required': `<div class="form-group"><label for="{{ID}}">{{LABEL}}</label><fieldset>
+							<div class="input-group">
+								<span class="input-group-btn" id="button-addon5">
+									<button onclick="filemanager(this)" source="{{KEY}}" class="btn btn-primary bg-primary border-primary" type="button">انتخاب</button>
+								</span>
+								<input id="{{ID}}" key="{{KEY}}" name="{{NAME}}" type="text" class="form-control required" placeholder="" aria-describedby="button-addon5" readonly="readonly">
+                            </div>
+						</fieldset></div>`,
         'text': `<div class="form-group"><label for="{{ID}}">{{LABEL}}</label><input type="text" class="form-control" id="{{ID}}" key="{{KEY}}" name="{{NAME}}"></div>`,
         'text-required': `<div class="form-group"><label for="{{ID}}">{{LABEL}}<span class="danger">*</span></label><input type="text" class="form-control required" id="{{ID}}" key="{{KEY}}" name="{{NAME}}"></div>`,
         'textarea': `<div class="form-group"><label for="{{ID}}">{{LABEL}}</label><textarea name="{{NAME}}" id="{{ID}}" key="{{KEY}}" rows="4" class="form-control"></textarea></div>`,
