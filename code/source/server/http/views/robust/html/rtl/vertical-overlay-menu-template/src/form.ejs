@@ -67,6 +67,7 @@
                 label: field.element.key.html.label,
                 id: RandomString(),
                 name: RandomString(),
+                case: field.element.key.html.case,
                 example: field.element.key.html.example,
                 key: field.element.key.html.key
             });
@@ -82,29 +83,32 @@
 
         if (true) {
             // value
-
-            for (const key of Object.keys(field.element.value)) {
-                const e = field.element.value[key];
-                if (e.type.toLowerCase() == 'object') {
-                    down.push(f(e));
-                } else {
-                    const _html = map(`${e.type}${e.required ? '-required' : ''}`, {
-                        label: e.html.label,
-                        id: RandomString(),
-                        name: RandomString(),
-                        example: e.html.example,
-                        key: e.html.key
-                    });
-                    KEY_FORM.push(Object.assign({}, {
-                        type: e.type
-                    }, e.html));
-                    if (e.html.right) {
-                        _right += _html;
+            if (field.element.value) {
+                for (const key of Object.keys(field.element.value)) {
+                    const e = field.element.value[key];
+                    if (e.type.toLowerCase() == 'object') {
+                        down.push(f(e));
                     } else {
-                        _left += _html;
+                        const _html = map(`${e.type}${e.required ? '-required' : ''}`, {
+                            label: e.html.label,
+                            id: RandomString(),
+                            name: RandomString(),
+                            case: e.html.case,
+                            example: e.html.example,
+                            key: e.html.key
+                        });
+                        KEY_FORM.push(Object.assign({}, {
+                            type: e.type
+                        }, e.html));
+                        if (e.html.right) {
+                            _right += _html;
+                        } else {
+                            _left += _html;
+                        }
                     }
                 }
             }
+
         }
 
         _left += `</div>`;
@@ -141,8 +145,12 @@
                     let k = ele.key; // => process\
                     let val = "''";
 
-                    if (ele.type == 'text' || ele.type == "textarea" || ele.type == "captcha") {
+                    if (ele.type == 'text' || ele.type == "textarea" || ele.type == "captcha" || /^selectbox.*/g.test(
+                            ele.type) || /^text.*/g.test(ele.type) || /^TEXT\-.+/g.test(ele
+                            .type)) {
                         val = '`' + _e.val() + '`';
+                    } else if (ele.type == 'String[]' || ele.type == 'String[]-required') {
+                        val = (_e.val()).split(',');
                     } else {
                         // TODO Other Input ... developed open! ... ==> goal load "val"
                     }
@@ -181,7 +189,20 @@
                             eval(`json${k2}={}`);
                         }
                     }
-                    eval(`json${k2}=${val}`);
+                    if (Array.isArray(val)) {
+                        eval(`json${k2}=[]`);
+                        for (const e of val) {
+                            let e2 = e;
+                            switch (typeof e) {
+                                case 'string':
+                                    e2 = "'" + e + "'"
+                                    break;
+                            }
+                            eval(`json${k2}.push(${e2})`);
+                        }
+                    } else {
+                        eval(`json${k2}=${val}`);
+                    }
                 }
 
 
@@ -190,20 +211,25 @@
                 // regular element
                 let k = '';
                 let val = "''";
-                if (ele.type == 'text' || ele.type == "textarea" || ele.type == "captcha") {
-                    let e1 = 'input';
-                    switch (ele.type) {
-                        case 'text':
-                            e1 = 'input'
-                            break;
-                        case 'captcha':
-                            e1 = 'input'
-                            break;
-                        case 'textarea':
-                            e1 = 'textarea'
-                            break;
-                    }
-                    val = '`' + $(e1 + '[key="' + ele.key + '"]').val() + '`';
+                if (ele.type == 'text' || ele.type == "textarea" || ele.type == "captcha" || /^selectbox.*/g.test(ele
+                        .type) || /^text.*/g.test(ele.type) || /^TEXT\-.+/g.test(ele
+                        .type)) {
+                    // let e1 = 'input';
+                    // switch (ele.type) {
+                    //     case 'text':
+                    //         e1 = 'input'
+                    //         break;
+                    //     case 'captcha':
+                    //         e1 = 'input'
+                    //         break;
+                    //     case 'textarea':
+                    //         e1 = 'textarea'
+                    //         break;
+                    // }
+                    // val = '`' + $(e1 + '[key="' + ele.key + '"]').val() + '`';
+                    val = '`' + $($('*[key="' + ele.key + '"]')['0']).val() + '`';
+                } else if (ele.type == 'String[]' || ele.type == 'String[]-required') {
+                    val = ($($('*[key="' + ele.key + '"]')['0']).val()).split(',');
                 } else {
                     // TODO Other Input ... developed open! ... ==> goal load "val"
                 }
@@ -213,31 +239,47 @@
                         eval(`json${k}={}`);
                     }
                 }
-                eval(`json${k}=${val}`);
+
+
+                if (Array.isArray(val)) {
+                    eval(`json${k}=[]`);
+                    for (const e of val) {
+                        let e2 = e;
+                        switch (typeof e) {
+                            case 'string':
+                                e2 = "'" + e + "'"
+                                break;
+                        }
+                        eval(`json${k}.push(${e2})`);
+                    }
+                } else {
+                    eval(`json${k}=${val}`);
+                }
+
             }
         }
 
-
-        log('---------------------->', json, KEY_FORM.length);
-        $.post(Service.insert.route, json, (res) => {
+        jsonDynamic = Object.assign({dynamic: true}, json);
+        $.post(Service.insert.route, jsonDynamic, (res) => {
+            log('-------------------------------------------------------------->', jsonDynamic)
             const _subkey = '<%-variables.service.insert.route%>'
-                    .replace(/\/+/g,
-                        '/')
-                    .replace(/\//g,
-                        '.')
-                    .replace(/\.+/g,
-                        '.');
-                let subkey = '';
-                for (const iterator of _subkey.split('.')) {
-                    if (iterator == '') {
-                        continue;
-                    }
-                    subkey += `["${iterator}"]`;
+                .replace(/\/+/g,
+                    '/')
+                .replace(/\//g,
+                    '.')
+                .replace(/\.+/g,
+                    '.');
+            let subkey = '';
+            for (const iterator of _subkey.split('.')) {
+                if (iterator == '') {
+                    continue;
                 }
-                subkey = subkey.replace(/\./g, '');
-                const response = eval(
-                    `res${subkey}`
-                ) || {};
+                subkey += `["${iterator}"]`;
+            }
+            subkey = subkey.replace(/\./g, '');
+            const response = eval(
+                `res${subkey}`
+            ) || {};
             msg.success.code = '';
             msg.success.description = '';
             msg.error.code = '';
@@ -255,7 +297,7 @@
                     case 503:
                         msg.error.description = 'سرویس در دسترس نیست';
                         break;
-                
+
                     default:
                         msg.error.description = 'تراکنش موفقیت آمیز نبود';
                         break;
@@ -268,6 +310,7 @@
                 });
             }
         });
+
 
     }
     const before = $('#form').html();
@@ -373,6 +416,7 @@
                     label: field.html.label,
                     id: RandomString(),
                     name: RandomString(),
+                    case: field.html.case,
                     example: field.html.example,
                     key: field.html.key
                 });

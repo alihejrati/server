@@ -9,8 +9,39 @@
 
 
 	<!-- Include our stylesheet -->
-	<link href="<%-template%>/assets/css/styles.css" rel="stylesheet" />
+	<style>
+		.loader {
+			border: 16px solid #42424E;
+			border-radius: 50%;
+			border-top: 16px solid #AEB8C1;
+			width: 120px;
+			height: 120px;
+			-webkit-animation: spin 2s linear infinite;
+			/* Safari */
+			animation: spin 2s linear infinite;
+		}
 
+		/* Safari */
+		@-webkit-keyframes spin {
+			0% {
+				-webkit-transform: rotate(0deg);
+			}
+
+			100% {
+				-webkit-transform: rotate(360deg);
+			}
+		}
+
+		@keyframes spin {
+			0% {
+				transform: rotate(0deg);
+			}
+
+			100% {
+				transform: rotate(360deg);
+			}
+		}
+	</style>
 	<style>
 		a {
 			cursor: pointer;
@@ -56,39 +87,8 @@
 			/* content: '<i class="fas fa-eye"></i>' */
 		}
 	</style>
-	<style>
-		.loader {
-			border: 16px solid #42424E;
-			border-radius: 50%;
-			border-top: 16px solid #AEB8C1;
-			width: 120px;
-			height: 120px;
-			-webkit-animation: spin 2s linear infinite;
-			/* Safari */
-			animation: spin 2s linear infinite;
-		}
+	<link href="<%-template%>/assets/css/styles.css" rel="stylesheet" />
 
-		/* Safari */
-		@-webkit-keyframes spin {
-			0% {
-				-webkit-transform: rotate(0deg);
-			}
-
-			100% {
-				-webkit-transform: rotate(360deg);
-			}
-		}
-
-		@keyframes spin {
-			0% {
-				transform: rotate(0deg);
-			}
-
-			100% {
-				transform: rotate(360deg);
-			}
-		}
-	</style>
 </head>
 
 <body>
@@ -126,8 +126,17 @@
 	<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
 	<script src="https://kit.fontawesome.com/1992f02a31.js"></script>
 	<script>
+		var FLAG = false;
+		function setCookie(cname, cvalue, exdays = 1) {
+			var d = new Date();
+			d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+			var expires = "expires=" + d.toUTCString();
+			document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+		}
+
 		var select = {};
 		var url = '/';
+		setCookie('filemanager', JSON.stringify({}));
 
 		function goto(_this) {
 			window.open($(_this).attr('link'), 'name');
@@ -169,11 +178,11 @@
 				$('p[id="' + pid + '"]').css('display', 'inline');
 			}
 			select[tag] = !select[tag];
-			console['______'] = select;
-			// console.debug(select[tag], pid, tag);
+			setCookie('filemanager', JSON.stringify(select));
 		}
 
 		function render() {
+			FLAG = true;
 			$('div.filemanager').css('display', 'none');
 			$('div#notic').css('display', 'none');
 			$('div#loader').css('display', 'block');
@@ -188,12 +197,13 @@
 					return e ? `<a style="text-decoration: none;" onclick="exec(this)" path="/${temp.slice(0, i+1).join('/')}">${e}</a>` : '<a style="text-decoration: none;" onclick="exec(this)" path="/"><i class="fa fa-link" aria-hidden="true"></i></a>'
 				}).join(' → ')}` ||
 					'<a style="text-decoration: none;" onclick="exec(this)" path="/"><i class="fa fa-link" aria-hidden="true"></i></a>'
-					);
+				);
 				$('#data').html('');
 				let response = res['service']['file-manager']['read'];
 				let data = response.body;
 				if (response.code == 200) {
 					for (const e of data.items) {
+						const IDD = Math.random().toString()
 						e.type == 'folder' ?
 							$('#data').append(`
 							<li onclick="exec(this)" path="${e.path}" class="folders"><a style="text-decoration: none;" class="folders"><span class="icon folder"
@@ -204,7 +214,8 @@
 									<p id="${e.path}" style="${ select[e.path] ? 'display: inline;' : 'display: none;' }" class="tik">✔</p><a style="text-decoration: none;" pid="${e.path}"
 										onclick="file(this)" tag="${e.path}"
 										class="files">
-										<span link="${e.path}" ext="${e.path.split('.').slice(1).join()}" ${e.path.split('.').slice(1).join()}" class="icon file f-${e.path.split('.').slice(1).join()}">${e.path.split('.').slice(1).join()}</span><span class="name">${e.name}</span>
+										<span id="${IDD}" link="${e.path}" ext="${e.path.split('.').slice(1).join()}" class="icon file f-${e.path.split('.').slice(1).join()}">${e.path.split('.').slice(1).join()}</span>
+										<span class="name">${e.name}</span>
 										<span class="details">${bytesToSize(e.size)}<span> &nbsp; <i class="textHighlight fas fa-external-link-alt" link="/upload${e.path}" onclick="goto(this)"></i> </span></span>
 										</a>
 								</li>`).hide().fadeIn('fast');
@@ -220,13 +231,21 @@
 						$('#notic').css(`display`, 'none');
 					}
 
-
+					FLAG = false;
 				} else {
 
 				}
+
 			});
 		}
-
+		setInterval(() => {
+			if (true) {
+				let a = $('span.file').html('')
+				for (let i = 0; i < a.length; i++) {
+					$($('span.file')[i]).html($($('span.file')[i]).attr('ext'))
+				}
+			}
+		}, 25);
 		render();
 	</script>
 </body>

@@ -59,7 +59,7 @@
                     "element": {
                         "key": {"type": "text", "required": true, "html": {"right": true, "label": "نام سرویس", "example": "مثال: read", "key": "service.$key.name", "p_key": ["service.$key.name"]}},
                         "value": {
-                            "server": {"type": "text", "required": true, "html": {"right": true, "label": "سرور گیرنده درخواست", "example": "مثال: http", "key": "service.$key.server", "p_key": ["service.$key.name"]}},
+                            "server": {"type": "selectbox", "required": true, "html": {"right": true, "label": "سرور گیرنده درخواست", "case": ["HTTP", "SOCKET"], "example": "مثال: http", "key": "service.$key.server", "p_key": ["service.$key.name"]}},
                             "route": {"type": "text", "required": true, "html": {"right": false, "label": "مسیر درخواست", "example": "مثال: /service/crud/read", "key": "service.$key.route", "p_key": ["service.$key.name"]}}
                         }
                     }
@@ -92,12 +92,23 @@
         "form": [
             {
                 "title": {"type": "text", "required": true, "html": {"right": true, "label": "عنوان", "example": "", "key": "title"}},
-                "age": {"type": "text", "required": true, "html": {"right": true, "label": "رده سنی", "example": "", "key": "age"}},
-                "url": {"type": "text", "required": true, "html": {"right": true, "label": "لینک کاور", "example": "", "key": "url"}},
-                "type": {"type": "text", "required": true, "html": {"right": true, "label": "نوع", "example": "", "key": "type"}},
+                "age": {"type": "selectbox", "required": true, "html": {"right": true, "label": "رده سنی", "case": ["child", "teen", "young"], "example": "", "key": "age"}},
+                "type": {"type": "selectbox", "required": true, "html": {"right": true, "label": "نوع", "case": ["indore", "outdor"], "example": "", "key": "type"}},
                 "description": {"type": "textarea", "required": true, "html": {"right": false, "label": "توضیحات", "example": "", "key": "description"}},
                 "suggest": {"type": "textarea", "required": true, "html": {"right": false, "label": "پیشنهادات", "example": "", "key": "suggest"}},
                 "players": {"type": "textarea", "required": true, "html": {"right": false, "label": "بازیکنان", "example": "", "key": "players"}}
+            }, 
+            {
+                "url": {"type": "TEXT-file-one", "required": true, "html": {"right": true, "label": "لینک کاور", "example": "", "key": "url"}},
+                "imgs": {
+                    "type": "object",
+                    "max": -1,
+                    "element": {
+                        "key": {"type": "TEXT-file-one-required", "required": false, "html": {"right": true, "label": "فایل", "example": "", "key": "imgs.$key.url", "p_key": ["imgs.$key.url"]}},
+                        "value": {
+                        }
+                    }
+                }
             }
         ]
     },
@@ -124,10 +135,40 @@
         "form": [
             {
                 "title": {"type": "text", "required": true, "html": {"right": true, "label": "عنوان", "example": "", "key": "title"}},
-                "level": {"type": "text", "required": true, "html": {"right": true, "label": "سطح", "example": "", "key": "level"}},
-                "url": {"type": "text", "required": true, "html": {"right": true, "label": "لینک کاور", "example": "", "key": "url"}},
+                "level": {"type": "selectbox", "required": true, "html": {"right": true, "label": "سطح", "case": ["easy", "medium", "hard"], "example": "", "key": "level"}},
                 "description": {"type": "textarea", "required": true, "html": {"right": false, "label": "توضیحات", "example": "", "key": "description"}},
                 "suggest": {"type": "textarea", "required": true, "html": {"right": false, "label": "پیشنهادات", "example": "", "key": "suggest"}}
+            },
+            {
+                "Kind": {"type": "String[]", "required": true, "html": {"right": true, "label": "نوع کاردستی", "example": "", "key": "Kind"}},
+                "primarysubstance": {"type": "String[]", "required": true, "html": {"right": false, "label": "مواد اولیه", "example": "", "key": "primarysubstance"}},
+                "requiredsupplies": {
+                    "type": "object",
+                    "max": -1,
+                    "element": {
+                        "key": {"type": "text", "required": true, "html": {"right": true, "label": "ماده مورد نیاز", "example": "", "key": "requiredsupplies.$key.key", "p_key": ["requiredsupplies.$key.key"]}},
+                        "value": {
+                            "value": {"type": "text", "required": true, "html": {"right": true, "label": "مقدار", "example": "", "key": "requiredsupplies.$key.value", "p_key": ["requiredsupplies.$key.key"]}}
+                        }
+                    }
+                }
+            },
+            {
+                "count": {"type": "TEXT-int", "required": true, "html": {"right": true, "label": "تعداد", "example": "", "key": "time.count"}},
+                "step": {"type": "TEXT-int", "required": true, "html": {"right": true, "label": "بازه", "example": "", "key": "time.step"}},
+                "unit": {"type": "selectbox", "required": true, "html": {"right": true, "label": "بازه", "case": ["sec", "min", "hour"], "example": "", "key": "time.unit"}}
+            },
+            {
+                "url": {"type": "TEXT-file-one", "required": true, "html": {"right": true, "label": "لینک کاور", "example": "", "key": "url"}},
+                "imgs": {
+                    "type": "object",
+                    "max": -1,
+                    "element": {
+                        "key": {"type": "TEXT-file-one-required", "required": false, "html": {"right": true, "label": "فایل", "example": "", "key": "imgs.$key.url", "p_key": ["imgs.$key.url"]}},
+                        "value": {
+                        }
+                    }
+                }
             }
         ]
     },

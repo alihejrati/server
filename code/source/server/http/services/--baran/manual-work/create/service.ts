@@ -1,16 +1,18 @@
 async function service(req, res, next, options: options) {
-    const title            = Tools.isString(req.body.title);
-    const description      = Tools.isString(req.body.description);
-    const level            = Tools.isString(req.body.level);
-    const url              = Tools.isString(req.body.url);
-    const imgs             = Tools.isArray(req.body.imgs);
-    const suggest          = Tools.isString(req.body.suggest);
+    const title = Tools.isString(req.body.title);
+    const description = Tools.isString(req.body.description);
+    const level = Tools.isString(req.body.level);
+    const url = Tools.isString(req.body.url);
+    const imgs = Tools.isArray(req.body.imgs);
+    const suggest = Tools.isString(req.body.suggest);
     const requiredsupplies = Tools.isArray(req.body.requiredsupplies);
-    const Kind             = Tools.isArray(req.body.Kind);
+    const Kind = Tools.isArray(req.body.Kind);
     const primarysubstance = Tools.isArray(req.body.primarysubstance);
-    const time             =  Tools.isJson(req.body.time);
-    const tag              = Tools.isArray(req.body.tag); 
+    const time = Tools.isJson(req.body.time);
+    const tag = Tools.isArray(req.body.tag);
 
+
+    console.debug('--------------------------------------------------->', JSON.stringify(req.body));
     try {
         const query = await mongodb.insert('manualwork', {
             title: title,
@@ -24,8 +26,8 @@ async function service(req, res, next, options: options) {
             primarysubstance: primarysubstance,
             time: time,
             tag: tag
-        }, {database: 'baran', errorHandler: error => options['service'].error = error});
-    
+        }, { database: 'baran', errorHandler: error => options['service'].error = error });
+
         if (query) {
             await response.attach(null, req, res);
         } else {

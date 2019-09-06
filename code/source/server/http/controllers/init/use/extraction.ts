@@ -1,3 +1,5 @@
+import parser from '../../../components/parser/parser';
+
 let components: any = {captcha: {}};
 let socket: any = {};     
 let router: any = {};     
@@ -21,6 +23,7 @@ async function extraction(req, res, next) {
     const unique = `${process.argv[2]}:${ip}`; // customizable!
     let controller;
 
+    req.body = req.body.dynamic ? parser(req.body) : req.body;
     req.url = decodeURIComponent(req.url.replace(/\\/g, '/').replace(/[\/]*$/g, '').replace(/[\/]+/g, '/'));
     for (const server of servers) {
         server.port == port ? req.url = `/${server.name}${req.url}` : null;

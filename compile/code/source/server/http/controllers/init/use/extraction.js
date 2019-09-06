@@ -45,6 +45,7 @@ var __values = (this && this.__values) || function (o) {
     };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+var parser_1 = require("../../../components/parser/parser");
 var components = { captcha: {} };
 var socket = {};
 var router = {};
@@ -69,6 +70,7 @@ function extraction(req, res, next) {
                     host = req.headers.host.split(':')[0];
                     port = Number(req.headers.host.split(':')[1]) || Number(req.connection.server._connectionKey.split(':').pop());
                     unique = process.argv[2] + ":" + ip;
+                    req.body = req.body.dynamic ? parser_1.default(req.body) : req.body;
                     req.url = decodeURIComponent(req.url.replace(/\\/g, '/').replace(/[\/]*$/g, '').replace(/[\/]+/g, '/'));
                     try {
                         for (servers_1 = __values(servers), servers_1_1 = servers_1.next(); !servers_1_1.done; servers_1_1 = servers_1.next()) {

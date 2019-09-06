@@ -2,7 +2,20 @@
     const map = (str, html = {}) => {
         let res = MAP[str] || str;
         for (const iterator of Object.keys(html)) {
-            res = res.replace(new RegExp(`{{${iterator.toUpperCase()}}}`, 'g'), html[iterator] || '');
+            if (iterator == 'case' && html['case']) {
+                if (Array.isArray(html['case'])) {
+                    let e = ``;
+                    for (const _e of html['case']) {
+                        e += `<option value="${_e.split(':')[0].toLowerCase()}">${_e.split(':')[1] || _e.split(':')[0]}</option>`;
+                    }
+                    res = res.replace(new RegExp(`{{${iterator.toUpperCase()}}}`, 'g'), e || '');
+                } else {
+                    
+                }
+            } else {
+                res = res.replace(new RegExp(`{{${iterator.toUpperCase()}}}`, 'g'), html[iterator] || '');
+            }
+
         }
         return res;
     };

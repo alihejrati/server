@@ -1,4 +1,7 @@
 <script>
+    var selVal = $('select[name="table_length"]').val();
+</script>
+<script>
     var RENDER;
     var COL;
     var DATA;
@@ -66,21 +69,49 @@
         $('#thead').append(`<th>${config[col].title || config[col].data}</th>`);
         $('#tfoot').append(`<th>${config[col].title || config[col].data}</th>`);
     }
+
+    // jQuery('#table').dataTable({
+    //     oLanguage: {
+    //         sLengthMenu: "<select>" +
+    //             "<option value='100'>10</option>" +
+    //             "<option value='200'>25</option>" +
+    //             "<option value='300'>50</option>" +
+    //             "<option value='-1'>75</option>" +
+    //             "<option value='-1'>100</option>" +
+    //             "</select>"
+    //     },
+    //     "iDisplayLength": 100
+
+    // });
+    
     var table = $('#table').DataTable({
         select: {
             style: 'single'
         },
         rowId: "_id",
-        "autoWidth": false,
+        "autoWidth": true,
         "processing": true,
         oLanguage: {
-            sProcessing: "درحال پردازش..."
+            sProcessing: "درحال پردازش...",
+            sLengthMenu: `تعداد<select name="table_length" aria-controls="table" class="form-control input-sm">` +
+                `<option onclick="reloadTbl()" value='10'>10</option>` +
+                `<option onclick="reloadTbl()" value='25'>25</option>` +
+                `<option onclick="reloadTbl()" value='50'>50</option>` +
+                `<option onclick="reloadTbl()" value='100'>100</option>` +
+                `</select>`
         },
-        responsive: true,
+        scroller: {
+            loadingIndicator: true
+        },
+        // "orderMulti" : true,
+        // ordering: true,
+        // searching: true,
+        // responsive: true,
         "dom": 'Bfrltip',
         buttons: _buttons,
         // "deferRender": true,
         "serverSide": true,
+        "info": true,
         "ajax": function (data, callback, settings) {
             var sort_column_name = data.columns[data.order[0].column].data.replace(/\./g, "__");
             var direction = "";
@@ -89,14 +120,15 @@
                 direction = "-"
             };
 
+            selVal = $('select[name="table_length"]').val();
             $.post('<%-variables.service.read.route%>', {
-                limit: data.length,
+                limit: Number($('select[name="table_length"]').val()),
                 offset: data.start,
-                your_search_field__searchattr: data
-                    .search.value,
+                your_search_field__searchattr: $('div#table_filter input').val(),
                 order_by: direction +
                     sort_column_name
             }, function (res) {
+
                 $("div.toolbar").html('');
                 $("div#table_filter label").html($("div#table_filter label").html().replace(
                     'Search', 'جستجو'));
@@ -143,6 +175,7 @@
                     recordsFiltered: response.code == 200 ? data.length : 0,
                     data: response.code == 200 ? data : []
                 });
+                $('select[name="table_length"]').val(selVal)
             });
         },
         "columns": _columns,
@@ -150,4 +183,9 @@
             [1, "asc"]
         ]
     });
+    $('#table').css( 'width', '100%' )
+    $('#table').css( 'border', '0' )
+    $('#table thead').css( 'border', '0' )
+    table.columns.adjust();
+    table.responsive.recalc();
 </script>
