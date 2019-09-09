@@ -7,6 +7,17 @@ async function findOne(collection: string, query, options: options) {
     const Model = model[`${database}_${collection}`];
     const sort = options['sort'] || {};
     const select = options['select'] || {};
+    if (!options['default_mode']) {
+        if (query['$or']) {
+            for (let index = 0; index < query['$or'].length; index++) {
+                query['$or'][index]['flag.hide'] = false;
+                query['$or'][index]['flag.delete'] = false;
+            }
+        } else {
+            query['flag.hide'] = false;
+            query['flag.delete'] = false;
+        }
+    }
     const document = await Model.findOne(query).sort(sort).select(select);
     const res = JSON.parse(JSON.stringify(document));
 

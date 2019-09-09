@@ -1,7 +1,7 @@
 async function service(req, res, next, options: options) {
     const _id = Tools.isString(req.body._id);
     try {
-        const query = await mongodb.findOneAndUpdate('faq', {_id: _id}, {
+        const query = await mongodb.findOneAndUpdate('game', {_id: _id}, {
             'flag.delete': true
         }, {database: 'baran', options: {runValidators: true}, errorHandler: error => options['service'].error = error});
 

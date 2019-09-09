@@ -39,7 +39,7 @@ var currentDir = require("current-dir");
 var model = require(currentDir() + "/file/private/database/mongodb/model.js");
 function find(collection, query, options) {
     return __awaiter(this, void 0, void 0, function () {
-        var errorHandler, database, Model, select, limit, skip, sort, documents, res;
+        var errorHandler, database, Model, select, limit, skip, sort, index, documents, res;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
@@ -50,6 +50,18 @@ function find(collection, query, options) {
                     limit = options['limit'] || null;
                     skip = options['skip'] || null;
                     sort = options['sort'] || {};
+                    if (!options['default_mode']) {
+                        if (query['$or']) {
+                            for (index = 0; index < query['$or'].length; index++) {
+                                query['$or'][index]['flag.hide'] = false;
+                                query['$or'][index]['flag.delete'] = false;
+                            }
+                        }
+                        else {
+                            query['flag.hide'] = false;
+                            query['flag.delete'] = false;
+                        }
+                    }
                     return [4, Model
                             .find(query)
                             .select(select)

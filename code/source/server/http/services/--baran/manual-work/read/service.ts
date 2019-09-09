@@ -1,4 +1,8 @@
 async function service(req, res, next, options: options) {
+    const limit       = Tools.cast2Number(req.body.limit);
+    const skip        = Tools.cast2Number(req.body.offset);
+    const sort        = Tools.cast2mongooseSort(Tools.isString(req.body.order_by));
+
     const title                 = Tools.isString(req.body.title);
     const description           = Tools.isString(req.body.description);
     const level                 = Tools.isString(req.body.level);
@@ -29,7 +33,7 @@ async function service(req, res, next, options: options) {
                 }
             ]
         };
-        const query = await mongodb.find('manualwork', Query, {database: 'baran', errorHandler: error => options['service'].error = error});
+        const query = await mongodb.find('manualwork', Query, {database: 'baran', limit: limit, skip: skip, sort: sort, errorHandler: error => options['service'].error = error});
     
         if (query) {
             await response.attach(query, req, res);

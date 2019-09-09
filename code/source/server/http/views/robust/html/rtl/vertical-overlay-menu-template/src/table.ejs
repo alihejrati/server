@@ -83,7 +83,7 @@
     //     "iDisplayLength": 100
 
     // });
-    
+
     var table = $('#table').DataTable({
         select: {
             style: 'single'
@@ -170,11 +170,28 @@
                         }
                     }
                 }
-                callback({
-                    recordsTotal: response.code == 200 ? data.length : 0,
-                    recordsFiltered: response.code == 200 ? data.length : 0,
-                    data: response.code == 200 ? data : []
-                });
+                $.post('<%-variables.service.count.route%>', {}, (RES) => {
+                    let __________________key = '';
+                    for (const iterator of '/<%-variables.service.count.route%>'.replace(
+                            /\/+/g, '/').replace(/\/+$/g, '').split('/')) {
+                        if (iterator == '') {
+                            continue;
+                        }
+                        __________________key += '["' + iterator + '"]';
+                    }
+                    const RESPONSE = eval('RES' + __________________key);
+                    let total = 0;
+                    if (RESPONSE.code == 200) {
+                        total = RESPONSE.body;
+                    }
+                    total = Number(total);
+                    callback({
+                        recordsTotal: response.code == 200 ? data.length : 0,
+                        // recordsFiltered: response.code == 200 ? data.length : 0,
+                        recordsFiltered: total,
+                        data: response.code == 200 ? data : []
+                    });
+                })
                 $('select[name="table_length"]').val(selVal)
             });
         },
@@ -183,9 +200,10 @@
             [1, "asc"]
         ]
     });
-    $('#table').css( 'width', '100%' )
-    $('#table').css( 'border', '0' )
-    $('#table thead').css( 'border', '0' )
+
+    $('#table').css('width', '100%')
+    $('#table').css('border', '0')
+    $('#table thead').css('border', '0')
     table.columns.adjust();
     table.responsive.recalc();
 </script>

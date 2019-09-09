@@ -17,7 +17,8 @@
             "read": {"server": "http", "route": "/service/crud/read"},
             "del": {"server": "http", "route": "/service/crud/delete"},
             "edit": {"server": "http", "route": "/service/crud/update"},
-            "insert": {"server": "http", "route": "/service/crud/insert"}
+            "insert": {"server": "http", "route": "/service/crud/insert"},
+            "count": {"server": "http", "route": "/service/crud/count"}
         },
         "form": [
             {
@@ -87,7 +88,8 @@
             "read": {"server": "http", "route": "/service/--baran/game/read"},
             "del": {"server": "http", "route": "/service/--baran/game/delete"},
             "edit": {"server": "http", "route": "/service/--baran/game/update"},
-            "insert": {"server": "http", "route": "/service/--baran/game/create"}
+            "insert": {"server": "http", "route": "/service/--baran/game/create"},
+            "count": {"server": "http", "route": "/service/--baran/game/count"}
         },
         "form": [
             {
@@ -130,7 +132,8 @@
             "read": {"server": "http", "route": "/service/--baran/manual-work/read"},
             "del": {"server": "http", "route": "/service/--baran/manual-work/delete"},
             "edit": {"server": "http", "route": "/service/--baran/manual-work/update"},
-            "insert": {"server": "http", "route": "/service/--baran/manual-work/create"}
+            "insert": {"server": "http", "route": "/service/--baran/manual-work/create"},
+            "count": {"server": "http", "route": "/service/--baran/manual-work/count"}
         },
         "form": [
             {
@@ -187,7 +190,8 @@
             "read": {"server": "http", "route": "/service/--baran/faq/read"},
             "del": {"server": "http", "route": "/service/--baran/faq/delete"},
             "edit": {"server": "http", "route": "/service/--baran/faq/update"},
-            "insert": {"server": "http", "route": "/service/--baran/faq/create"}
+            "insert": {"server": "http", "route": "/service/--baran/faq/create"},
+            "count": {"server": "http", "route": "/service/--baran/faq/count"}
         },
         "form": [
             {

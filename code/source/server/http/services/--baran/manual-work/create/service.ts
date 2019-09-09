@@ -11,8 +11,6 @@ async function service(req, res, next, options: options) {
     const time = Tools.isJson(req.body.time);
     const tag = Tools.isArray(req.body.tag);
 
-
-    console.debug('--------------------------------------------------->', JSON.stringify(req.body));
     try {
         const query = await mongodb.insert('manualwork', {
             title: title,

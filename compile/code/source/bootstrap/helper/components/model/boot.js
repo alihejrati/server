@@ -42,6 +42,7 @@ var find_one_and_update_1 = require("../../../../components/model/mongodb/find-o
 var find_one_1 = require("../../../../components/model/mongodb/find-one");
 var insert_1 = require("../../../../components/model/mongodb/insert");
 var insert_many_1 = require("../../../../components/model/mongodb/insert-many");
+var count_1 = require("../../../../components/model/mongodb/count");
 var del_1 = require("../../../../components/model/redis/del");
 var get_1 = require("../../../../components/model/redis/get");
 var keys_1 = require("../../../../components/model/redis/keys");
@@ -56,7 +57,8 @@ function boot(options) {
                 findOneAndUpdate: find_one_and_update_1.default,
                 findOne: find_one_1.default,
                 insert: insert_1.default,
-                insertMany: insert_many_1.default
+                insertMany: insert_many_1.default,
+                count: count_1.default
             };
             global.redis = {
                 del: del_1.default,

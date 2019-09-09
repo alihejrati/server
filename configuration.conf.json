@@ -75,18 +75,6 @@
     }
   },
   "\\database\\mongodb\\baran\\collection\\game\\seed.conf.json": [],
-  "\\database\\mongodb\\db\\collection\\captcha\\schema.conf.json": {
-    "key": {
-      "type": "String",
-      "index": true,
-      "required": true
-    },
-    "value": {
-      "type": "String",
-      "index": true,
-      "required": true
-    }
-  },
   "\\database\\mongodb\\baran\\collection\\manualwork\\schema.conf.json": {
     "title": {
       "type": "String",
@@ -152,6 +140,18 @@
     }
   },
   "\\database\\mongodb\\baran\\collection\\manualwork\\seed.conf.json": [],
+  "\\database\\mongodb\\db\\collection\\captcha\\schema.conf.json": {
+    "key": {
+      "type": "String",
+      "index": true,
+      "required": true
+    },
+    "value": {
+      "type": "String",
+      "index": true,
+      "required": true
+    }
+  },
   "\\database\\mongodb\\db\\collection\\config\\schema.conf.json": {
     "key": {
       "type": "String",
@@ -732,6 +732,10 @@
         "insert": {
           "server": "http",
           "route": "/service/crud/insert"
+        },
+        "count": {
+          "server": "http",
+          "route": "/service/crud/count"
         }
       },
       "form": [
@@ -1057,6 +1061,10 @@
         "insert": {
           "server": "http",
           "route": "/service/--baran/game/create"
+        },
+        "count": {
+          "server": "http",
+          "route": "/service/--baran/game/count"
         }
       },
       "form": [
@@ -1249,6 +1257,10 @@
         "insert": {
           "server": "http",
           "route": "/service/--baran/manual-work/create"
+        },
+        "count": {
+          "server": "http",
+          "route": "/service/--baran/manual-work/count"
         }
       },
       "form": [
@@ -1480,6 +1492,10 @@
         "insert": {
           "server": "http",
           "route": "/service/--baran/faq/create"
+        },
+        "count": {
+          "server": "http",
+          "route": "/service/--baran/faq/count"
         }
       },
       "form": [

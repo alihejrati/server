@@ -77,7 +77,7 @@ function f1() {
             };
             configuration[key].flag = {
                 "type": "Object",
-                "default": {"hide": false}
+                "default": {"hide": false, "delete": false}
             };
             schema.push(`var ${_key[3]}_${_key[5]} = ${_key[3]}.model('${_key[5]}', new mongoose.Schema(${JSON.stringify(configuration[key])}, {timestamps: true}));`);
             moduleExport.push(`module.exports.${_key[3]}_${_key[5]} = ${_key[3]}_${_key[5]};`);

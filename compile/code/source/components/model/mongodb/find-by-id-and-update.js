@@ -37,32 +37,13 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var currentDir = require("current-dir");
 var model = require(currentDir() + "/file/private/database/mongodb/model.js");
+var find_one_and_update_1 = require("./find-one-and-update");
 function findByIdAndUpdate(collection, _id, query, options) {
     return __awaiter(this, void 0, void 0, function () {
-        var errorHandler, database, Model, document, res;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0:
-                    errorHandler = options['errorHandler'] || function (error) { };
-                    database = options['database'] || 'db';
-                    Model = model[database + "_" + collection];
-                    return [4, Model.findByIdAndUpdate(_id, query, { new: true })];
-                case 1:
-                    document = _a.sent();
-                    res = JSON.parse(JSON.stringify(document));
-                    console.log['database']({
-                        database: {
-                            type: 'mongodb',
-                            collection: collection,
-                        },
-                        transaction: {
-                            type: 'find-by-id-and-update',
-                            query: query,
-                            _id: _id
-                        },
-                        res: res
-                    });
-                    return [2, res];
+                case 0: return [4, find_one_and_update_1.default(collection, { _id: _id }, query, options)];
+                case 1: return [2, _a.sent()];
             }
         });
     });

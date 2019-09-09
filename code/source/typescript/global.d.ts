@@ -14,7 +14,8 @@ declare module NodeJS {
             findOneAndUpdate: typeof import('../../source/components/model/mongodb/find-one-and-update').default,
             findOne: typeof import('../../source/components/model/mongodb/find-one').default,
             insert: typeof import('../../source/components/model/mongodb/insert').default,
-            insertMany: typeof import('../../source/components/model/mongodb/insert-many').default
+            insertMany: typeof import('../../source/components/model/mongodb/insert-many').default,
+            count: typeof import('../../source/components/model/mongodb/count').default,
         },
         redis: {
             del: typeof import('../../source/components/model/redis/del').default,  
@@ -44,7 +45,8 @@ declare const mongodb: {
     findOneAndUpdate: typeof import('../../source/components/model/mongodb/find-one-and-update').default,
     findOne: typeof import('../../source/components/model/mongodb/find-one').default,
     insert: typeof import('../../source/components/model/mongodb/insert').default,
-    insertMany: typeof import('../../source/components/model/mongodb/insert-many').default
+    insertMany: typeof import('../../source/components/model/mongodb/insert-many').default,
+    count: typeof import('../../source/components/model/mongodb/count').default,
 };
 declare const redis: {
     del: typeof import('../../source/components/model/redis/del').default,  

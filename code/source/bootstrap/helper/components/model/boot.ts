@@ -5,6 +5,7 @@ import findOneAndUpdate from '../../../../components/model/mongodb/find-one-and-
 import findOne from '../../../../components/model/mongodb/find-one';
 import insert from '../../../../components/model/mongodb/insert';
 import insertMany from '../../../../components/model/mongodb/insert-many';
+import count from '../../../../components/model/mongodb/count';
 
 import del from '../../../../components/model/redis/del';
 import get from '../../../../components/model/redis/get';
@@ -19,7 +20,8 @@ async function boot(options: options) {
         findOneAndUpdate: findOneAndUpdate,
         findOne: findOne,
         insert: insert,
-        insertMany: insertMany
+        insertMany: insertMany,
+        count: count
     };    
     global.redis = {
         del: del,

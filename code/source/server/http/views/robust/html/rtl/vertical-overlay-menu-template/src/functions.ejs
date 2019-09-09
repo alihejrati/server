@@ -22,10 +22,31 @@
                 const route = services[tool].route;
                 const json = {};
                 json['_id'] = _id;
-                $.post(route, json, res => {
-                    console.log('---------->_id', _id, res);
-                });
-                console.log('hoooooooooooooo!!', _id, tool, route);
+                const BTN = Object.assign({}, msg.btn);
+                msg.btn.confirm = 'بله'
+                $('button#ajax-request').click();
+                const cb = () => {
+                    msg.btn.confirm = 'بسیار خب'
+                    $.post(route, json, res => {
+                        let _______key = '';
+                        for (const iterator of ('/' + route).replace(/\/+/g, '/').replace(/\/+$/g, '')
+                                .substr(1)
+                                .split('/')) {
+                            _______key += '["' + iterator + '"]';
+                        }
+                        const response = eval('res' + _______key);
+
+                        log('---------->_id', _id, res, route, response);
+                        if (response.code == 200) {
+                            swal('تراکنش باموفقیت انجام شد');
+                            $('a[data-action="reload"]').click();
+                        } else {
+                            swal('تراکنش موفقیت آمیز نبود');
+                        }
+                    });
+                }
+                msg.cb = cb;
+                msg.btn = BTN;
             }
         }
     }
@@ -52,8 +73,11 @@
             // },
             debug: true
         });
-        const c= '<sup><i class="fa fa-quote-left COT" aria-hidden="true"></i></sup>' + `${$('div#obj h4#myModalLabel16').html()} {{REP}} ${fullname} {{REP}} ${name}`.replace(/جزئیات ستون /, '').replace(/"/g, '') + '<sup><i class="fa fa-quote-right COT" aria-hidden="true"></i></sup>';
-        $('div#obj h4#myModalLabel16').html(`جزئیات ستون ${c.replace(/{{REP}}/g, '<i class="fa fa-caret-right COT" aria-hidden="true"></i>')}`);
+        const c = '<sup><i class="fa fa-quote-left COT" aria-hidden="true"></i></sup>' +
+            `${$('div#obj h4#myModalLabel16').html()} {{REP}} ${fullname} {{REP}} ${name}`.replace(/جزئیات ستون /, '')
+            .replace(/"/g, '') + '<sup><i class="fa fa-quote-right COT" aria-hidden="true"></i></sup>';
+        $('div#obj h4#myModalLabel16').html(
+            `جزئیات ستون ${c.replace(/{{REP}}/g, '<i class="fa fa-caret-right COT" aria-hidden="true"></i>')}`);
         $('#btnBack').css('display', 'block');
         STACK.push($('#objectTableModel').html());
     }

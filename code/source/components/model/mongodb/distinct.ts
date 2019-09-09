@@ -8,6 +8,18 @@ async function distinct(collection: string, distinct: string, query, options: op
     const select = options['select'] || {};
     const sort = options['sort'] || {};
 
+    if (!options['default_mode']) {
+        if (query['$or']) {
+            for (let index = 0; index < query['$or'].length; index++) {
+                query['$or'][index]['flag.hide'] = false;
+                query['$or'][index]['flag.delete'] = false;
+            }
+        } else {
+            query['flag.hide'] = false;
+            query['flag.delete'] = false;
+        }
+    }
+
     const documents = await Model
     .find(query)
     .populate(distinct)
