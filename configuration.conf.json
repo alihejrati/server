@@ -166,6 +166,16 @@
   },
   "\\database\\mongodb\\db\\collection\\config\\seed.conf.json": [
     {
+      "key": "\\code\\source\\components\\email\\send.conf.json",
+      "value": {
+        "service": "gmail",
+        "auth": {
+          "user": "server.mail.nodejs",
+          "pass": "admin@admin"
+        }
+      }
+    },
+    {
       "key": "\\code\\source\\components\\sms\\dandelion\\send.conf.json",
       "value": {
         "method": "POST",
@@ -356,6 +366,20 @@
       }
     },
     {
+      "key": "\\code\\source\\server\\http\\service\\--hampa\\ngos\\riding-bike\\register\\service.conf.json",
+      "value": {
+        "enable": true,
+        "captcha": true,
+        "controller": [
+          "*"
+        ],
+        "method": [
+          "post"
+        ],
+        "permission": []
+      }
+    },
+    {
       "key": "\\code\\source\\server\\http\\service\\authuntication\\signup\\username-password\\service.conf.json",
       "value": {
         "enable": true,
@@ -436,6 +460,30 @@
       }
     }
   ],
+  "\\database\\mongodb\\db\\collection\\email\\schema.conf.json": {
+    "state": {
+      "type": "Boolean",
+      "required": true,
+      "default": false
+    },
+    "code": {
+      "type": "String",
+      "required": true,
+      "unique": true
+    },
+    "transporter": {
+      "type": "Object",
+      "required": true
+    },
+    "mailOptions": {
+      "type": "Object",
+      "required": true
+    },
+    "response": {
+      "type": "Object",
+      "required": true
+    }
+  },
   "\\database\\mongodb\\db\\collection\\permission\\schema.conf.json": {
     "label": "String",
     "name": {
@@ -1522,6 +1570,111 @@
           }
         }
       ]
+    },
+    {
+      "category": "hampa",
+      "name": "register",
+      "label": "لیست ثبت نام ها",
+      "description": "گزارش گیری از جدول لیست ثبت نام ها",
+      "pagetitle": "",
+      "columns": {
+        "tools": {
+          "title": "ابزارها",
+          "data": "tools",
+          "defaultContent": "del:edit:check",
+          "orderable": false,
+          "visible": true,
+          "html": {
+            "title": "حذف:ویرایش:انتخاب"
+          }
+        },
+        "email": {
+          "title": "پست الکترونیک",
+          "data": "email",
+          "defaultContent": "یافت نشد",
+          "orderable": true,
+          "visible": true,
+          "html": {
+            "title": "مرتب سازی براساس پست های الکترونیک"
+          }
+        },
+        "fullname": {
+          "title": "نام خانوادگی",
+          "data": "fullname",
+          "defaultContent": "یافت نشد",
+          "orderable": true,
+          "visible": true,
+          "html": {
+            "title": "مرتب سازی براساس نام های خانوادگی"
+          }
+        },
+        "name": {
+          "title": "نام",
+          "data": "name",
+          "defaultContent": "یافت نشد",
+          "orderable": true,
+          "visible": true,
+          "html": {
+            "title": "مرتب سازی براساس نام ها"
+          }
+        }
+      },
+      "service": {
+        "read": {
+          "server": "http",
+          "route": "/service/--hampa/register/read"
+        },
+        "del": {
+          "server": "http",
+          "route": "/service/--hampa/register/delete"
+        },
+        "edit": {
+          "server": "http",
+          "route": "/service/--hampa/register/update"
+        },
+        "insert": {
+          "server": "http",
+          "route": "/service/--hampa/register/create"
+        },
+        "count": {
+          "server": "http",
+          "route": "/service/--hampa/register/count"
+        }
+      },
+      "form": [
+        {
+          "email": {
+            "type": "text",
+            "required": true,
+            "html": {
+              "right": false,
+              "label": "پست الکترونیک",
+              "example": "",
+              "key": "email"
+            }
+          },
+          "name": {
+            "type": "text",
+            "required": true,
+            "html": {
+              "right": true,
+              "label": "نام",
+              "example": "",
+              "key": "name"
+            }
+          },
+          "fullname": {
+            "type": "text",
+            "required": true,
+            "html": {
+              "right": true,
+              "label": "نام خانوادگی",
+              "example": "",
+              "key": "fullname"
+            }
+          }
+        }
+      ]
     }
   ],
   "\\database\\mongodb\\db\\collection\\user\\schema.conf.json": {
@@ -1574,7 +1727,7 @@
       "type": "String",
       "required": true
     },
-    "mobile": {
+    "email": {
       "type": "String",
       "required": true,
       "unique": true
@@ -1583,6 +1736,16 @@
   "\\database\\mongodb\\db\\collection\\config\\seed": {
     "conf": {
       "json": [
+        {
+          "key": "\\code\\source\\components\\email\\send.conf.json",
+          "value": {
+            "service": "gmail",
+            "auth": {
+              "user": "server.mail.nodejs",
+              "pass": "admin@admin"
+            }
+          }
+        },
         {
           "key": "\\code\\source\\components\\sms\\dandelion\\send.conf.json",
           "value": {
@@ -1771,6 +1934,20 @@
               "adads=adsa",
               "adsad-asda-ads-a-d-d"
             ]
+          }
+        },
+        {
+          "key": "\\code\\source\\server\\http\\service\\--hampa\\ngos\\riding-bike\\register\\service.conf.json",
+          "value": {
+            "enable": true,
+            "captcha": true,
+            "controller": [
+              "*"
+            ],
+            "method": [
+              "post"
+            ],
+            "permission": []
           }
         },
         {

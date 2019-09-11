@@ -199,5 +199,32 @@
                 "question": {"type": "textarea", "required": true, "html": {"right": true, "label": "پرسش", "example": "", "key": "question"}}
             }
         ]
+    },
+    {
+        "category": "hampa",
+        "name": "register",
+        "label": "لیست ثبت نام ها",
+        "description": "گزارش گیری از جدول لیست ثبت نام ها",
+        "pagetitle": "",
+        "columns": {
+            "tools": {"title": "ابزارها", "data": "tools", "defaultContent": "del:edit:check", "orderable": false, "visible": true, "html": {"title": "حذف:ویرایش:انتخاب"}},
+            "email": {"title": "پست الکترونیک", "data": "email", "defaultContent": "یافت نشد", "orderable": true, "visible": true, "html": {"title": "مرتب سازی براساس پست های الکترونیک"}},
+            "fullname": {"title": "نام خانوادگی", "data": "fullname", "defaultContent": "یافت نشد", "orderable": true, "visible": true, "html": {"title": "مرتب سازی براساس نام های خانوادگی"}},
+            "name": {"title": "نام", "data": "name", "defaultContent": "یافت نشد", "orderable": true, "visible": true, "html": {"title": "مرتب سازی براساس نام ها"}}
+        },
+        "service": {
+            "read": {"server": "http", "route": "/service/--hampa/register/read"},
+            "del": {"server": "http", "route": "/service/--hampa/register/delete"},
+            "edit": {"server": "http", "route": "/service/--hampa/register/update"},
+            "insert": {"server": "http", "route": "/service/--hampa/register/create"},
+            "count": {"server": "http", "route": "/service/--hampa/register/count"}
+        },
+        "form": [
+            {
+                "email": {"type": "text", "required": true, "html": {"right": false, "label": "پست الکترونیک", "example": "", "key": "email"}},
+                "name": {"type": "text", "required": true, "html": {"right": true, "label": "نام", "example": "", "key": "name"}},
+                "fullname": {"type": "text", "required": true, "html": {"right": true, "label": "نام خانوادگی", "example": "", "key": "fullname"}}
+            }
+        ]
     }
 ]

@@ -7,7 +7,7 @@
         "type": "String",
         "required": true
     },
-    "mobile": {
+    "email": {
         "type": "String",
         "required": true,
         "unique": true

@@ -1,38 +1,40 @@
-import sms from '../../../../../../../components/sms/kavenegar/send';
+import Email from '../../../../../../../components/email/send';
 
 async function service(req, res, next, options: options) {
     const name = Tools.isString(req.body.name);
     const fullname = Tools.isString(req.body.fullname);
-    const mobile = Tools.isString(req.body.mobile);
+    const email = Tools.isString(req.body.email);
 
     try {
         const query = await mongodb.insert('ngobikereg', {
             name: name,
             fullname: fullname,
-            mobile: mobile,
-            'flag.smsVerification': false
+            email: email,
+            'flag.emailVerification': false
         }, { database: 'hampa', errorHandler: error => options['service'].error = error });
 
         if (query) {
-            const code = '۶۶۴۳۳';
-            const msg = `کد فعال سازی: ${code}`;
-            const smsRes: any = await sms(msg, mobile, code);
-            console.debug('------->', smsRes);
-            if (smsRes && smsRes.flag == true) {
-                await cookie.set('mobile', mobile, req, res);
+            const CODE = `${npm.randomstring.generate()}${npm.randomstring.generate()}`;
+            const msg = `
+            با کلیک برروی لینک زیر ایمیل خود را تایید کنید
+            اگر این ایمیل به درخواست شما ارسال نشده این پیام را نادیده بگیرید
+            http://192.168.1.106:8080/service/--hampa/verification/email?code=${CODE}`;
+            
+            const mail = await Email('NGO', email, 'تایید پست الکترونیک', msg, CODE);
+            if (mail) {
                 await response.attach(null, req, res);
             } else {
                 options['service'].code(options['service'].status.failedDependency);
-                await response.attach(smsRes, req, res);
+                await response.attach(null, req, res);
             }
         } else {
             options['service'].code(options['service'].status.notModified);
             await response.attach(options['service'].error, req, res);
         }
     } catch (error) {
-        console.error(error)
+        console.error('---------error------->', error)
         options['service'].code(options['service'].status.conflict);
-        await response.attach(options['service'].error, req, res);
+        await response.attach(error, req, res);
     }
 }
 

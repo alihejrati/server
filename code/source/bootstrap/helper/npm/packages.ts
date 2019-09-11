@@ -46,6 +46,9 @@ import * as request from 'request';
 import * as nexmo from 'nexmo';
 import * as kavenegar from 'kavenegar';
 import * as getFolderSize from 'get-folder-size';
+import * as nodemailer from 'nodemailer';
+import * as randomstring from 'randomstring';
+
 
 const app = express();
 const server = require('http').createServer;
@@ -110,5 +113,7 @@ export {
     request,
     nexmo,
     kavenegar,
-    getFolderSize
+    getFolderSize,
+    nodemailer,
+    randomstring
 };

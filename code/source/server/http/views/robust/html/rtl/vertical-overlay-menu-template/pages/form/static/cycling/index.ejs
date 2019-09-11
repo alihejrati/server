@@ -118,17 +118,17 @@
                                             </div>
                                         </fieldset>
                                         <fieldset class="form-group has-feedback has-icon-left">
-                                            <input type="text" class="form-control" id="user-name"
+                                            <input type="text" class="form-control" id="user-fullname"
                                                 placeholder="نام خانوادگی" required>
                                             <div class="form-control-position">
                                                 <i class="fa fa-user" aria-hidden="true"></i>
                                             </div>
                                         </fieldset>
                                         <fieldset class="form-group has-feedback has-icon-left">
-                                            <input type="tel" class="form-control" id="user-password"
-                                                placeholder="شماره تماس" required>
+                                            <input type="tel" class="form-control" id="user-email"
+                                                placeholder="پست الکترونیک" required>
                                             <div class="form-control-position">
-                                                <i class="fa fa-phone"></i>
+                                                <i class="fas fa-envelope"></i>
                                             </div>
                                         </fieldset>
                                         <fieldset class="form-group has-feedback has-icon-left">
@@ -210,19 +210,26 @@
         });
 
         function exec() {
-            let username = $('input#user-name').val();
-            let password = $('input#user-password').val();
+            let name = $('input#user-name').val();
+            let fullname = $('input#user-fullname').val();
+            let email = $('input#user-email').val();
             let cap = $('input#cap').val();
 
-            username = username.trim();
-            password = password.trim();
             cap = cap.trim();
             cap = cap.length != 4 ? '' : cap;
 
+
+            console.log('-------------->', {
+                name: name,
+                fullname: fullname,
+                email: email,
+                captcha: cap
+            })
             $('#wait').click();
-            $.post('/service/authuntication/signout/username-password:/authuntication/signin/username-password', {
-                username: username,
-                password: password,
+            $.post('/service/--hampa/ngos/riding-bike/register', {
+                name: name,
+                fullname: fullname,
+                email: email,
                 captcha: cap
             }, (res) => {
                 $.unblockUI();
@@ -230,14 +237,18 @@
                 msg.success.description = '';
                 msg.error.code = '';
                 msg.error.description = '';
-                const response = res.service.authuntication.signin['username-password'] || {};
-                if (response.code == 200 || response.code == 208) {
+                const response = res['service']['--hampa']['ngos']['riding-bike']['register'] || {};
+                console.debug('response', response)
+                if (response.code == 200) {
                     $('button#type-success').click();
                     $('button.confirm').click(() => {
                         window.location.replace("/");
                     });
                 } else {
                     switch (response.code) {
+                        case 304:
+                            msg.error.description = 'این پست الکترونیک ثبت نام شده است';
+                            break;
                         case 406:
                             msg.error.description = 'اطلاعات وارد شده صحیح نمی باشد';
                             break;
