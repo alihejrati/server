@@ -706,11 +706,11 @@
         "tools": {
           "title": "ابزارها",
           "data": "tools",
-          "defaultContent": "del:edit:check",
+          "defaultContent": "del:edit:check:link",
           "orderable": false,
           "visible": true,
           "html": {
-            "title": "حذف:ویرایش:انتخاب"
+            "title": "حذف:ویرایش:انتخاب:لینک"
           }
         },
         "buttons": {
@@ -776,6 +776,10 @@
         "edit": {
           "server": "http",
           "route": "/service/crud/update"
+        },
+        "link": {
+          "server": "http",
+          "route": "/service/redirect?url=/table/:name"
         },
         "insert": {
           "server": "http",

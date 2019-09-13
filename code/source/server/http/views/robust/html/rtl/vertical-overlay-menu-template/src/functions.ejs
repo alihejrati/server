@@ -18,7 +18,17 @@
                 !flag ? $(_this).css('color', 'rgb(0, 255, 0)') : $(_this).css('color', '');
             }
 
-            if (services[tool].server == 'http') {
+            if (tool == 'link') {
+                for (const iterator of DATA) {
+                    if (iterator._id == _id) {
+                        let a = (iterator.category + ':' + iterator.name )
+                        a = iterator.category ? a: iterator.name
+                        window.location.replace("/table/" + a);
+                    }
+                }
+            }
+
+            if (services[tool].server == 'http' && tool != 'link') {
                 const route = services[tool].route;
                 const json = {};
                 json['_id'] = _id;

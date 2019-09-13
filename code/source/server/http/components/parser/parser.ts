@@ -1,5 +1,5 @@
 function parser(json) {
-    // console.debug('-------------------------------json-->', json);
+    console.debug('-------------------------------json-->', json);
     const keys = Object.keys(json);
     let _json = {};
 

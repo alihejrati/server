@@ -6,7 +6,7 @@
         "description": "گزارش گیری از جدول های منطقی",
         "pagetitle": "",
         "columns": {
-            "tools": {"title": "ابزارها", "data": "tools", "defaultContent": "del:edit:check", "orderable": false, "visible": true, "html": {"title": "حذف:ویرایش:انتخاب"}},
+            "tools": {"title": "ابزارها", "data": "tools", "defaultContent": "del:edit:check:link", "orderable": false, "visible": true, "html": {"title": "حذف:ویرایش:انتخاب:لینک"}},
             "buttons": {"title": "دکمه ها", "data": "buttons", "defaultContent": "یافت نشد", "orderable": false, "visible": true, "html": {"title": "قابلیت مرتب سازی ندارد"}},
             "columns": {"title": "ستون ها", "data": "columns", "defaultContent": "یافت نشد", "orderable": false, "visible": true, "html": {"title": "قابلیت مرتب سازی ندارد"}},
             "description": {"title": "توضیحات", "data": "description", "defaultContent": "یافت نشد", "orderable": false, "visible": true, "html": {"title": "قابلیت مرتب سازی ندارد"}},
@@ -17,6 +17,7 @@
             "read": {"server": "http", "route": "/service/crud/read"},
             "del": {"server": "http", "route": "/service/crud/delete"},
             "edit": {"server": "http", "route": "/service/crud/update"},
+            "link": {"server": "http", "route": "/service/redirect?url=/table/:name"},
             "insert": {"server": "http", "route": "/service/crud/insert"},
             "count": {"server": "http", "route": "/service/crud/count"}
         },
