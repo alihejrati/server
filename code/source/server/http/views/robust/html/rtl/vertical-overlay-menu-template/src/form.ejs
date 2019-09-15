@@ -145,7 +145,7 @@
                     let k = ele.key; // => process\
                     let val = "''";
 
-                    if (ele.type == 'text' || ele.type == "textarea" || ele.type == "captcha" || /^selectbox.*/g.test(
+                    if (ele.type == 'text' || ele.type == 'boolean' || ele.type == "textarea" || ele.type == "captcha" || /^selectbox.*/g.test(
                             ele.type) || /^text.*/g.test(ele.type) || /^TEXT\-.+/g.test(ele
                             .type)) {
                         val = '`' + _e.val() + '`';
@@ -211,7 +211,7 @@
                 // regular element
                 let k = '';
                 let val = "''";
-                if (ele.type == 'text' || ele.type == "textarea" || ele.type == "captcha" || /^selectbox.*/g.test(ele
+                if (ele.type == 'text' || ele.type == 'boolean' || ele.type == "textarea" || ele.type == "captcha" || /^selectbox.*/g.test(ele
                         .type) || /^text.*/g.test(ele.type) || /^TEXT\-.+/g.test(ele
                         .type)) {
                     // let e1 = 'input';

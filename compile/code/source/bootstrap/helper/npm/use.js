@@ -19,4 +19,8 @@ npm.app.use(npm.methodOverride());
 npm.app.use(function (err, req, res, next) { return next(err); });
 npm.app.use(function (err, req, res, next) { return req.xhr ? res.status(500).send({ error: 'Something failed!' }) : next(err); });
 npm.app.use(function (err, req, res, next) { return res.status(500).render('error/handler', { error: err }); });
+npm.app.use(npm.fileUpload({
+    useTempFiles: true,
+    tempFileDir: '/tmp/'
+}));
 exports.default = undefined;

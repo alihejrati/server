@@ -77,7 +77,6 @@
         "pagetitle": "",
         "columns": {
             "tools": {"title": "ابزارها", "data": "tools", "defaultContent": "del:edit:check", "orderable": false, "visible": true, "html": {"title": "حذف:ویرایش:انتخاب"}},
-            "url": {"title": "لینک کاور", "data": "url", "defaultContent": "یافت نشد", "orderable": true, "visible": true, "html": {"title": "مرتب سازی براساس لینک کاور"}},
             "age": {"title": "رده سنی", "data": "age", "defaultContent": "یافت نشد", "orderable": true, "visible": true, "html": {"title": "مرتب سازی براساس رده های سنی"}},
             "players": {"title": "بازیکنان", "data": "players", "defaultContent": "یافت نشد", "orderable": true, "visible": true, "html": {"title": "مرتب سازی براساس بازیکنان"}},
             "suggest": {"title": "پیشنهاد", "data": "suggest", "defaultContent": "یافت نشد", "orderable": true, "visible": true, "html": {"title": "مرتب سازی براساس پیشنهاد ها"}},
@@ -97,6 +96,7 @@
                 "title": {"type": "text", "required": true, "html": {"right": true, "label": "عنوان", "example": "", "key": "title"}},
                 "age": {"type": "selectbox", "required": true, "html": {"right": true, "label": "رده سنی", "case": ["child", "teen", "young"], "example": "", "key": "age"}},
                 "type": {"type": "selectbox", "required": true, "html": {"right": true, "label": "نوع", "case": ["indore", "outdor"], "example": "", "key": "type"}},
+                "hasBall": {"type": "boolean", "required": true, "html": {"right": true, "label": "آیا این بازی به توپ نیاز دارد؟", "example": "", "key": "hasBall"}},
                 "description": {"type": "textarea", "required": true, "html": {"right": false, "label": "توضیحات", "example": "", "key": "description"}},
                 "suggest": {"type": "textarea", "required": true, "html": {"right": false, "label": "پیشنهادات", "example": "", "key": "suggest"}},
                 "players": {"type": "textarea", "required": true, "html": {"right": false, "label": "بازیکنان", "example": "", "key": "players"}}
@@ -123,7 +123,6 @@
         "pagetitle": "",
         "columns": {
             "tools": {"title": "ابزارها", "data": "tools", "defaultContent": "del:edit:check", "orderable": false, "visible": true, "html": {"title": "حذف:ویرایش:انتخاب"}},
-            "url": {"title": "لینک کاور", "data": "url", "defaultContent": "یافت نشد", "orderable": true, "visible": true, "html": {"title": "مرتب سازی براساس لینک کاور"}},
             "suggest": {"title": "پیشنهاد", "data": "suggest", "defaultContent": "یافت نشد", "orderable": true, "visible": true, "html": {"title": "مرتب سازی براساس پیشنهاد ها"}},
             "level": {"title": "سطح", "data": "level", "defaultContent": "یافت نشد", "orderable": true, "visible": true, "html": {"title": "مرتب سازی براساس سطح ها"}},
             "description": {"title": "توضیحات", "data": "description", "defaultContent": "یافت نشد", "orderable": true, "visible": true, "html": {"title": "مرتب سازی براساس توضیحات"}},

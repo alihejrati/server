@@ -23,7 +23,6 @@ async function extraction(req, res, next) {
     const unique = `${process.argv[2]}:${ip}`; // customizable!
     let controller;
 
-    req.body = req.body.dynamic ? parser(req.body) : req.body;
     req.url = decodeURIComponent(req.url.replace(/\\/g, '/').replace(/[\/]*$/g, '').replace(/[\/]+/g, '/'));
     for (const server of servers) {
         server.port == port ? req.url = `/${server.name}${req.url}` : null;
@@ -87,7 +86,7 @@ async function extraction(req, res, next) {
             }
         },
     };
-
+    req.body = req.body.dynamic ? parser(req, req.body) : req.body;
     next();
 }
 

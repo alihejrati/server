@@ -1,5 +1,7 @@
-function parser(json) {
+function parser(req, json) {
+    const url = req['_'].route.path.relative;
     console.debug('-------------------------------json-->', json);
+    console.debug('-------------------------------url-->', req['_'].route.path.relative);
     const keys = Object.keys(json);
     let _json = {};
 
@@ -127,6 +129,19 @@ function parser(json) {
             }
         }
     }
+
+    if (url == '/backend/service/--baran/game/create') {
+        _json['url'] = _json['url'].replace(/\_\_DOT\_\_/g, '.');
+        _json['hasBall'] = _json['hasBall'] == 'on';
+        _json['imgs'] = JSON.parse(JSON.stringify(Object.values( _json['imgs'])).replace(/\_\_DOT\_\_/g, '.')).map(e => e.url);
+    }
+    if (url == '/backend/service/--baran/manual-work/create') {
+        _json['url'] = _json['url'].replace(/\_\_DOT\_\_/g, '.');
+        _json['requiredsupplies'] = Object.values(_json['requiredsupplies']);
+        _json['imgs'] = JSON.parse(JSON.stringify(Object.values( _json['imgs'])).replace(/\_\_DOT\_\_/g, '.')).map(e => e.url);
+    }
+
+    console.debug('*********************************************************', _json);
     return _json;
 }
 

@@ -48,6 +48,7 @@ import * as kavenegar from 'kavenegar';
 import * as getFolderSize from 'get-folder-size';
 import * as nodemailer from 'nodemailer';
 import * as randomstring from 'randomstring';
+import * as fileUpload from 'express-fileupload';
 
 
 const app = express();
@@ -115,5 +116,6 @@ export {
     kavenegar,
     getFolderSize,
     nodemailer,
-    randomstring
+    randomstring,
+    fileUpload
 };

@@ -1026,16 +1026,6 @@
             "title": "حذف:ویرایش:انتخاب"
           }
         },
-        "url": {
-          "title": "لینک کاور",
-          "data": "url",
-          "defaultContent": "یافت نشد",
-          "orderable": true,
-          "visible": true,
-          "html": {
-            "title": "مرتب سازی براساس لینک کاور"
-          }
-        },
         "age": {
           "title": "رده سنی",
           "data": "age",
@@ -1160,6 +1150,16 @@
               "key": "type"
             }
           },
+          "hasBall": {
+            "type": "boolean",
+            "required": true,
+            "html": {
+              "right": true,
+              "label": "آیا این بازی به توپ نیاز دارد؟",
+              "example": "",
+              "key": "hasBall"
+            }
+          },
           "description": {
             "type": "textarea",
             "required": true,
@@ -1240,16 +1240,6 @@
           "visible": true,
           "html": {
             "title": "حذف:ویرایش:انتخاب"
-          }
-        },
-        "url": {
-          "title": "لینک کاور",
-          "data": "url",
-          "defaultContent": "یافت نشد",
-          "orderable": true,
-          "visible": true,
-          "html": {
-            "title": "مرتب سازی براساس لینک کاور"
           }
         },
         "suggest": {
