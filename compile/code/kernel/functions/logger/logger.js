@@ -85,7 +85,7 @@ function purelog(level, sublevel) {
             obj = {
                 sublevel: sublevel,
                 app: process.argv[2],
-                parameters: parameters
+                parameters: JSON.stringify(parameters)
             };
             if (log4js) {
                 try {

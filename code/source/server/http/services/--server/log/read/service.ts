@@ -10,7 +10,7 @@ async function service(req, res, next, options: options) {
         const Query = tag.length == 0 ? {} : {
             tag: {$elemMatch: {$regex: tagRegex, $options: 'i'}}
         };
-        const query = await mongodb.find('faq', Query, {database: 'baran', limit: limit, skip: skip, sort: sort, errorHandler: error => options['service'].error = error});
+        const query = await mongodb.find('log', Query, {database: 'db', limit: limit, skip: skip, sort: sort, errorHandler: error => options['service'].error = error});
         if (query) {
             await response.attach(query, req, res);
         } else {

@@ -487,5 +487,29 @@
                 "tag": {"type": "String[]", "required": true, "html": {"right": true, "label": "برچسب های جستجو", "example": "", "key": "tag"}}
             }
         ]
+    },
+    {
+        "category": "",
+        "name": "log",
+        "label": "لاگ های سرور",
+        "description": "گزاراشات مدیریتی - لاگ های سرور",
+        "pagetitle": "",
+        "columns": {
+            "tools": {"title": "ابزارها", "data": "tools", "defaultContent": "del", "orderable": false, "visible": true, "html": {"title": "حذف"}},
+            "data": {"title": "محتوا", "data": "data", "defaultContent": "یافت نشد", "orderable": true, "visible": true, "html": {"title": "مرتب سازی براساس محتوا ها"}},
+            "level": {"title": "سطح", "data": "level", "defaultContent": "یافت نشد", "orderable": true, "visible": true, "html": {"title": "مرتب سازی براساس سطح ها"}}
+        },
+        "service": {
+            "read": {"server": "http", "route": "/service/--server/log/read"},
+            "del": {"server": "http", "route": "/service/--server/log/delete"},
+            "edit": {"server": "http", "route": "/service/--server/log/update"},
+            "insert": {"server": "http", "route": "/service/--server/log/create"},
+            "count": {"server": "http", "route": "/service/--server/log/count"}
+        },
+        "form": [
+            {
+                "tag": {"type": "String[]", "required": true, "html": {"right": true, "label": "برچسب های جستجو", "example": "", "key": "tag"}}
+            }
+        ]
     }
 ]

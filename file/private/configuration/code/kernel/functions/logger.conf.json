@@ -1,6 +1,6 @@
 {
     "CONNECTION": "mongodb://localhost:27017/SERVER#db",
-    "CATEGORY": "log",
+    "CATEGORY": "logs",
     "enable": true,
     "map": {
       "warning": "warn",

@@ -1,15 +1,10 @@
 async function service(req, res, next, options: options) {
-    const question = Tools.isString(req.body.question);
-    const answer   = Tools.isString(req.body.answer);
-    const tag      = Tools.isArray(req.body.tag);
-
+    const _id = Tools.isString(req.body._id);
     try {
-        const query = await mongodb.insert('faq', {
-            question: question,
-            answer: answer,
-            tag: tag
-        }, {database: 'baran', errorHandler: error => options['service'].error = error});
-    
+        const query = await mongodb.findOneAndUpdate('log', {_id: _id}, {
+            'flag.delete': true
+        }, {database: 'db', options: {runValidators: true}, errorHandler: error => options['service'].error = error});
+
         if (query) {
             await response.attach(null, req, res);
         } else {

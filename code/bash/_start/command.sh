@@ -8,7 +8,7 @@ npm run init
 mkdir -p file/private/log/server/http file/private/log/server/instagram file/private/log/server/socket file/private/log/server/telegram/bot file/private/log/server/telegram/cli  
 
 tsc
-node $_DIR/init server/http         | tee -a "file/private/log/server/http/$_DATE.log"         &
+node $_DIR/init server/http         | tee -a "file/private/log/server/http/$_DATE.log" |  tee -a "file/public/log/log.log"       &
 echo $! > pid
 node $_DIR/init server/instagram    | tee -a "file/private/log/server/instagram/$_DATE.log"    &
 echo $! >> pid

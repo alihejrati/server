@@ -27,7 +27,7 @@ async function purelog(level: string, sublevel: string, ...parameters) {
     const obj = {
         sublevel: sublevel,
         app: process.argv[2],
-        parameters: parameters
+        parameters: JSON.stringify(parameters)
     };
 
     if (log4js) {

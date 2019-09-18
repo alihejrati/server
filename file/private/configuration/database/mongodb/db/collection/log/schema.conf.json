@@ -1,0 +1,10 @@
+{
+  "data": {
+    "type": "Object",
+    "required": true
+  },
+  "level": {
+    "type": "Object",
+    "required": true
+  }
+}

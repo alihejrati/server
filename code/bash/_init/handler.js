@@ -79,7 +79,12 @@ function f1() {
                 "type": "Object",
                 "default": {"hide": false, "delete": false}
             };
-            schema.push(`var ${_key[3]}_${_key[5]} = ${_key[3]}.model('${_key[5]}', new mongoose.Schema(${JSON.stringify(configuration[key])}, {timestamps: true}));`);
+            if (_key[5] == 'log') {
+                schema.push(`var ${_key[3]}_${_key[5]} = ${_key[3]}.model('${_key[5]}', new mongoose.Schema(${JSON.stringify(configuration[key])}, {timestamps: true}));`);
+            } else {
+                schema.push(`var ${_key[3]}_${_key[5]} = ${_key[3]}.model('${_key[5]}', new mongoose.Schema(${JSON.stringify(configuration[key])}, {timestamps: true}));`);
+            }
+            
             moduleExport.push(`module.exports.${_key[3]}_${_key[5]} = ${_key[3]}_${_key[5]};`);
             seeder.push(`(async () => {
     const document = await ${_key[3]}_${_key[5]}.findOne({}).sort({}).select({});
