@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en" data-textdirection="RTL" class="loading">
+<% include ../../src/head %>
+
+<body data-open="click" data-menu="vertical-overlay-menu" data-col="2-columns"
+        class="vertical-layout vertical-overlay-menu 2-columns  fixed-navbar">
+        <div id="preloader-wrapper">
+                <div id="loader" class="ball-scale loader-white"
+                        style="background: url(/src/img/logo-pishkhan-copy.png) no-repeat center center;width: 324px;height: 100px;">
+                </div>
+                <div style="background-color: #1d2b36;" class="loader-section section-top"></div>
+                <div style="background-color: #1d2b36;" class="loader-section section-bottom"></div>
+        </div>
+        <% include ../../src/nav %>
+        <% include ../../src/fullscreen-search-overlay %>
+        <div class="main-menu menu-dark menu-fixed menu-border menu-accordion">
+                <div class="main-menu-header">
+                        <input type="text" placeholder="جستجو" class="menu-search form-control round">
+                </div>
+                <% include ../../src/nav-data %>
+        </div>
+        <div class="robust-content content container-fluid" style="
+        /* background-color: red; */
+        height: inherit;
+        background-image: url('/src/img/logo-pishkhan.png');
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        background-position: center;
+    ">
+                <div class="content-wrapper">
+                        <div class="content-body">
+
+                        </div>
+                </div>
+        </div>
+
+        <% include ../../src/footer %>
+
+
+        <% include ../../src/functions %>
+        <script src="<%-template%>/robust-assets/js/plugins/ui/tether.min.js" type="text/javascript"></script>
+        <script src="<%-template%>/robust-assets/js/core/libraries/bootstrap.min.js" type="text/javascript"></script>
+        <script src="<%-template%>/robust-assets/js/plugins/ui/perfect-scrollbar.jquery.min.js" type="text/javascript">
+        </script>
+        <script src="<%-template%>/robust-assets/js/plugins/ui/unison.min.js" type="text/javascript"></script>
+        <script src="<%-template%>/robust-assets/js/plugins/ui/blockUI.min.js" type="text/javascript"></script>
+        <script src="<%-template%>/robust-assets/js/plugins/ui/jquery.matchHeight-min.js" type="text/javascript">
+        </script>
+        <script src="<%-template%>/robust-assets/js/plugins/ui/jquery-sliding-menu.js" type="text/javascript"></script>
+        <script src="<%-template%>/robust-assets/js/plugins/sliders/slick/slick.min.js" type="text/javascript"></script>
+        <script src="<%-template%>/robust-assets/js/plugins/ui/screenfull.min.js" type="text/javascript"></script>
+
+        <script src="<%-template%>/robust-assets/js/plugins/forms/select/selectize.min.js" type="text/javascript">
+        </script>
+        <script src="<%-template%>/robust-assets/js/plugins/extensions/sweetalert.min.js" type="text/javascript">
+        </script>
+        <!-- /build-->
+        <!-- BEGIN VENDOR JS-->
+        <!-- BEGIN PAGE VENDOR JS-->
+        <script src="<%-template%>/robust-assets/js/plugins/extensions/jquery.steps.min.js" type="text/javascript">
+        </script>
+        <script src="<%-template%>/robust-assets/js/plugins/pickers/dateTime/moment-with-locales.min.js"
+                type="text/javascript">
+        </script>
+        <script src="<%-template%>/robust-assets/js/plugins/pickers/daterange/daterangepicker.js"
+                type="text/javascript">
+        </script>
+        <script src="<%-template%>/robust-assets/js/plugins/forms/validation/jquery.validate.min.js"
+                type="text/javascript">
+        </script>
+        <script src="<%-template%>/robust-assets/js/plugins/tables/jquery.dataTables.min.js" type="text/javascript">
+        </script>
+        <script src="<%-template%>/robust-assets/js/plugins/tables/datatable/dataTables.bootstrap4.min.js"
+                type="text/javascript"></script>
+        <script src="<%-template%>/robust-assets/js/plugins/tables/datatable/dataTables.buttons.min.js"
+                type="text/javascript">
+        </script>
+        <script src="<%-template%>/robust-assets/js/plugins/tables/buttons.flash.min.js" type="text/javascript">
+        </script>
+        <script src="<%-template%>/robust-assets/js/plugins/tables/jszip.min.js" type="text/javascript"></script>
+        <script src="<%-template%>/robust-assets/js/plugins/tables/pdfmake.min.js" type="text/javascript"></script>
+        <script src="<%-template%>/robust-assets/js/plugins/tables/vfs_fonts.js" type="text/javascript"></script>
+        <script src="<%-template%>/robust-assets/js/plugins/tables/buttons.html5.min.js" type="text/javascript">
+        </script>
+        <script src="<%-template%>/robust-assets/js/plugins/tables/buttons.print.min.js" type="text/javascript">
+        </script>
+        <!-- END PAGE VENDOR JS-->
+        <!-- BEGIN ROBUST JS-->
+        <!-- build:js robust-assets/js/app.min.js-->
+        <script src="<%-template%>/robust-assets/js/core/robust-menu.js" type="text/javascript"></script>
+        <script src="<%-template%>/robust-assets/js/core/robust.js" type="text/javascript"></script>
+        <script src="<%-template%>/robust-assets/js/components/ui/fullscreenSearch.js" type="text/javascript"></script>
+        <!-- /build-->
+        <!-- END ROBUST JS-->
+        <!-- BEGIN PAGE LEVEL JS-->
+        <script src="<%-template%>/robust-assets/js/components/tables/datatables/datatable-advanced.js"
+                type="text/javascript">
+        </script>
+        <script src="<%-template%>/robust-assets/js/components/modal/components-modal.js" type="text/javascript">
+        </script>
+        <script src="<%-template%>/robust-assets/js/components/tooltip/tooltip.js" type="text/javascript"></script>
+        <script src="<%-template%>/robust-assets/js/components/forms/wizard-steps.js" type="text/javascript"></script>
+        <script src="<%-template%>/robust-assets/js/components/forms/checkbox-radio.js" type="text/javascript"></script>
+        <script src="<%-template%>/robust-assets/js/components/extensions/sweet-alerts.js" type="text/javascript">
+        </script>
+
+        <script src="<%-template%>/robust-assets/js/components/forms/select/form-selectize.js" type="text/javascript">
+        </script>
+        <script>
+                $($('*[class="navbar-brand nav-link"]')[0]).hide()
+        </script>
+        <%- block('eof').toString() %>
+
+        <button style="display: none;" id="wait"
+                class="btn btn-lg btn-block font-medium-1 btn-outline-pink mb-1 block-page onoverlay-click-callback">Block
+                Page</button>
+        <button style="display: none;" type="button" class="btn btn-lg btn-block btn-outline-success mb-2"
+                id="type-success">Success</button>
+        <button style="display: none;" type="button" class="btn btn-lg btn-block btn-outline-danger mb-2"
+                id="type-error">Error</button>
+        <button style="display: none;" type="button" class="btn btn-lg btn-block btn-outline-primary mb-2"
+                id="ajax-request">Ajax</button>
+</body>
+
+</html>

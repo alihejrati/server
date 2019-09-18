@@ -18,7 +18,7 @@ async function service(req, res, next, options: options) {
             const msg = `
             با کلیک برروی لینک زیر ایمیل خود را تایید کنید
             اگر این ایمیل به درخواست شما ارسال نشده این پیام را نادیده بگیرید
-            http://172.15.1.230:8080/service/--hampa/verification/email?code=${CODE}`;
+            http://192.168.1.106:8080/service/--hampa/verification/email?code=${CODE}`;
             
             const mail = await Email('NGO', email, 'تایید پست الکترونیک', msg, CODE);
             if (mail) {

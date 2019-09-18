@@ -262,4 +262,33 @@
         </style>
         <script src="<%-template%>/robust-assets/js/core/libraries/jquery.min.js" type="text/javascript"></script>
         <script src="/src/js/all.js"></script>
+
+        <script>
+                setTimeout(() => {
+                        $('#logout').click(() => {
+                                let __CAP;
+                                try {
+                                        __CAP = $($('input[key="captcha"]')[0]).val();
+                                } catch (error) {
+                                        console.error(error);
+                                }
+
+                                $.post('/service/authuntication/signout/username-password', {
+                                        captcha: __CAP
+                                }, (res) => {
+                                        const response = res['service'][
+                                                'authuntication'
+                                        ]['signout'][
+                                                'username-password'
+                                        ];
+                                        console.debug('--------------------------->',
+                                                response)
+                                        if (response.code == 200) {
+                                                window.location.replace(
+                                                        "/");
+                                        }
+                                });
+                        });
+                }, 2000);
+        </script>
 </head>

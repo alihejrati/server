@@ -35,6 +35,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+var index_1 = require("./get/index");
 var table_1 = require("./get/table");
 var signin_1 = require("./get/signin");
 var signup_1 = require("./get/signup");
@@ -47,6 +48,7 @@ function controller(options) {
                 req['_'].temporary.watchdog.layer = '/backend/**';
                 next();
             });
+            controller.get('/', index_1.default);
             controller.get('/table/:table', table_1.default);
             controller.get('/signin', signin_1.default);
             controller.get('/signup', signup_1.default);

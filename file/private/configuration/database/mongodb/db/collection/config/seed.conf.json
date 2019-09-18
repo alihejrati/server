@@ -34,7 +34,7 @@
     {
       "key": "\\code\\source\\components\\model\\redis\\set.conf.json",
       "value": {
-        "expire": 900
+        "expire": 3600000
       }
     },
     {
@@ -222,7 +222,7 @@
       "key": "\\code\\source\\server\\http\\service\\authuntication\\signout\\username-password\\service.conf.json",
       "value": {
         "enable": true,
-        "captcha": true,
+        "captcha": false,
         "controller": ["*"],
         "method": ["post"],
         "permission": []
