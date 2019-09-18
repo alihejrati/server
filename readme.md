@@ -30,3 +30,7 @@
 7. If we need 'dynamic import file', we should use the 'Import' module.
 7.1 'Dependency' is not a 'dynamic import file'.
 7.2 The extension is mandatory.
+
+  ![Image description](https://raw.githubusercontent.com/alihejrati/server/master/file/private/documentation/screenshot%20(1).png)
+  
+  ![Image description](https://raw.githubusercontent.com/alihejrati/server/master/file/private/documentation/screenshot%20(2).png)
